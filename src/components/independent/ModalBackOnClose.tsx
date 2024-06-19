@@ -38,6 +38,7 @@ export default function ModalBackOnClose() {
           backOnClose(onClose);
         }}
         initialFocusRef={initialRef}
+        size={"full"}
       >
         <ModalOverlay />
         <ModalContent>
