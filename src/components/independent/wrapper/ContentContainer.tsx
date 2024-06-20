@@ -6,7 +6,7 @@ interface Props extends StackProps {
 
 export default function ContentContainer({ children, ...props }: Props) {
   return (
-    <VStack align={"stretch"} gap={0} borderRadius={8} p={4} {...props}>
+    <VStack align={"stretch"} gap={0} borderRadius={12} p={4} {...props}>
       {children}
     </VStack>
   );

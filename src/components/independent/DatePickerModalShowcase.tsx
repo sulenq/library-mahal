@@ -7,6 +7,7 @@ import {
   HStack,
   Icon,
   Text,
+  Wrap,
 } from "@chakra-ui/react";
 import {
   RiErrorWarningFill,
@@ -33,12 +34,12 @@ export default function DatePickerModalShowcase() {
     },
     {
       label: "confirm",
-      type: "(inputValue: Date | string) => void",
+      type: "(inputValue: Date) => void",
       desc: "function to set controlled input",
     },
     {
       label: "inputValue",
-      type: "Date | string",
+      type: "Date | null",
       desc: "value for the input field",
     },
   ];
@@ -61,8 +62,8 @@ export default function DatePickerModalShowcase() {
     },
   ];
 
-  const [requiredDate, setRequiredDate] = useState<Date | string>(new Date());
-  const [date, setDate] = useState<Date | string | null>(null);
+  const [requiredDate, setRequiredDate] = useState<Date>(new Date());
+  const [date, setDate] = useState<Date | null>(null);
 
   return (
     <ComponentShowcaseContainer flex={"1 1 0"}>
@@ -83,10 +84,10 @@ export default function DatePickerModalShowcase() {
             <AccordionItem key={i}>
               <h2>
                 <AccordionButton>
-                  <HStack as="span" fontWeight={500} flex="1" textAlign="left">
+                  <Wrap as="span" fontWeight={500} flex="1" textAlign="left">
                     <Text>{props.label}</Text>
                     <Text opacity={0.5}>{props.type}</Text>
-                  </HStack>
+                  </Wrap>
                   <AccordionIcon />
                 </AccordionButton>
               </h2>
@@ -111,10 +112,10 @@ export default function DatePickerModalShowcase() {
             <AccordionItem key={i}>
               <h2>
                 <AccordionButton>
-                  <HStack as="span" fontWeight={500} flex="1" textAlign="left">
+                  <Wrap as="span" fontWeight={500} flex="1" textAlign="left">
                     <Text>{props.label}</Text>
                     <Text opacity={0.5}>{props.type}</Text>
-                  </HStack>
+                  </Wrap>
                   <AccordionIcon />
                 </AccordionButton>
               </h2>
@@ -141,6 +142,18 @@ export default function DatePickerModalShowcase() {
             setRequiredDate(inputValue);
           }}
           inputValue={requiredDate}
+          borderRadius={6}
+          required
+          mb={2}
+        />
+
+        <DatePickerModal
+          id="DateInput"
+          name="date"
+          confirm={(inputValue) => {
+            setDate(inputValue);
+          }}
+          inputValue={date}
           borderRadius={6}
         />
       </ContentContainer>

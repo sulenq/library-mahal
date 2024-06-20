@@ -29,7 +29,7 @@ export default function NestedModalBackOnCloseShowcase() {
       <Modal
         isOpen={isOpen}
         onClose={() => {
-          backOnClose(onClose);
+          backOnClose();
         }}
         initialFocusRef={initialRef}
         size={"full"}

@@ -27,7 +27,7 @@ export default function DrawerBackOnCloseShowCase() {
       <Drawer
         isOpen={isOpen}
         onClose={() => {
-          backOnClose(onClose);
+          backOnClose();
         }}
         initialFocusRef={initialRef}
       >

@@ -7,11 +7,12 @@ import {
   Image,
   Text,
   VStack,
+  Wrap,
 } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "../ColorModeSwitcher";
 import ConfirmationBasedInputSection from "../components/independent/landingSections/ConfirmationBasedInputSection";
 import HooksSection from "../components/independent/landingSections/HooksSection";
-import { useContentBgColor } from "../constant/colors";
+import { useContentBgColor, useWarningColor } from "../constant/colors";
 
 export default function Showcases() {
   return (
@@ -24,20 +25,20 @@ export default function Showcases() {
         gap={0}
         p={6}
       >
-        <HStack justify={"space-between"} mb={8}>
-          <HStack>
+        <HStack justify={"space-between"} mb={8} align={"start"}>
+          <Wrap spacingY={6}>
             <Image src="/logo192.png" borderRadius={"full"} h={"38px"} mr={2} />
             <Heading>Library Mahal Distro Studio</Heading>
-          </HStack>
+          </Wrap>
 
-          <ColorModeSwitcher />
+          <ColorModeSwitcher borderRadius={"full"} />
         </HStack>
 
-        <Alert status="error" mb={8} w={"100%"} maxW={"100%"}>
+        <Alert status="warning" mb={8} w={"100%"} maxW={"100%"}>
           <Box>
             <HStack gap={0} mb={2}>
               <AlertIcon />
-              <Text fontSize={18} fontWeight={600} color={"red.400"}>
+              <Text fontSize={18} fontWeight={600} color={useWarningColor()}>
                 Requirement
               </Text>
             </HStack>

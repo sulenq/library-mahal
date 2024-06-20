@@ -61,10 +61,10 @@ export default function UseBackOnCloseShowcase() {
             <AccordionItem key={i}>
               <h2>
                 <AccordionButton>
-                  <HStack as="span" fontWeight={500} flex="1" textAlign="left">
+                  <Wrap as="span" fontWeight={500} flex="1" textAlign="left">
                     <Text>{props.label}</Text>
                     <Text opacity={0.5}>{props.type}</Text>
-                  </HStack>
+                  </Wrap>
                   <AccordionIcon />
                 </AccordionButton>
               </h2>

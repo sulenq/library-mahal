@@ -1,8 +1,10 @@
 import {
   Button,
+  ButtonGroup,
   ButtonProps,
   FormControl,
   FormLabel,
+  HStack,
   Icon,
   Input,
   Modal,
@@ -14,22 +16,31 @@ import {
   ModalOverlay,
   Text,
   useDisclosure,
+  VStack,
   Wrap,
 } from "@chakra-ui/react";
+import {
+  RiArrowLeftSLine,
+  RiArrowRightSLine,
+  RiCalendarLine,
+} from "@remixicon/react";
+import { id as ind } from "date-fns/locale";
+import { useRef, useState } from "react";
+import { DayPicker } from "react-day-picker";
 import { useErrorColor } from "../../../constant/colors";
-import formatDate from "../../../lib/formatDate";
-import { RiCalendarLine } from "@remixicon/react";
-import { useRef } from "react";
+import { iconSize } from "../../../constant/sizes";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
+import formatDate from "../../../lib/formatDate";
+import parseNumber from "../../../lib/parseNumber";
 
 type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
 interface Props extends ButtonProps {
   id: string;
   name: string;
-  confirm: (newInputValue: Date | string) => void;
-  inputValue: Date | string;
+  confirm: (newInputValue: Date) => void;
+  inputValue: Date | null;
   dateFormatOptions?: PrefixOption | object;
   placeholder?: string;
   required?: boolean;
@@ -47,9 +58,80 @@ export default function DatePickerModal({
   isError,
   ...props
 }: Props) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  useBackOnClose(`${id}_${name}`, isOpen, onOpen, onClose);
+  const initialValue = useRef(inputValue);
   const initialRef = useRef(null);
+
+  function handleOnClose() {
+    onClose();
+    setBulan((initialValue.current?.getMonth() || date.getMonth()) + 1);
+    setTahun(initialValue.current?.getFullYear() || date.getFullYear());
+    setDate(initialValue.current || new Date());
+  }
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  useBackOnClose(`${id}_${name}`, isOpen, onOpen, handleOnClose);
+
+  const [date, setDate] = useState<Date>(initialValue.current || new Date());
+  const [bulan, setBulan] = useState<number>(
+    (initialValue.current?.getMonth() || date.getMonth()) + 1
+  );
+  const [tahun, setTahun] = useState<number>(
+    initialValue.current?.getFullYear() || date.getFullYear()
+  );
+  const [selected, setSelected] = useState<any>(inputValue);
+
+  const isBulanValid = (bulan: number) => {
+    return bulan > 0 && bulan <= 12;
+  };
+  const isTahunValid = (tahun: number) => {
+    return tahun >= 100 && tahun <= 270000;
+  };
+
+  function confirmSelected() {
+    let confirmable = false;
+    if (!required) {
+      confirmable = true;
+    } else {
+      if (selected) {
+        confirmable = true;
+      }
+    }
+
+    if (confirmable) {
+      confirm(selected);
+      backOnClose();
+    }
+  }
+  function setSelectedToToday() {
+    const today = new Date();
+    setDate(today);
+    setSelected(today);
+    setBulan(today.getMonth() + 1);
+    setTahun(today.getFullYear());
+  }
+  function nextMonth() {
+    const currentMonth = date.getMonth();
+    const currentyear = date.getFullYear();
+
+    const nextMonth = new Date(
+      bulan === 12 ? currentyear + 1 : tahun,
+      bulan === 12 ? 0 : currentMonth + 1
+    );
+    setDate(nextMonth);
+    setBulan(nextMonth.getMonth() + 1);
+    setTahun(nextMonth.getFullYear());
+  }
+  function prevMonth() {
+    const currentMonth = date.getMonth();
+    const currentyear = date.getFullYear();
+
+    const prevMonth = new Date(
+      bulan === 1 ? currentyear - 1 : tahun,
+      bulan === 1 ? 11 : currentMonth - 1
+    );
+    setDate(prevMonth);
+    setBulan(prevMonth.getMonth() + 1);
+    setTahun(prevMonth.getFullYear());
+  }
 
   // SX
   const errorColor = useErrorColor();
@@ -85,7 +167,7 @@ export default function DatePickerModal({
       <Modal
         isOpen={isOpen}
         onClose={() => {
-          backOnClose(onClose);
+          backOnClose();
         }}
         initialFocusRef={initialRef}
         isCentered
@@ -96,21 +178,22 @@ export default function DatePickerModal({
           <ModalHeader ref={initialRef}>
             {placeholder || "Pilih Tanggal"}
           </ModalHeader>
+
           <ModalBody>
-            <Wrap>
+            <Wrap mb={6}>
               <FormControl flex={"1 1 0"}>
                 <FormLabel>Bulan</FormLabel>
                 <Input
                   name="bulan"
                   placeholder="Bulan ke-"
-                  // onChange={(e) => {
-                  //   const value = parseNumber(e.target.value);
-                  //   if (value && value <= 12) {
-                  //     setDate(new Date(tahun, value - 1));
-                  //     setBulan(value);
-                  //   }
-                  // }}
-                  // value={bulan === 0 ? "" : bulan}
+                  onChange={(e) => {
+                    const value = parseNumber(e.target.value);
+                    if (value && value <= 12) {
+                      setDate(new Date(tahun, value - 1));
+                      setBulan(value);
+                    }
+                  }}
+                  value={bulan === 0 ? "" : bulan}
                   // onFocus={() => {
                   //   if (monthInputRef.current) {
                   //     monthInputRef.current.select();
@@ -124,14 +207,14 @@ export default function DatePickerModal({
                 <Input
                   name="tahun"
                   placeholder="Tahun"
-                  // onChange={(e) => {
-                  //   const value = parseNumber(e.target.value);
-                  //   if (value) {
-                  //     setDate(new Date(value, bulan - 1));
-                  //     setTahun(value);
-                  //   }
-                  // }}
-                  // value={tahun === 0 ? "" : tahun}
+                  onChange={(e) => {
+                    const value = parseNumber(e.target.value);
+                    if (value) {
+                      setDate(new Date(value, bulan - 1));
+                      setTahun(value);
+                    }
+                  }}
+                  value={tahun === 0 ? "" : tahun}
                   // onFocus={() => {
                   //   if (yearInputRef.current) {
                   //     yearInputRef.current.select();
@@ -140,243 +223,100 @@ export default function DatePickerModal({
                 />
               </FormControl>
             </Wrap>
+
+            <VStack align={"stretch"} pt={1}>
+              {!isBulanValid(bulan) && isTahunValid(tahun) && (
+                <HStack h={"448px"} justify={"center"}>
+                  <Text textAlign={"center"}>Bulan tidak valid</Text>
+                </HStack>
+              )}
+
+              {isBulanValid(bulan) && !isTahunValid(tahun) && (
+                <HStack h={"360px"} justify={"center"}>
+                  <Text textAlign={"center"}>Tahun tidak valid</Text>
+                </HStack>
+              )}
+
+              {!isBulanValid(bulan) && !isTahunValid(tahun) && (
+                <HStack h={"360px"} justify={"center"}>
+                  <Text textAlign={"center"}>Bulan dan Tahun tidak valid</Text>
+                </HStack>
+              )}
+
+              {isBulanValid(bulan) && isTahunValid(tahun) && (
+                <>
+                  <VStack overflowX={"auto"} w={"100%"} align={"stretch"}>
+                    <DayPicker
+                      mode="single"
+                      selected={selected}
+                      onSelect={(date) => {
+                        setSelected(date);
+                      }}
+                      locale={ind}
+                      month={date}
+                      showOutsideDays
+                      fixedWeeks
+                      disableNavigation
+                    />
+                  </VStack>
+
+                  <ButtonGroup w={"100%"}>
+                    <Button
+                      aria-label="Previous Month"
+                      leftIcon={
+                        <Icon as={RiArrowLeftSLine} fontSize={iconSize} />
+                      }
+                      pr={"10px"}
+                      className="btn-outline clicky"
+                      onClick={prevMonth}
+                      w={"20%"}
+                    ></Button>
+
+                    <Button
+                      flex={1}
+                      className="btn-outline clicky"
+                      onClick={setSelectedToToday}
+                    >
+                      Hari Ini
+                    </Button>
+
+                    <Button
+                      aria-label="Next Month"
+                      rightIcon={
+                        <Icon as={RiArrowRightSLine} fontSize={iconSize} />
+                      }
+                      pl={"10px"}
+                      className="btn-outline clicky"
+                      onClick={nextMonth}
+                      w={"20%"}
+                    ></Button>
+                  </ButtonGroup>
+                </>
+              )}
+            </VStack>
           </ModalBody>
-          <ModalFooter></ModalFooter>
+
+          <ModalFooter>
+            <VStack align={"stretch"} w={"100%"}>
+              <VStack borderRadius={8} bg={"var(--divider)"} p={2} gap={1}>
+                <Text opacity={selected ? 1 : 0.6}>
+                  {selected ? `${formatDate(selected)}` : "Pilih tanggal"}
+                </Text>
+              </VStack>
+
+              <Button
+                colorScheme="ap"
+                className="btn-ap clicky"
+                w={"100%"}
+                isDisabled={required ? (selected ? false : true) : false}
+                onClick={confirmSelected}
+              >
+                Konfirmasi
+              </Button>
+            </VStack>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </>
   );
 }
-
-// }: Props) {
-//   const initialRef = useRef(null);
-//   const monthInputRef = useRef<HTMLInputElement>(null);
-//   const yearInputRef = useRef<HTMLInputElement>(null);
-//   const [date, setDate] = useState<Date>(new Date());
-//   const [tahun, setTahun] = useState<number>(date.getFullYear());
-//   const [bulan, setBulan] = useState<number>(date.getMonth() + 1);
-//   const [selected, setSelected] = useState<any>(initialDateValue);
-//   const confirmSelect = () => {
-//     let condirmable = false;
-//     if (nullable) {
-//       condirmable = true;
-//     } else {
-//       if (selected) {
-//         condirmable = true;
-//       }
-//     }
-
-//     if (condirmable && formik && name) {
-//       formik.setFieldValue(name, selected);
-//     } else if (confirmDate) {
-//       confirmDate(selected);
-//     }
-//   };
-
-//   useEffect(() => {
-//     if (initialDateValue) {
-//       setSelected(initialDateValue);
-//       setDate(initialDateValue);
-//       setBulan(initialDateValue.getMonth());
-//       setTahun(initialDateValue.getFullYear());
-//     }
-//   }, [initialDateValue]);
-
-//   const { isOpen, onOpen, onClose } = useDisclosure();
-//   const backOnClose = useBackOnClose;
-//   if (!noUseBackOnClose) {
-//     backOnClose(id, isOpen, onOpen, onClose);
-//   }
-//   const handleOnClose = () => {
-//     onClose();
-//     if (!noUseBackOnClose) {
-//       window.history.back();
-//     }
-//   };
-
-//   function todayMonth() {
-//     const today = new Date();
-//     setDate(today);
-//     setSelected(today);
-//     setBulan(today.getMonth() + 1);
-//     setTahun(today.getFullYear());
-//   }
-//   function nextMonth() {
-//     const currentMonth = date.getMonth();
-//     const currentyear = date.getFullYear();
-
-//     const nextMonth = new Date(
-//       bulan === 12 ? currentyear + 1 : tahun,
-//       bulan === 12 ? 0 : currentMonth + 1
-//     );
-//     setDate(nextMonth);
-//     setBulan(nextMonth.getMonth() + 1);
-//     setTahun(nextMonth.getFullYear());
-//   }
-//   function prevMonth() {
-//     const currentMonth = date.getMonth();
-//     const currentyear = date.getFullYear();
-
-//     const prevMonth = new Date(
-//       bulan === 1 ? currentyear - 1 : tahun,
-//       bulan === 1 ? 11 : currentMonth - 1
-//     );
-//     setDate(prevMonth);
-//     setBulan(prevMonth.getMonth() + 1);
-//     setTahun(prevMonth.getFullYear());
-//   }
-
-//   const isBulanValid = (bulan: number) => {
-//     return bulan > 0 && bulan <= 12;
-//   };
-//   const isTahunValid = (tahun: number) => {
-//     return tahun >= 100 && tahun <= 270000;
-//   };
-
-//   // SX
-//   const bnwColor = useColorModeValue("black", "white");
-//   const modifiersStyles = {
-//     selected: {
-//       border: "2px solid var(--p500)",
-//       background: "transparent",
-//       color: bnwColor,
-//       opacity: 1,
-//     },
-//     today: {
-//       color: "var(--p500)",
-//     },
-//   };
-//   const errorColor = useColorModeValue("#E53E3E", "#FC8181");
-
-//   return (
-//     <>
-
-//       <Modal
-//         isOpen={isOpen}
-//         onClose={() => {
-//           handleOnClose();
-//           setSelected(new Date(dateValue));
-//         }}
-//         initialFocusRef={initialRef}
-//         isCentered
-//       >
-//         <ModalOverlay />
-
-//         <ModalContent>
-//           <ModalCloseButton />
-
-//           <ModalHeader ref={initialRef} pr={""}>
-//             <Box>
-//               <Text fontSize={20}>Pilih Tanggal</Text>
-
-//               <HStack w={"100%"} mt={6}>
-
-//               </HStack>
-//             </Box>
-//           </ModalHeader>
-
-//           <ModalBody>
-//             <VStack align={"stretch"} pt={1}>
-//               {!isBulanValid(bulan) && isTahunValid(tahun) && (
-//                 <HStack h={"360px"} justify={"center"}>
-//                   <Text textAlign={"center"}>Bulan tidak valid</Text>
-//                 </HStack>
-//               )}
-
-//               {isBulanValid(bulan) && !isTahunValid(tahun) && (
-//                 <HStack h={"360px"} justify={"center"}>
-//                   <Text textAlign={"center"}>Tahun tidak valid</Text>
-//                 </HStack>
-//               )}
-
-//               {!isBulanValid(bulan) && !isTahunValid(tahun) && (
-//                 <HStack h={"360px"} justify={"center"}>
-//                   <Text textAlign={"center"}>Bulan dan Tahun tidak valid</Text>
-//                 </HStack>
-//               )}
-
-//               {isBulanValid(bulan) && isTahunValid(tahun) && (
-//                 <>
-//                   <VStack overflowX={"auto"} w={"100%"} align={"stretch"}>
-//                     <DayPicker
-//                       mode="single"
-//                       selected={selected}
-//                       onSelect={(e) => {
-//                         setSelected(e);
-//                       }}
-//                       locale={ind}
-//                       modifiersStyles={modifiersStyles}
-//                       month={date}
-//                       showOutsideDays
-//                       fixedWeeks
-//                       disableNavigation
-//                     />
-//                   </VStack>
-
-//                   <ButtonGroup w={"100%"}>
-//                     <Button
-//                       aria-label="Previous Month"
-//                       leftIcon={
-//                         <Icon as={RiArrowLeftSLine} fontSize={iconSize} />
-//                       }
-//                       pr={"10px"}
-//                       className="btn-outline clicky"
-//                       onClick={prevMonth}
-//                       w={"20%"}
-//                     >
-//                       {/* Sebelumnya */}
-//                     </Button>
-
-//                     <Button
-//                       flex={1}
-//                       className="btn-outline clicky"
-//                       onClick={todayMonth}
-//                     >
-//                       Hari Ini
-//                     </Button>
-
-//                     <Button
-//                       aria-label="Next Month"
-//                       rightIcon={
-//                         <Icon as={RiArrowRightSLine} fontSize={iconSize} />
-//                       }
-//                       pl={"10px"}
-//                       className="btn-outline clicky"
-//                       onClick={nextMonth}
-//                       w={"20%"}
-//                     >
-//                       {/* Selanjutnya */}
-//                     </Button>
-//                   </ButtonGroup>
-//                 </>
-//               )}
-//             </VStack>
-//           </ModalBody>
-
-//           <ModalFooter>
-//             <VStack align={"stretch"} w={"100%"}>
-//               <VStack borderRadius={8} bg={"var(--divider)"} p={2} gap={1}>
-//                 <Text opacity={selected ? 1 : 0.6}>
-//                   {selected ? `${formatDate(selected)}` : "Pilih tanggal"}
-//                 </Text>
-//               </VStack>
-
-//               <Button
-//                 colorScheme="ap"
-//                 className="btn-ap clicky"
-//                 w={"100%"}
-//                 isDisabled={!nullable ? (selected ? false : true) : false}
-//                 onClick={() => {
-//                   confirmSelect();
-//                   handleOnClose();
-//                 }}
-//               >
-//                 Konfirmasi
-//               </Button>
-//             </VStack>
-//           </ModalFooter>
-//         </ModalContent>
-//       </Modal>
-//     </>
-//   );
-// }

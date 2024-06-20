@@ -35,7 +35,7 @@ export default function ModalBackOnClose2Showcase() {
       <Modal
         isOpen={isOpen}
         onClose={() => {
-          backOnClose(onClose);
+          backOnClose();
         }}
         initialFocusRef={initialRef}
       >

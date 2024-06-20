@@ -27,7 +27,7 @@ export default function ModalBackOnCloseShowcase() {
       <Modal
         isOpen={isOpen}
         onClose={() => {
-          backOnClose(onClose);
+          backOnClose();
         }}
         initialFocusRef={initialRef}
         isCentered

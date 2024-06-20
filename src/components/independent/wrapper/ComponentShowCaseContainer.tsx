@@ -12,10 +12,10 @@ export default function ComponentShowcaseContainer({
   return (
     <VStack
       gap={0}
-      p={5}
+      // p={5}
       borderRadius={8}
       align={"stretch"}
-      bg={useLightDarkColor()}
+      // bg={useLightDarkColor()}
       {...props}
     >
       {children}

@@ -20,6 +20,10 @@ const useErrorColor = () => {
   return useColorModeValue("#E53E3E", "#FC8181");
 };
 
+const useWarningColor = () => {
+  return useColorModeValue("#C05621", "#FBD38D");
+};
+
 const useRedaColor = () => {
   return useColorModeValue("#FED7D7", "#FEB2B229");
 };
@@ -40,5 +44,6 @@ export {
   useDarkLightColor,
   useErrorColor,
   useRedaColor,
+  useWarningColor,
   statusKaryawanColorScheme,
 };

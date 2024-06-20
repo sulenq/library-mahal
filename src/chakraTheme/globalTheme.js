@@ -66,7 +66,7 @@ export const globalTheme = extendTheme({
     Alert: {
       baseStyle: (props) => ({
         container: {
-          borderRadius: 8,
+          borderRadius: 12,
         },
       }),
       variants: {
@@ -76,7 +76,7 @@ export const globalTheme = extendTheme({
             bg: props.status === "error" ? "var(--reda3)" : undefined,
           },
           icon: {
-            color: "red.400",
+            color: props.status === "error" ? "red.400" : undefined,
           },
         }),
       },
@@ -180,7 +180,7 @@ export const globalTheme = extendTheme({
           bg: props.colorMode === "dark" ? "dark" : "white",
           color: props.colorMode === "dark" ? "wt" : "bt",
           boxShadow: "none",
-          borderRadius: 8,
+          borderRadius: 12,
           // maxH: "100%",
           // border: "1px solid var(--divider)",
           // mx: "16px",
