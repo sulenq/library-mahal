@@ -301,7 +301,7 @@ export default function DatePickerDrawer({
             </VStack>
           </DrawerBody>
 
-          <DrawerFooter pb={7} w={"100%"} maxW={"720px !important"} mx={"auto"}>
+          <DrawerFooter pb={8} w={"100%"} maxW={"720px !important"} mx={"auto"}>
             <VStack align={"stretch"} w={"100%"}>
               <HStack
                 borderRadius={8}
