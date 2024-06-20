@@ -309,7 +309,7 @@ export default function DatePickerModal({
                   <Icon as={RiCalendarLine} mr={"auto"} w={6} opacity={0.6} />
                 )}
 
-                <Text opacity={selected ? 1 : 0.6} fontWeight={600}>
+                <Text opacity={selected ? 1 : 0.6} fontWeight={500}>
                   {selected
                     ? `${formatDate(selected, "long")}`
                     : "Pilih tanggal"}
