@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { RiErrorWarningFill, RiSlideshow2Fill } from "@remixicon/react";
 import { iconSize } from "../../constant/sizes";
-import DrawerBackOnCloseShowCase from "./DrawerBackOnCloseShowCase";
+import DrawerBackOnCloseShowcase from "./DrawerBackOnCloseShowcase";
 import ModalBackOnCloseShowcase from "./ModalBackOnCloseShowcase";
 import NestedModalBackOnCloseShowcase from "./NestedModalBackOnCloseShowcase";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
@@ -89,7 +89,7 @@ export default function UseBackOnCloseShowcase() {
 
           <NestedModalBackOnCloseShowcase />
 
-          <DrawerBackOnCloseShowCase />
+          <DrawerBackOnCloseShowcase />
         </Wrap>
       </ContentContainer>
     </ComponentShowcaseContainer>

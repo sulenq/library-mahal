@@ -4,6 +4,8 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
+  FormControl,
+  FormLabel,
   HStack,
   Icon,
   Text,
@@ -135,27 +137,33 @@ export default function DatePickerModalShowcase() {
           </Text>
         </HStack>
 
-        <DatePickerModal
-          id="requiredDateInput"
-          name="required_date"
-          confirm={(inputValue) => {
-            setRequiredDate(inputValue);
-          }}
-          inputValue={requiredDate}
-          borderRadius={6}
-          required
-          mb={2}
-        />
+        <FormControl>
+          <FormLabel>Required Date Input</FormLabel>
+          <DatePickerModal
+            id="requiredDateInput"
+            name="required_date"
+            confirm={(inputValue) => {
+              setRequiredDate(inputValue);
+            }}
+            inputValue={requiredDate}
+            borderRadius={6}
+            required
+            mb={2}
+          />
+        </FormControl>
 
-        <DatePickerModal
-          id="DateInput"
-          name="date"
-          confirm={(inputValue) => {
-            setDate(inputValue);
-          }}
-          inputValue={date}
-          borderRadius={6}
-        />
+        <FormControl>
+          <FormLabel>Date Input</FormLabel>
+          <DatePickerModal
+            id="DateInput"
+            name="date"
+            confirm={(inputValue) => {
+              setDate(inputValue);
+            }}
+            inputValue={date}
+            borderRadius={6}
+          />
+        </FormControl>
       </ContentContainer>
     </ComponentShowcaseContainer>
   );
