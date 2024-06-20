@@ -20,10 +20,10 @@ import {
   RiSlideshow2Fill,
 } from "@remixicon/react";
 import { useState } from "react";
+import DatePickerDrawer from "../dependent/input/DatePickerDrawer";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
 import ComponentShowcaseTitle from "./wrapper/ComponentShowcaseTitle";
 import ContentContainer from "./wrapper/ContentContainer";
-import DatePickerModal from "../dependent/input/DatePickerModal";
 
 export default function DatePickerDrawerShowcase() {
   const requiredProps = [
@@ -173,7 +173,7 @@ export default function DatePickerDrawerShowcase() {
 
         <FormControl>
           <FormLabel>Non-nullable Date Input</FormLabel>
-          <DatePickerModal
+          <DatePickerDrawer
             id="nonNullableDateInput"
             name="nonNullable_date"
             confirm={(inputValue) => {
@@ -188,7 +188,7 @@ export default function DatePickerDrawerShowcase() {
 
         <FormControl>
           <FormLabel>Date Input</FormLabel>
-          <DatePickerModal
+          <DatePickerDrawer
             id="DateInput"
             name="date"
             confirm={(inputValue) => {

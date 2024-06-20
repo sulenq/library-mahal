@@ -74,7 +74,7 @@ export default function UseBackOnCloseShowcase() {
         </Accordion>
       </ContentContainer>
 
-      <ContentContainer border={"1px solid var(--divider2)"}>
+      <ContentContainer p={0}>
         <HStack mb={2}>
           <Icon as={RiSlideshow2Fill} fontSize={iconSize} color={"p.500"} />
           <Text fontWeight={600} fontSize={18}>

@@ -48,7 +48,7 @@ interface Props extends ButtonProps {
   isError?: boolean;
 }
 
-export default function DatePickerModal({
+export default function DatePickerDrawer({
   id,
   name,
   confirm,
@@ -147,10 +147,10 @@ export default function DatePickerModal({
         cursor={"pointer"}
         onClick={() => {
           onOpen();
-          setSelected(inputValue);
-          setDate(inputValue || new Date());
-          setBulan((inputValue?.getMonth() || new Date().getMonth()) + 1);
-          setTahun(inputValue?.getFullYear() || new Date().getFullYear());
+          setSelected(initialValue.current);
+          setDate(initialValue.current || new Date());
+          setBulan((initialValue.current?.getMonth() || date.getMonth()) + 1);
+          setTahun(initialValue.current?.getFullYear() || date.getFullYear());
         }}
         // _focus={{ boxShadow: "0 0 0px 2px var(--p500)" }}
         _focus={{ border: "1px solid var(--p500)", boxShadow: "none" }}
@@ -192,12 +192,14 @@ export default function DatePickerModal({
                     if (value && value <= 12) {
                       setDate(new Date(tahun, value - 1));
                       setBulan(value);
-                    } else if (value === null) {
-                      setDate(new Date(tahun));
-                      setBulan(0);
                     }
                   }}
                   value={bulan === 0 ? "" : bulan}
+                  // onFocus={() => {
+                  //   if (monthInputRef.current) {
+                  //     monthInputRef.current.select();
+                  //   }
+                  // }}
                 />
               </FormControl>
 
@@ -211,31 +213,33 @@ export default function DatePickerModal({
                     if (value) {
                       setDate(new Date(value, bulan - 1));
                       setTahun(value);
-                    } else if (value === null) {
-                      setDate(new Date(bulan - 1));
-                      setTahun(0);
                     }
                   }}
                   value={tahun === 0 ? "" : tahun}
+                  // onFocus={() => {
+                  //   if (yearInputRef.current) {
+                  //     yearInputRef.current.select();
+                  //   }
+                  // }}
                 />
               </FormControl>
             </Wrap>
 
-            <VStack align={"stretch"}>
+            <VStack align={"stretch"} pt={1}>
               {!isBulanValid(bulan) && isTahunValid(tahun) && (
-                <HStack h={"392px"} justify={"center"}>
+                <HStack h={"448px"} justify={"center"}>
                   <Text textAlign={"center"}>Bulan tidak valid</Text>
                 </HStack>
               )}
 
               {isBulanValid(bulan) && !isTahunValid(tahun) && (
-                <HStack h={"392px"} justify={"center"}>
+                <HStack h={"360px"} justify={"center"}>
                   <Text textAlign={"center"}>Tahun tidak valid</Text>
                 </HStack>
               )}
 
               {!isBulanValid(bulan) && !isTahunValid(tahun) && (
-                <HStack h={"392px"} justify={"center"}>
+                <HStack h={"360px"} justify={"center"}>
                   <Text textAlign={"center"}>Bulan dan Tahun tidak valid</Text>
                 </HStack>
               )}
