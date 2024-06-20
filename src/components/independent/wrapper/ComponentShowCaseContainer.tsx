@@ -1,5 +1,4 @@
 import { StackProps, VStack } from "@chakra-ui/react";
-import { useLightDarkColor } from "../../../constant/colors";
 
 interface Props extends StackProps {
   children?: any;
