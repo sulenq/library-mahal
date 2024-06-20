@@ -30,30 +30,6 @@ export const globalTheme = extendTheme({
       800: "#0693ff",
       900: "#0693ff",
     },
-    s: {
-      50: "#FEE4D8",
-      100: "#FFE6DB",
-      200: "#FFC7B8",
-      300: "#FFA294",
-      400: "#FF7F7A",
-      500: "#FF4E57",
-      600: "#DB394F",
-      700: "#B72748",
-      800: "#931840",
-      900: "#7A0E3A",
-    },
-    as: {
-      50: "#ff4e571b",
-      100: "#ff4e572b",
-      200: "#ff4e57",
-      300: "#ff4e57",
-      400: "#ff4e57",
-      500: "#ff4e57",
-      600: "#ff4e57",
-      700: "#ff4e57",
-      800: "#ff4e57",
-      900: "#ff4e57",
-    },
     bnw: {
       200: "white",
       300: "white",
@@ -66,11 +42,6 @@ export const globalTheme = extendTheme({
       500: "white",
       600: "white",
     },
-    b: "#000000",
-    bt: "#333333",
-    w: "white",
-    wt: "#eeeeee",
-    error: "#E53E3E",
     dark: "#191919",
   },
 
@@ -98,6 +69,17 @@ export const globalTheme = extendTheme({
           borderRadius: 8,
         },
       }),
+      variants: {
+        // Perbarui varian subtle untuk status error
+        subtle: (props) => ({
+          container: {
+            bg: props.status === "error" ? "var(--reda3)" : undefined,
+          },
+          icon: {
+            color: "red.400",
+          },
+        }),
+      },
     },
 
     Badge: {

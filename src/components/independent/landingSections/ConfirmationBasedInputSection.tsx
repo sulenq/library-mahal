@@ -1,7 +1,8 @@
 import { Wrap } from "@chakra-ui/react";
-import DatePickerShowcase from "../DatePickerShowcase";
+import DatePickerModalShowcase from "../DatePickerModalShowcase";
 import ComponentShowcaseMainContainer from "../wrapper/ComponentShowcaseMainContainer";
 import ComponentShowcaseTitle from "../wrapper/ComponentShowcaseTitle";
+import DatePickerDrawerShowcase from "../DatePickerDrawerShowcase";
 
 export default function ConfirmationBasedInputSection() {
   return (
@@ -10,8 +11,10 @@ export default function ConfirmationBasedInputSection() {
         Confirmation Based Input
       </ComponentShowcaseTitle>
 
-      <Wrap>
-        <DatePickerShowcase />
+      <Wrap spacing={5}>
+        <DatePickerModalShowcase />
+
+        <DatePickerDrawerShowcase />
       </Wrap>
     </ComponentShowcaseMainContainer>
   );

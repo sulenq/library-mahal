@@ -1,4 +1,4 @@
-const formatDate = (dateString: string, options?: any) => {
+const formatDate = (dateString: Date | string, options?: any) => {
   // Cek jika dateString kosong atau tidak valid
   if (!dateString) {
     return "-";
@@ -37,7 +37,7 @@ const formatDate = (dateString: string, options?: any) => {
   };
 
   const prefixOptions: Record<string, Intl.DateTimeFormatOptions> = {
-    default: defaultFormat,
+    basic: defaultFormat,
     basicShort: basicShortFormat,
     long: longFormat,
     longShort: longShortFormat,

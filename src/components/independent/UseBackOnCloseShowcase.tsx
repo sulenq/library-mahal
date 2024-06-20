@@ -48,10 +48,10 @@ export default function UseBackOnCloseShowcase() {
         useBackOnClose
       </ComponentShowcaseTitle>
 
-      <ContentContainer bg={"var(--reda3)"} mb={4}>
-        <HStack>
-          <Icon as={RiErrorWarningFill} fontSize={iconSize} color={"red.400"} />
-          <Text fontWeight={600} fontSize={18} color={"red.400"}>
+      <ContentContainer bg={"var(--p500a3)"} mb={4}>
+        <HStack mb={2}>
+          <Icon as={RiErrorWarningFill} fontSize={iconSize} color={"p.500"} />
+          <Text fontWeight={600} fontSize={18} color={"p.500"}>
             Required Parameter
           </Text>
         </HStack>
@@ -68,7 +68,9 @@ export default function UseBackOnCloseShowcase() {
                   <AccordionIcon />
                 </AccordionButton>
               </h2>
-              <AccordionPanel pb={4}>{props.desc}</AccordionPanel>
+              <AccordionPanel pb={2} opacity={0.5}>
+                {props.desc}
+              </AccordionPanel>
             </AccordionItem>
           ))}
         </Accordion>

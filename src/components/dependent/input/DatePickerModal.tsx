@@ -1,75 +1,153 @@
-import { ButtonProps } from "@chakra-ui/react";
+import {
+  Button,
+  ButtonProps,
+  FormControl,
+  FormLabel,
+  Icon,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useDisclosure,
+  Wrap,
+} from "@chakra-ui/react";
+import { useErrorColor } from "../../../constant/colors";
+import formatDate from "../../../lib/formatDate";
+import { RiCalendarLine } from "@remixicon/react";
+import { useRef } from "react";
+import useBackOnClose from "../../../hooks/useBackOnClose";
+import backOnClose from "../../../lib/backOnClose";
+
+type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
 interface Props extends ButtonProps {
+  id: string;
   name: string;
-  onChange: () => void;
+  confirm: (newInputValue: Date | string) => void;
   inputValue: Date | string;
+  dateFormatOptions?: PrefixOption | object;
+  placeholder?: string;
+  required?: boolean;
+  isError?: boolean;
 }
 
-export default function DatePicker() {
-  return <div>DatePicker</div>;
+export default function DatePickerModal({
+  id,
+  name,
+  confirm,
+  inputValue,
+  dateFormatOptions,
+  placeholder,
+  required,
+  isError,
+  ...props
+}: Props) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  useBackOnClose(`${id}_${name}`, isOpen, onOpen, onClose);
+  const initialRef = useRef(null);
+
+  // SX
+  const errorColor = useErrorColor();
+
+  return (
+    <>
+      <Button
+        className="btn"
+        w={"100%"}
+        justifyContent={"space-between"}
+        borderRadius={8}
+        border={"1px solid var(--divider3)"}
+        boxShadow={isError ? `0 0 0px 1px ${errorColor}` : ""}
+        py={2}
+        px={4}
+        h={"40px"}
+        fontWeight={400}
+        cursor={"pointer"}
+        onClick={onOpen}
+        // _focus={{ boxShadow: "0 0 0px 2px var(--p500)" }}
+        _focus={{ border: "1px solid var(--p500)", boxShadow: "none" }}
+        {...props}
+      >
+        {inputValue ? (
+          <Text>{formatDate(inputValue, dateFormatOptions)}</Text>
+        ) : (
+          <Text opacity={0.6}>{placeholder || `Pilih Tanggal`}</Text>
+        )}
+
+        <Icon as={RiCalendarLine} mb={"1px"} />
+      </Button>
+
+      <Modal
+        isOpen={isOpen}
+        onClose={() => {
+          backOnClose(onClose);
+        }}
+        initialFocusRef={initialRef}
+        isCentered
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalHeader ref={initialRef}>
+            {placeholder || "Pilih Tanggal"}
+          </ModalHeader>
+          <ModalBody>
+            <Wrap>
+              <FormControl flex={"1 1 0"}>
+                <FormLabel>Bulan</FormLabel>
+                <Input
+                  name="bulan"
+                  placeholder="Bulan ke-"
+                  // onChange={(e) => {
+                  //   const value = parseNumber(e.target.value);
+                  //   if (value && value <= 12) {
+                  //     setDate(new Date(tahun, value - 1));
+                  //     setBulan(value);
+                  //   }
+                  // }}
+                  // value={bulan === 0 ? "" : bulan}
+                  // onFocus={() => {
+                  //   if (monthInputRef.current) {
+                  //     monthInputRef.current.select();
+                  //   }
+                  // }}
+                />
+              </FormControl>
+
+              <FormControl flex={"1 1 0"}>
+                <FormLabel>Tahun</FormLabel>
+                <Input
+                  name="tahun"
+                  placeholder="Tahun"
+                  // onChange={(e) => {
+                  //   const value = parseNumber(e.target.value);
+                  //   if (value) {
+                  //     setDate(new Date(value, bulan - 1));
+                  //     setTahun(value);
+                  //   }
+                  // }}
+                  // value={tahun === 0 ? "" : tahun}
+                  // onFocus={() => {
+                  //   if (yearInputRef.current) {
+                  //     yearInputRef.current.select();
+                  //   }
+                  // }}
+                />
+              </FormControl>
+            </Wrap>
+          </ModalBody>
+          <ModalFooter></ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  );
 }
-// import {
-//   Box,
-//   Button,
-//   ButtonGroup,
-//   ButtonProps,
-//   FormControl,
-//   FormLabel,
-//   HStack,
-//   Icon,
-//   Input,
-//   Modal,
-//   ModalBody,
-//   ModalCloseButton,
-//   ModalContent,
-//   ModalFooter,
-//   ModalHeader,
-//   ModalOverlay,
-//   Text,
-//   useColorModeValue,
-//   useDisclosure,
-//   VStack,
-// } from "@chakra-ui/react";
-// import {
-//   RiArrowLeftSLine,
-//   RiArrowRightSLine,
-//   RiCalendarLine,
-// } from "@remixicon/react";
-// import { id as ind } from "date-fns/locale";
-// import { useEffect, useRef, useState } from "react";
-// import { DayPicker } from "react-day-picker";
-// import "react-day-picker/dist/style.css";
-// import { iconSize } from "../../../constant/sizes";
-// import formatDate from "../../../lib/formatDate";
-// import parseNumber from "../../../lib/parseNumber";
-// import useBackOnClose from "../../../hooks/useBackOnClose";
 
-// interface Props extends ButtonProps {
-//   id: string;
-//   dateValue: string;
-//   initialDateValue?: Date;
-//   dateFormatOptions?: any;
-//   formik?: any;
-//   name?: string;
-//   placeholder?: string;
-//   confirmDate?: (date: any) => void;
-//   noUseBackOnClose?: boolean;
-//   nullable?: boolean;
-// }
-
-// export default function DatePicker({
-//   id,
-//   formik,
-//   name,
-//   placeholder,
-//   confirmDate,
-//   dateValue,
-//   initialDateValue,
-//   dateFormatOptions,
-//   noUseBackOnClose,
-//   nullable,
-//   ...props
 // }: Props) {
 //   const initialRef = useRef(null);
 //   const monthInputRef = useRef<HTMLInputElement>(null);
@@ -172,35 +250,6 @@ export default function DatePicker() {
 
 //   return (
 //     <>
-//       <Button
-//         className="btn"
-//         w={"100%"}
-//         justifyContent={"space-between"}
-//         borderRadius={8}
-//         border={"1px solid var(--divider3)"}
-//         boxShadow={
-//           formik && name && formik.errors[name]
-//             ? `0 0 0px 1px ${errorColor}`
-//             : ""
-//         }
-//         py={2}
-//         px={4}
-//         h={"40px"}
-//         fontWeight={400}
-//         cursor={"pointer"}
-//         onClick={onOpen}
-//         // _focus={{ boxShadow: "0 0 0px 2px var(--p500)" }}
-//         _focus={{ border: "1px solid var(--p500)", boxShadow: "none" }}
-//         {...props}
-//       >
-//         <Text opacity={dateValue ? 1 : 0.3} fontSize={14}>
-//           {dateValue
-//             ? formatDate(dateValue, dateFormatOptions)
-//             : placeholder || `Pilih Tanggal`}
-//         </Text>
-
-//         <Icon as={RiCalendarLine} mb={"1px"} />
-//       </Button>
 
 //       <Modal
 //         isOpen={isOpen}
@@ -221,48 +270,7 @@ export default function DatePicker() {
 //               <Text fontSize={20}>Pilih Tanggal</Text>
 
 //               <HStack w={"100%"} mt={6}>
-//                 <FormControl>
-//                   <FormLabel>Bulan</FormLabel>
-//                   <Input
-//                     ref={monthInputRef}
-//                     name="bulan"
-//                     placeholder="Bulan ke-"
-//                     onChange={(e) => {
-//                       const value = parseNumber(e.target.value);
-//                       if (value && value <= 12) {
-//                         setDate(new Date(tahun, value - 1));
-//                         setBulan(value);
-//                       }
-//                     }}
-//                     value={bulan === 0 ? "" : bulan}
-//                     onFocus={() => {
-//                       if (monthInputRef.current) {
-//                         monthInputRef.current.select();
-//                       }
-//                     }}
-//                   />
-//                 </FormControl>
 
-//                 <FormControl>
-//                   <FormLabel>Tahun</FormLabel>
-//                   <Input
-//                     name="tahun"
-//                     placeholder="Tahun"
-//                     onChange={(e) => {
-//                       const value = parseNumber(e.target.value);
-//                       if (value) {
-//                         setDate(new Date(value, bulan - 1));
-//                         setTahun(value);
-//                       }
-//                     }}
-//                     value={tahun === 0 ? "" : tahun}
-//                     onFocus={() => {
-//                       if (yearInputRef.current) {
-//                         yearInputRef.current.select();
-//                       }
-//                     }}
-//                   />
-//                 </FormControl>
 //               </HStack>
 //             </Box>
 //           </ModalHeader>

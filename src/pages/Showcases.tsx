@@ -1,11 +1,21 @@
-import { Heading, HStack, Image, VStack, Wrap } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertIcon,
+  Box,
+  Heading,
+  HStack,
+  Image,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { ColorModeSwitcher } from "../ColorModeSwitcher";
 import ConfirmationBasedInputSection from "../components/independent/landingSections/ConfirmationBasedInputSection";
 import HooksSection from "../components/independent/landingSections/HooksSection";
+import { useContentBgColor } from "../constant/colors";
 
 export default function Showcases() {
   return (
-    <VStack bg={"var(--divider)"} minH={"100vh"}>
+    <VStack bg={useContentBgColor()} minH={"100vh"}>
       <VStack
         w={"100%"}
         maxW={"1440px"}
@@ -23,11 +33,24 @@ export default function Showcases() {
           <ColorModeSwitcher />
         </HStack>
 
-        <Wrap align={"stretch"} spacing={5}>
+        <Alert status="error" mb={8} w={"100%"} maxW={"100%"}>
+          <Box>
+            <HStack gap={0} mb={2}>
+              <AlertIcon />
+              <Text fontSize={18} fontWeight={600} color={"red.400"}>
+                Requirement
+              </Text>
+            </HStack>
+
+            <Text>npm i @remixicon/react react-date-picker</Text>
+          </Box>
+        </Alert>
+
+        <VStack align={"stretch"} spacing={5}>
           <ConfirmationBasedInputSection />
 
           <HooksSection />
-        </Wrap>
+        </VStack>
       </VStack>
     </VStack>
   );
