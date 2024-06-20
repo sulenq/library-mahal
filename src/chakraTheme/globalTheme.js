@@ -197,6 +197,14 @@ export const globalTheme = extendTheme({
       },
     },
 
+    Alert: {
+      baseStyle: (props) => ({
+        container: {
+          borderRadius: 8,
+        },
+      }),
+    },
+
     Menu: {
       baseStyle: (props) => ({
         groupTitle: {

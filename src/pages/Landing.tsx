@@ -34,7 +34,7 @@ export default function Landing() {
         <AlertIcon />
         <Text>
           using <b>useBackOnClose</b> hooks with required props (id, isOpen,
-          onOpen, onClose)
+          onOpen, onClose), now you can close modal with 'back'
         </Text>
       </Alert>
 

@@ -23,15 +23,13 @@ const useBackOnClose = (
   const handlePopState = useCallback(() => {
     const currentUrl = new URL(window.location.href);
     const modalId = currentUrl.searchParams.get(id);
-    console.log(id, modalId, location);
 
     if (modalId) {
-      console.log("masuk sini");
       onOpen();
     } else {
       onClose();
     }
-  }, [location, id, onOpen, onClose]);
+  }, [id, onOpen, onClose]);
 
   // handle trigger popstate (back)
   useEffect(() => {
