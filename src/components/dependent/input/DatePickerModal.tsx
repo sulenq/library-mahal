@@ -43,7 +43,7 @@ interface Props extends ButtonProps {
   inputValue: Date | null;
   dateFormatOptions?: PrefixOption | object;
   placeholder?: string;
-  required?: boolean;
+  nonnullable?: boolean;
   isError?: boolean;
 }
 
@@ -54,7 +54,7 @@ export default function DatePickerModal({
   inputValue,
   dateFormatOptions,
   placeholder,
-  required,
+  nonnullable,
   isError,
   ...props
 }: Props) {
@@ -88,7 +88,7 @@ export default function DatePickerModal({
 
   function confirmSelected() {
     let confirmable = false;
-    if (!required) {
+    if (!nonnullable) {
       confirmable = true;
     } else {
       if (selected) {
@@ -308,7 +308,7 @@ export default function DatePickerModal({
                 colorScheme="ap"
                 className="btn-ap clicky"
                 w={"100%"}
-                isDisabled={required ? (selected ? false : true) : false}
+                isDisabled={nonnullable ? (selected ? false : true) : false}
                 onClick={confirmSelected}
               >
                 Konfirmasi

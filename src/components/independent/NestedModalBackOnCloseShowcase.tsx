@@ -23,7 +23,7 @@ export default function NestedModalBackOnCloseShowcase() {
   return (
     <>
       <Button onClick={onOpen} className="btn-solid clicky" w={"100%"}>
-        Open Full Modal with Nested Modal
+        Open Full Modal
       </Button>
 
       <Modal

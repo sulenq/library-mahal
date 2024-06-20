@@ -13,7 +13,7 @@ import { useRef } from "react";
 import useBackOnClose from "../../hooks/useBackOnClose";
 import backOnClose from "../../lib/backOnClose";
 
-export default function DrawerBackOnCloseShowCase() {
+export default function DrawerBackOnCloseShowcase() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   useBackOnClose("drawerBackOnClose_1", isOpen, onOpen, onClose);
   const initialRef = useRef(null);

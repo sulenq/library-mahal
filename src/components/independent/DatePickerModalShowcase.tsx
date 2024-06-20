@@ -58,7 +58,7 @@ export default function DatePickerModalShowcase() {
       desc: "default is false, if true, then if value is not filled, confirmation button is disabled",
     },
     {
-      label: "required",
+      label: "nonnullable",
       type: "boolean",
       desc: "default is false, if true, then if value is not filled, confirmation button is disabled",
     },
@@ -138,7 +138,7 @@ export default function DatePickerModalShowcase() {
         </HStack>
 
         <FormControl>
-          <FormLabel>Required Date Input</FormLabel>
+          <FormLabel>Non-nullable Date Input</FormLabel>
           <DatePickerModal
             id="requiredDateInput"
             name="required_date"
@@ -147,7 +147,7 @@ export default function DatePickerModalShowcase() {
             }}
             inputValue={requiredDate}
             borderRadius={6}
-            required
+            nonnullable
             mb={2}
           />
         </FormControl>
