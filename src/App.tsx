@@ -1,14 +1,14 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { globalTheme } from "./chakraTheme/globalTheme";
-import Landing from "./pages/Landing";
+import Showcases from "./pages/Showcases";
 import "./globalStyle.css";
 
 export const App = () => (
   <ChakraProvider theme={globalTheme}>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={<Showcases />} />
       </Routes>
     </BrowserRouter>
   </ChakraProvider>

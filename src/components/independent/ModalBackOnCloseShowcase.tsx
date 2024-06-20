@@ -7,13 +7,12 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import useBackOnClose from "../../hooks/useBackOnClose";
 import backOnClose from "../../lib/backOnClose";
-import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
-import ComponentShowcaseTitle from "./wrapper/ComponentShowcaseTitle";
 
 export default function ModalBackOnCloseShowcase() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -22,15 +21,9 @@ export default function ModalBackOnCloseShowcase() {
 
   return (
     <>
-      <ComponentShowcaseContainer flex={"1 1 0"} justify={"space-between"}>
-        <ComponentShowcaseTitle mb={4}>
-          Modal Back On Close
-        </ComponentShowcaseTitle>
-
-        <Button onClick={onOpen} className="btn-solid clicky" w={"100%"}>
-          Open Modal
-        </Button>
-      </ComponentShowcaseContainer>
+      <Button onClick={onOpen} className="btn-solid clicky" w={"100%"}>
+        Open Modal
+      </Button>
 
       <Modal
         isOpen={isOpen}
@@ -43,9 +36,10 @@ export default function ModalBackOnCloseShowcase() {
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
-          <ModalHeader ref={initialRef}>Modal Back On Close</ModalHeader>
-          <ModalBody></ModalBody>
-          <ModalFooter></ModalFooter>
+          <ModalHeader ref={initialRef}>Modal</ModalHeader>
+          <ModalBody pb={6}>
+            <Text m={"auto"}>Try to back</Text>
+          </ModalBody>
         </ModalContent>
       </Modal>
     </>

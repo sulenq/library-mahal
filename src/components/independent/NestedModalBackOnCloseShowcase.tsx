@@ -7,6 +7,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Text,
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
@@ -14,25 +15,17 @@ import { useRef } from "react";
 import useBackOnClose from "../../hooks/useBackOnClose";
 import backOnClose from "../../lib/backOnClose";
 import ModalBackOnClose3 from "./ModalBackOnClose3Showcase";
-import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
-import ComponentShowcaseTitle from "./wrapper/ComponentShowcaseTitle";
 
-export default function NestedNestedModalBackOnCloseShowcase() {
+export default function NestedModalBackOnCloseShowcase() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   useBackOnClose("nestedModalBackOnClose_2", isOpen, onOpen, onClose);
   const initialRef = useRef(null);
 
   return (
     <>
-      <ComponentShowcaseContainer flex={"1 1 0"} justify={"space-between"}>
-        <ComponentShowcaseTitle mb={4}>
-          Nested2 Modal Back On Close
-        </ComponentShowcaseTitle>
-
-        <Button onClick={onOpen} className="btn-solid clicky" w={"100%"}>
-          Open Modal
-        </Button>
-      </ComponentShowcaseContainer>
+      <Button onClick={onOpen} className="btn-solid clicky" w={"100%"}>
+        Open Full Modal with Nested Modal
+      </Button>
 
       <Modal
         isOpen={isOpen}
@@ -45,13 +38,15 @@ export default function NestedNestedModalBackOnCloseShowcase() {
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
-          <ModalHeader ref={initialRef}>Nested Modal Back On Close</ModalHeader>
-          <ModalBody>
-            <VStack>
+          <ModalHeader ref={initialRef}>
+            Full Modal with Nested Modal
+          </ModalHeader>
+          <ModalBody pb={6}>
+            <VStack my={"auto"}>
+              <Text>Try to back or open modal nested</Text>
               <ModalBackOnClose3 />
             </VStack>
           </ModalBody>
-          <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
     </>

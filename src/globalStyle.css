@@ -44,8 +44,9 @@
   --orangea: #ffb45953;
   --red: #e53e3e;
   /* --reda: #ff5d5d2d; */
-  --reda: rgba(254, 178, 178, 0.12);
-  --reda2: rgba(254, 178, 178, 0.2);
+  --reda: rgba(255, 109, 109, 0.12);
+  --reda2: rgba(255, 109, 109, 0.2);
+  --reda3: rgba(255, 109, 109, 0.2);
 }
 
 *:focus-visible {

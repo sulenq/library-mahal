@@ -9,15 +9,7 @@ export default function ComponentShowcaseMainContainer({
   ...props
 }: Props) {
   return (
-    <VStack
-      w={"100%"}
-      gap={0}
-      align={"stretch"}
-      p={4}
-      borderRadius={8}
-      bg={"var(--divider)"}
-      {...props}
-    >
+    <VStack w={"100%"} gap={0} align={"stretch"} borderRadius={8} {...props}>
       {children}
     </VStack>
   );

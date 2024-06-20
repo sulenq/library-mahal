@@ -4,33 +4,26 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Text,
   useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import useBackOnClose from "../../hooks/useBackOnClose";
 import backOnClose from "../../lib/backOnClose";
-import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
-import ComponentShowcaseTitle from "./wrapper/ComponentShowcaseTitle";
 
 export default function ModalBackOnClose4() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  useBackOnClose("modalBackOnClose_4", isOpen, onOpen, onClose);
+  useBackOnClose("bajingan", isOpen, onOpen, onClose);
   const initialRef = useRef(null);
 
   return (
     <>
-      <ComponentShowcaseContainer>
-        <ComponentShowcaseTitle mb={4}>
-          Modal Back On Close
-        </ComponentShowcaseTitle>
-
-        <Button onClick={onOpen} className="btn-solid clicky" w={"100%"}>
-          Open Modal 4
-        </Button>
-      </ComponentShowcaseContainer>
+      <Button onClick={onOpen} className="btn-solid clicky">
+        Open Modal Nested Again
+      </Button>
 
       <Modal
         isOpen={isOpen}
@@ -38,13 +31,17 @@ export default function ModalBackOnClose4() {
           backOnClose(onClose);
         }}
         initialFocusRef={initialRef}
+        isCentered
       >
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
-          <ModalHeader ref={initialRef}>Modal Back On Close 4</ModalHeader>
-          <ModalBody>Anjayyyy nested brayyy</ModalBody>
-          <ModalFooter></ModalFooter>
+          <ModalHeader ref={initialRef}>Modal Nested Again</ModalHeader>
+          <ModalBody pb={6}>
+            <VStack my={"auto"}>
+              <Text>Try to back</Text>
+            </VStack>
+          </ModalBody>
         </ModalContent>
       </Modal>
     </>

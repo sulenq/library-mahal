@@ -6,7 +6,7 @@ interface Props extends TextProps {
 
 export default function ComponentShowcaseTitle({ children, ...props }: Props) {
   return (
-    <Text fontSize={20} fontWeight={600} {...props}>
+    <Text fontSize={18} fontWeight={600} {...props}>
       {children}
     </Text>
   );

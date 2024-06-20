@@ -103,7 +103,7 @@ export const globalTheme = extendTheme({
     Badge: {
       baseStyle: (props) => ({
         p: "4px 16px",
-        borderRadius: 6,
+        borderRadius: 8,
         // textTransform: "none",
       }),
     },
@@ -111,7 +111,7 @@ export const globalTheme = extendTheme({
     Button: {
       baseStyle: {
         fontWeight: 550,
-        borderRadius: "8px",
+        borderRadius: 8,
       },
       variants: {
         outline: {
@@ -138,6 +138,12 @@ export const globalTheme = extendTheme({
         dialog: {
           bg: props.colorMode === "dark" ? "dark" : "white",
           boxShadow: "none",
+        },
+        closeButton: {
+          borderRadius: "full",
+          right: "10px",
+          fontSize: "13px !important",
+          // color: "red.400",
         },
       }),
     },
@@ -171,7 +177,7 @@ export const globalTheme = extendTheme({
           p: 0,
           overflow: "hidden",
           boxShadow: "none",
-          borderRadius: "8px",
+          borderRadius: 8,
         },
         item: {
           bg: "transparent",
@@ -192,7 +198,7 @@ export const globalTheme = extendTheme({
           bg: props.colorMode === "dark" ? "dark" : "white",
           color: props.colorMode === "dark" ? "wt" : "bt",
           boxShadow: "none",
-          borderRadius: "16px",
+          borderRadius: 8,
           // maxH: "100%",
           // border: "1px solid var(--divider)",
           // mx: "16px",
@@ -209,6 +215,8 @@ export const globalTheme = extendTheme({
         body: {
           px: "24px",
           py: "0px !important",
+          display: "flex",
+          flexDirection: "column",
           // minH: window.innerWidth < 500 ? "300px" : "fit-content",
         },
         footer: {
@@ -252,7 +260,7 @@ export const globalTheme = extendTheme({
     Skeleton: {
       baseStyle: (props) => ({
         // bg: "var(--divider3) !important",
-        borderRadius: "16px",
+        borderRadius: 8,
       }),
     },
 
@@ -277,7 +285,7 @@ export const globalTheme = extendTheme({
     Toast: {
       baseStyle: {
         fontSize: [13, null, 15],
-        borderRadius: "16px",
+        borderRadius: 8,
       },
     },
 
