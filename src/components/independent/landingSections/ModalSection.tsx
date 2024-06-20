@@ -4,7 +4,6 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Box,
   HStack,
   Icon,
   Text,
@@ -16,12 +15,12 @@ import {
   RiErrorWarningFill,
   RiSlideshow2Fill,
 } from "@remixicon/react";
+import { iconSize } from "../../../constant/sizes";
 import ModalBackOnCloseShowcase from "../ModalBackOnCloseShowcase";
 import NestedModalBackOnCloseShowcase from "../NestedModalBackOnCloseShowcase";
 import NestedNestedModalBackOnCloseShowcase from "../NestedNestedModalBackOnCloseShowcase";
 import ComponentShowcaseMainContainer from "../wrapper/ComponentShowcaseMainContainer";
 import ComponentShowcaseTitle from "../wrapper/ComponentShowcaseTitle";
-import { iconSize } from "../../../constant/sizes";
 
 export default function ModalSection() {
   const requiredProps = [

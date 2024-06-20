@@ -4,7 +4,6 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Box,
   HStack,
   Icon,
   Text,
@@ -13,15 +12,13 @@ import {
 } from "@chakra-ui/react";
 import {
   RiCheckboxCircleFill,
-  RiCheckboxCircleLine,
   RiErrorWarningFill,
   RiSlideshow2Fill,
-  RiSlideshowFill,
 } from "@remixicon/react";
+import { iconSize } from "../../../constant/sizes";
 import DatePickerShowcase from "../DatePickerShowcase";
 import ComponentShowcaseMainContainer from "../wrapper/ComponentShowcaseMainContainer";
 import ComponentShowcaseTitle from "../wrapper/ComponentShowcaseTitle";
-import { iconSize } from "../../../constant/sizes";
 
 export default function InputSection() {
   const requiredProps = [
