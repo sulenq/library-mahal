@@ -2,19 +2,18 @@ import {
   Button,
   ButtonGroup,
   ButtonProps,
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
   FormControl,
   FormLabel,
   HStack,
   Icon,
   IconButton,
   Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   Text,
   useDisclosure,
   VStack,
@@ -147,10 +146,10 @@ export default function DatePickerDrawer({
         cursor={"pointer"}
         onClick={() => {
           onOpen();
-          setSelected(initialValue.current);
-          setDate(initialValue.current || new Date());
-          setBulan((initialValue.current?.getMonth() || date.getMonth()) + 1);
-          setTahun(initialValue.current?.getFullYear() || date.getFullYear());
+          setSelected(inputValue);
+          setDate(inputValue || new Date());
+          setBulan((inputValue?.getMonth() || new Date().getMonth()) + 1);
+          setTahun(inputValue?.getFullYear() || new Date().getFullYear());
         }}
         // _focus={{ boxShadow: "0 0 0px 2px var(--p500)" }}
         _focus={{ border: "1px solid var(--p500)", boxShadow: "none" }}
@@ -165,23 +164,38 @@ export default function DatePickerDrawer({
         <Icon as={RiCalendarLine} mb={"1px"} />
       </Button>
 
-      <Modal
+      <Drawer
         isOpen={isOpen}
-        onClose={() => {
-          backOnClose();
-        }}
+        onClose={backOnClose}
         initialFocusRef={initialRef}
-        isCentered
+        placement="bottom"
       >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalCloseButton />
-          <ModalHeader ref={initialRef}>
-            {placeholder || "Pilih Tanggal"}
-          </ModalHeader>
+        <DrawerOverlay />
+        <DrawerContent borderRadius={"12px 12px 0 0"}>
+          <DrawerHeader
+            ref={initialRef}
+            w={"100%"}
+            maxW={"720px !important"}
+            mx={"auto"}
+          >
+            <HStack justify={"space-between"}>
+              <Text fontSize={20} fontWeight={600}>
+                {placeholder || "Pilih Tanggal"}
+              </Text>
 
-          <ModalBody>
-            <Wrap mb={6}>
+              <IconButton
+                aria-label="modal close button"
+                icon={<Icon as={RiCloseLine} fontSize={20} />}
+                size={"sm"}
+                borderRadius={"full"}
+                className="btn clicky"
+                onClick={backOnClose}
+              />
+            </HStack>
+          </DrawerHeader>
+
+          <DrawerBody w={"100%"} maxW={"720px !important"} mx={"auto"}>
+            <Wrap mb={4}>
               <FormControl flex={"1 1 0"}>
                 <FormLabel>Bulan</FormLabel>
                 <Input
@@ -192,14 +206,12 @@ export default function DatePickerDrawer({
                     if (value && value <= 12) {
                       setDate(new Date(tahun, value - 1));
                       setBulan(value);
+                    } else if (value === null) {
+                      setDate(new Date(tahun));
+                      setBulan(0);
                     }
                   }}
                   value={bulan === 0 ? "" : bulan}
-                  // onFocus={() => {
-                  //   if (monthInputRef.current) {
-                  //     monthInputRef.current.select();
-                  //   }
-                  // }}
                 />
               </FormControl>
 
@@ -213,33 +225,31 @@ export default function DatePickerDrawer({
                     if (value) {
                       setDate(new Date(value, bulan - 1));
                       setTahun(value);
+                    } else if (value === null) {
+                      setDate(new Date(bulan - 1));
+                      setTahun(0);
                     }
                   }}
                   value={tahun === 0 ? "" : tahun}
-                  // onFocus={() => {
-                  //   if (yearInputRef.current) {
-                  //     yearInputRef.current.select();
-                  //   }
-                  // }}
                 />
               </FormControl>
             </Wrap>
 
-            <VStack align={"stretch"} pt={1}>
+            <VStack align={"stretch"}>
               {!isBulanValid(bulan) && isTahunValid(tahun) && (
-                <HStack h={"448px"} justify={"center"}>
+                <HStack h={"392px"} justify={"center"}>
                   <Text textAlign={"center"}>Bulan tidak valid</Text>
                 </HStack>
               )}
 
               {isBulanValid(bulan) && !isTahunValid(tahun) && (
-                <HStack h={"360px"} justify={"center"}>
+                <HStack h={"392px"} justify={"center"}>
                   <Text textAlign={"center"}>Tahun tidak valid</Text>
                 </HStack>
               )}
 
               {!isBulanValid(bulan) && !isTahunValid(tahun) && (
-                <HStack h={"360px"} justify={"center"}>
+                <HStack h={"392px"} justify={"center"}>
                   <Text textAlign={"center"}>Bulan dan Tahun tidak valid</Text>
                 </HStack>
               )}
@@ -295,9 +305,14 @@ export default function DatePickerDrawer({
                 </>
               )}
             </VStack>
-          </ModalBody>
+          </DrawerBody>
 
-          <ModalFooter>
+          <DrawerFooter
+            pb={12}
+            w={"100%"}
+            maxW={"720px !important"}
+            mx={"auto"}
+          >
             <VStack align={"stretch"} w={"100%"}>
               <HStack
                 borderRadius={8}
@@ -339,9 +354,9 @@ export default function DatePickerDrawer({
                 Konfirmasi
               </Button>
             </VStack>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </>
   );
 }

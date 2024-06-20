@@ -123,9 +123,9 @@ export const globalTheme = extendTheme({
         },
         closeButton: {
           borderRadius: "full",
-          right: "10px",
+          right: 4,
+          top: 4,
           fontSize: "13px !important",
-          // color: "red.400",
         },
       }),
     },

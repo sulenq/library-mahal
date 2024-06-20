@@ -174,7 +174,7 @@ export default function DatePickerDrawerShowcase() {
         <FormControl>
           <FormLabel>Non-nullable Date Input</FormLabel>
           <DatePickerDrawer
-            id="nonNullableDateInput"
+            id="nonNullableDateInput_drawer"
             name="nonNullable_date"
             confirm={(inputValue) => {
               setNonNullableDate(inputValue);
@@ -189,7 +189,7 @@ export default function DatePickerDrawerShowcase() {
         <FormControl>
           <FormLabel>Date Input</FormLabel>
           <DatePickerDrawer
-            id="DateInput"
+            id="DateInput_drawer"
             name="date"
             confirm={(inputValue) => {
               setDate(inputValue);

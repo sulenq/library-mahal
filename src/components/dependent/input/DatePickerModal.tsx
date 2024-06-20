@@ -167,9 +167,7 @@ export default function DatePickerModal({
 
       <Modal
         isOpen={isOpen}
-        onClose={() => {
-          backOnClose();
-        }}
+        onClose={backOnClose}
         initialFocusRef={initialRef}
         isCentered
       >
@@ -181,7 +179,7 @@ export default function DatePickerModal({
           </ModalHeader>
 
           <ModalBody>
-            <Wrap mb={6}>
+            <Wrap mb={4}>
               <FormControl flex={"1 1 0"}>
                 <FormLabel>Bulan</FormLabel>
                 <Input
