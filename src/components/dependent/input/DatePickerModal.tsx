@@ -303,6 +303,7 @@ export default function DatePickerModal({
                 bg={"var(--divider)"}
                 p={2}
                 gap={1}
+                h={"40px"}
                 justify={"center"}
               >
                 {selected && (

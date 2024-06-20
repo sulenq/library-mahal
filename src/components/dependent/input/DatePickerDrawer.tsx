@@ -309,6 +309,7 @@ export default function DatePickerDrawer({
                 p={2}
                 gap={1}
                 justify={"center"}
+                h={"40px"}
               >
                 {selected && (
                   <Icon as={RiCalendarLine} mr={"auto"} w={6} opacity={0.6} />
