@@ -11,8 +11,9 @@ export default function ComponentShowcaseContainer({
   return (
     <VStack
       gap={0}
-      // p={5}
-      borderRadius={8}
+      p={4}
+      borderRadius={12}
+      border={"1px solid var(--divider3)"}
       align={"stretch"}
       // bg={useLightDarkColor()}
       {...props}

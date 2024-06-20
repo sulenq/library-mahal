@@ -26,7 +26,7 @@ export default function Showcases() {
         p={6}
       >
         <HStack justify={"space-between"} mb={8} align={"start"}>
-          <Wrap spacingY={6}>
+          <Wrap spacingY={6} align={"center"}>
             <Image src="/logo192.png" borderRadius={"full"} h={"38px"} mr={2} />
             <Heading>Library Mahal Distro Studio</Heading>
           </Wrap>

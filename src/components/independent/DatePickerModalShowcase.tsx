@@ -8,7 +8,10 @@ import {
   FormLabel,
   HStack,
   Icon,
+  ListItem,
   Text,
+  UnorderedList,
+  VStack,
   Wrap,
 } from "@chakra-ui/react";
 import {
@@ -27,44 +30,79 @@ export default function DatePickerModalShowcase() {
     {
       label: "id",
       type: "string",
-      desc: "just unique id accros ur entire project, it will be merge with name",
+      desc: (
+        <Text>
+          just unique id accros ur entire project, it will be merge with name
+        </Text>
+      ),
     },
     {
       label: "name",
       type: "string",
-      desc: "name the input, of course it must have name",
+      desc: <Text>name the input, of course it must have name</Text>,
     },
     {
       label: "confirm",
       type: "(inputValue: Date) => void",
-      desc: "function to set controlled input",
+      desc: <Text>function to set controlled input</Text>,
     },
     {
       label: "inputValue",
       type: "Date | null",
-      desc: "value for the input field",
+      desc: <Text>value for the input field</Text>,
     },
   ];
 
+  const customDateFormatOptionExample = {
+    weekday: "short",
+    day: "numeric",
+    month: "long",
+    year: "long",
+  };
   const optionalProps = [
     {
       label: "dateFormatOptions",
       type: "PrefixOption | object",
-      desc: "default is basic, for PrefixOption there is basic(16 Juli 2024), basicShort(16 Jul 2024), long(Senin, 16 Juli 2024), longShort(Sen, 16 Jul 2024), short(16/07/2024), for custom just pass date format options object",
+      desc: (
+        <VStack gap={0} align={"stretch"}>
+          <Text>Prefix Options :</Text>
+          <UnorderedList>
+            <ListItem>basic e.g 16 Juli 2024</ListItem>
+            <ListItem>basicShort e.g 16 Jul 2024</ListItem>
+            <ListItem>long e.g Senin, 16 Juli 2024</ListItem>
+            <ListItem>longShort e.g Sen, 16 Jul 2024</ListItem>
+            <ListItem>short e.g 16/07/2024</ListItem>
+          </UnorderedList>
+          <Text>
+            for custom date formatting, just pass a date format options object,
+            e.g. {JSON.stringify(customDateFormatOptionExample)}.
+          </Text>
+        </VStack>
+      ),
     },
     {
       label: "placeholder",
       type: "string",
-      desc: "default is false, if true, then if value is not filled, confirmation button is disabled",
+      desc: (
+        <Text>
+          default is false, if true, then if value is not filled, confirmation
+          button is disabled
+        </Text>
+      ),
     },
     {
       label: "nonnullable",
       type: "boolean",
-      desc: "default is false, if true, then if value is not filled, confirmation button is disabled",
+      desc: (
+        <Text>
+          default is false, if true, then if value is not filled, confirmation
+          button is disabled
+        </Text>
+      ),
     },
   ];
 
-  const [requiredDate, setRequiredDate] = useState<Date>(new Date());
+  const [nonNullableDate, setNonNullableDate] = useState<Date>(new Date());
   const [date, setDate] = useState<Date | null>(null);
 
   return (
@@ -93,9 +131,7 @@ export default function DatePickerModalShowcase() {
                   <AccordionIcon />
                 </AccordionButton>
               </h2>
-              <AccordionPanel pb={2} opacity={0.5}>
-                {props.desc}
-              </AccordionPanel>
+              <AccordionPanel opacity={0.5}>{props.desc}</AccordionPanel>
             </AccordionItem>
           ))}
         </Accordion>
@@ -121,15 +157,13 @@ export default function DatePickerModalShowcase() {
                   <AccordionIcon />
                 </AccordionButton>
               </h2>
-              <AccordionPanel pb={2} opacity={0.5}>
-                {props.desc}
-              </AccordionPanel>
+              <AccordionPanel opacity={0.5}>{props.desc}</AccordionPanel>
             </AccordionItem>
           ))}
         </Accordion>
       </ContentContainer>
 
-      <ContentContainer border={"1px solid var(--divider3)"}>
+      <ContentContainer p={0}>
         <HStack mb={2}>
           <Icon as={RiSlideshow2Fill} fontSize={24} color={"p.500"} />
           <Text fontWeight={600} fontSize={18}>
@@ -140,12 +174,12 @@ export default function DatePickerModalShowcase() {
         <FormControl>
           <FormLabel>Non-nullable Date Input</FormLabel>
           <DatePickerModal
-            id="requiredDateInput"
-            name="required_date"
+            id="nonNullableDateInput"
+            name="nonNullable_date"
             confirm={(inputValue) => {
-              setRequiredDate(inputValue);
+              setNonNullableDate(inputValue);
             }}
-            inputValue={requiredDate}
+            inputValue={nonNullableDate}
             borderRadius={6}
             nonnullable
             mb={2}

@@ -4,9 +4,14 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
+  FormControl,
+  FormLabel,
   HStack,
   Icon,
+  ListItem,
   Text,
+  UnorderedList,
+  VStack,
   Wrap,
 } from "@chakra-ui/react";
 import {
@@ -14,47 +19,91 @@ import {
   RiQuestionFill,
   RiSlideshow2Fill,
 } from "@remixicon/react";
-import { iconSize } from "../../constant/sizes";
+import { useState } from "react";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
 import ComponentShowcaseTitle from "./wrapper/ComponentShowcaseTitle";
 import ContentContainer from "./wrapper/ContentContainer";
+import DatePickerModal from "../dependent/input/DatePickerModal";
 
 export default function DatePickerDrawerShowcase() {
   const requiredProps = [
     {
+      label: "id",
+      type: "string",
+      desc: (
+        <Text>
+          just unique id accros ur entire project, it will be merge with name
+        </Text>
+      ),
+    },
+    {
       label: "name",
       type: "string",
-      desc: "just unique id accros ur entire project",
+      desc: <Text>name the input, of course it must have name</Text>,
     },
     {
       label: "confirm",
-      type: "(newInputValue: Date | string) => void",
-      desc: "function to set controlled input",
+      type: "(inputValue: Date) => void",
+      desc: <Text>function to set controlled input</Text>,
     },
     {
       label: "inputValue",
-      type: "Date | string",
-      desc: "value for the input field",
+      type: "Date | null",
+      desc: <Text>value for the input field</Text>,
     },
   ];
 
+  const customDateFormatOptionExample = {
+    weekday: "short",
+    day: "numeric",
+    month: "long",
+    year: "long",
+  };
   const optionalProps = [
     {
       label: "dateFormatOptions",
-      type: "enum | object",
-      desc: "default is basic, for enum : basic(16 Juli 2024), basicShort(16 Jul 2024), long(Senin, 16 Juli 2024), longShort(Sen, 16 Jul 2024), short(16/07/2024), for custom just pass date format options object",
+      type: "PrefixOption | object",
+      desc: (
+        <VStack gap={0} align={"stretch"}>
+          <Text>Prefix Options :</Text>
+          <UnorderedList>
+            <ListItem>basic e.g 16 Juli 2024</ListItem>
+            <ListItem>basicShort e.g 16 Jul 2024</ListItem>
+            <ListItem>long e.g Senin, 16 Juli 2024</ListItem>
+            <ListItem>longShort e.g Sen, 16 Jul 2024</ListItem>
+            <ListItem>short e.g 16/07/2024</ListItem>
+          </UnorderedList>
+          <Text>
+            for custom date formatting, just pass a date format options object,
+            e.g. {JSON.stringify(customDateFormatOptionExample)}.
+          </Text>
+        </VStack>
+      ),
     },
     {
       label: "placeholder",
       type: "string",
-      desc: "default is false, if true, then if value is not filled, confirmation button is disabled",
+      desc: (
+        <Text>
+          default is false, if true, then if value is not filled, confirmation
+          button is disabled
+        </Text>
+      ),
     },
     {
-      label: "required",
+      label: "nonnullable",
       type: "boolean",
-      desc: "default is false, if true, then if value is not filled, confirmation button is disabled",
+      desc: (
+        <Text>
+          default is false, if true, then if value is not filled, confirmation
+          button is disabled
+        </Text>
+      ),
     },
   ];
+
+  const [nonNullableDate, setNonNullableDate] = useState<Date>(new Date());
+  const [date, setDate] = useState<Date | null>(null);
 
   return (
     <ComponentShowcaseContainer flex={"1 1 0"}>
@@ -64,7 +113,7 @@ export default function DatePickerDrawerShowcase() {
 
       <ContentContainer bg={"var(--p500a3)"} mb={4}>
         <HStack mb={2}>
-          <Icon as={RiErrorWarningFill} fontSize={iconSize} color={"p.500"} />
+          <Icon as={RiErrorWarningFill} fontSize={24} color={"p.500"} />
           <Text fontWeight={600} fontSize={18} color={"p.500"}>
             Required Props
           </Text>
@@ -82,9 +131,7 @@ export default function DatePickerDrawerShowcase() {
                   <AccordionIcon />
                 </AccordionButton>
               </h2>
-              <AccordionPanel pb={2} opacity={0.5}>
-                {props.desc}
-              </AccordionPanel>
+              <AccordionPanel opacity={0.5}>{props.desc}</AccordionPanel>
             </AccordionItem>
           ))}
         </Accordion>
@@ -92,7 +139,7 @@ export default function DatePickerDrawerShowcase() {
 
       <ContentContainer bg={"var(--divider)"} mb={4}>
         <HStack mb={2}>
-          <Icon as={RiQuestionFill} fontSize={iconSize} />
+          <Icon as={RiQuestionFill} fontSize={24} />
           <Text fontWeight={600} fontSize={18}>
             Optional Props
           </Text>
@@ -110,21 +157,47 @@ export default function DatePickerDrawerShowcase() {
                   <AccordionIcon />
                 </AccordionButton>
               </h2>
-              <AccordionPanel pb={2} opacity={0.5}>
-                {props.desc}
-              </AccordionPanel>
+              <AccordionPanel opacity={0.5}>{props.desc}</AccordionPanel>
             </AccordionItem>
           ))}
         </Accordion>
       </ContentContainer>
 
-      <ContentContainer border={"1px solid var(--divider3)"}>
+      <ContentContainer p={0}>
         <HStack mb={2}>
-          <Icon as={RiSlideshow2Fill} fontSize={iconSize} color={"p.500"} />
+          <Icon as={RiSlideshow2Fill} fontSize={24} color={"p.500"} />
           <Text fontWeight={600} fontSize={18}>
             Showcase
           </Text>
         </HStack>
+
+        <FormControl>
+          <FormLabel>Non-nullable Date Input</FormLabel>
+          <DatePickerModal
+            id="nonNullableDateInput"
+            name="nonNullable_date"
+            confirm={(inputValue) => {
+              setNonNullableDate(inputValue);
+            }}
+            inputValue={nonNullableDate}
+            borderRadius={6}
+            nonnullable
+            mb={2}
+          />
+        </FormControl>
+
+        <FormControl>
+          <FormLabel>Date Input</FormLabel>
+          <DatePickerModal
+            id="DateInput"
+            name="date"
+            confirm={(inputValue) => {
+              setDate(inputValue);
+            }}
+            inputValue={date}
+            borderRadius={6}
+          />
+        </FormControl>
       </ContentContainer>
     </ComponentShowcaseContainer>
   );

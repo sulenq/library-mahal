@@ -68,9 +68,7 @@ export default function UseBackOnCloseShowcase() {
                   <AccordionIcon />
                 </AccordionButton>
               </h2>
-              <AccordionPanel pb={2} opacity={0.5}>
-                {props.desc}
-              </AccordionPanel>
+              <AccordionPanel opacity={0.5}>{props.desc}</AccordionPanel>
             </AccordionItem>
           ))}
         </Accordion>

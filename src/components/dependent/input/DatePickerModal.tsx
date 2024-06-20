@@ -6,6 +6,7 @@ import {
   FormLabel,
   HStack,
   Icon,
+  IconButton,
   Input,
   Modal,
   ModalBody,
@@ -23,6 +24,7 @@ import {
   RiArrowLeftSLine,
   RiArrowRightSLine,
   RiCalendarLine,
+  RiCloseLine,
 } from "@remixicon/react";
 import { id as ind } from "date-fns/locale";
 import { useRef, useState } from "react";
@@ -33,7 +35,6 @@ import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
 import parseNumber from "../../../lib/parseNumber";
-
 type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
 interface Props extends ButtonProps {
@@ -61,14 +62,8 @@ export default function DatePickerModal({
   const initialValue = useRef(inputValue);
   const initialRef = useRef(null);
 
-  function handleOnClose() {
-    onClose();
-    setBulan((initialValue.current?.getMonth() || date.getMonth()) + 1);
-    setTahun(initialValue.current?.getFullYear() || date.getFullYear());
-    setDate(initialValue.current || new Date());
-  }
   const { isOpen, onOpen, onClose } = useDisclosure();
-  useBackOnClose(`${id}_${name}`, isOpen, onOpen, handleOnClose);
+  useBackOnClose(`${id}_${name}`, isOpen, onOpen, onClose);
 
   const [date, setDate] = useState<Date>(initialValue.current || new Date());
   const [bulan, setBulan] = useState<number>(
@@ -150,7 +145,13 @@ export default function DatePickerModal({
         h={"40px"}
         fontWeight={400}
         cursor={"pointer"}
-        onClick={onOpen}
+        onClick={() => {
+          onOpen();
+          setSelected(initialValue.current);
+          setDate(initialValue.current || new Date());
+          setBulan((initialValue.current?.getMonth() || date.getMonth()) + 1);
+          setTahun(initialValue.current?.getFullYear() || date.getFullYear());
+        }}
         // _focus={{ boxShadow: "0 0 0px 2px var(--p500)" }}
         _focus={{ border: "1px solid var(--p500)", boxShadow: "none" }}
         {...props}
@@ -298,11 +299,35 @@ export default function DatePickerModal({
 
           <ModalFooter>
             <VStack align={"stretch"} w={"100%"}>
-              <VStack borderRadius={8} bg={"var(--divider)"} p={2} gap={1}>
+              <HStack
+                borderRadius={8}
+                bg={"var(--divider)"}
+                p={2}
+                gap={1}
+                justify={"center"}
+              >
+                {selected && <Icon as={RiCalendarLine} mr={"auto"} w={6} />}
+
                 <Text opacity={selected ? 1 : 0.6}>
                   {selected ? `${formatDate(selected)}` : "Pilih tanggal"}
                 </Text>
-              </VStack>
+
+                {selected && (
+                  <IconButton
+                    aria-label="clear date button"
+                    icon={<Icon as={RiCloseLine} fontSize={iconSize} />}
+                    colorScheme="red"
+                    borderRadius={"full"}
+                    variant={"ghost"}
+                    size={"xs"}
+                    className="clicky"
+                    ml={"auto"}
+                    onClick={() => {
+                      setSelected(null);
+                    }}
+                  />
+                )}
+              </HStack>
 
               <Button
                 colorScheme="ap"
