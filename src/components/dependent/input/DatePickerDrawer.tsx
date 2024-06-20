@@ -34,6 +34,7 @@ import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
 import parseNumber from "../../../lib/parseNumber";
+import BackOnCloseButton from "../../independent/BackOnCloseButton";
 type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
 interface Props extends ButtonProps {
@@ -183,14 +184,7 @@ export default function DatePickerDrawer({
                 {placeholder || "Pilih Tanggal"}
               </Text>
 
-              <IconButton
-                aria-label="modal close button"
-                icon={<Icon as={RiCloseLine} fontSize={20} />}
-                size={"sm"}
-                borderRadius={"full"}
-                className="btn clicky"
-                onClick={backOnClose}
-              />
+              <BackOnCloseButton aria-label="close-back-button" />
             </HStack>
           </DrawerHeader>
 
@@ -321,10 +315,14 @@ export default function DatePickerDrawer({
                 gap={1}
                 justify={"center"}
               >
-                {selected && <Icon as={RiCalendarLine} mr={"auto"} w={6} />}
+                {selected && (
+                  <Icon as={RiCalendarLine} mr={"auto"} w={6} opacity={0.6} />
+                )}
 
-                <Text opacity={selected ? 1 : 0.6}>
-                  {selected ? `${formatDate(selected)}` : "Pilih tanggal"}
+                <Text opacity={selected ? 1 : 0.6} fontWeight={600}>
+                  {selected
+                    ? `${formatDate(selected, "long")}`
+                    : "Pilih tanggal"}
                 </Text>
 
                 {selected && (

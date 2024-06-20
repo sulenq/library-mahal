@@ -10,7 +10,6 @@ import {
   Input,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
@@ -35,6 +34,7 @@ import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
 import parseNumber from "../../../lib/parseNumber";
+import BackOnCloseButton from "../../independent/BackOnCloseButton";
 type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
 interface Props extends ButtonProps {
@@ -173,9 +173,14 @@ export default function DatePickerModal({
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalCloseButton />
           <ModalHeader ref={initialRef}>
-            {placeholder || "Pilih Tanggal"}
+            <HStack justify={"space-between"}>
+              <Text fontSize={20} fontWeight={600}>
+                {placeholder || "Pilih Tanggal"}
+              </Text>
+
+              <BackOnCloseButton aria-label="close-back-button" />
+            </HStack>
           </ModalHeader>
 
           <ModalBody>
@@ -300,10 +305,14 @@ export default function DatePickerModal({
                 gap={1}
                 justify={"center"}
               >
-                {selected && <Icon as={RiCalendarLine} mr={"auto"} w={6} />}
+                {selected && (
+                  <Icon as={RiCalendarLine} mr={"auto"} w={6} opacity={0.6} />
+                )}
 
-                <Text opacity={selected ? 1 : 0.6}>
-                  {selected ? `${formatDate(selected)}` : "Pilih tanggal"}
+                <Text opacity={selected ? 1 : 0.6} fontWeight={600}>
+                  {selected
+                    ? `${formatDate(selected, "long")}`
+                    : "Pilih tanggal"}
                 </Text>
 
                 {selected && (

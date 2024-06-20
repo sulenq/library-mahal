@@ -111,7 +111,7 @@ export default function DatePickerDrawerShowcase() {
         Date Picker Drawer
       </ComponentShowcaseTitle>
 
-      <ContentContainer bg={"var(--p500a3)"} mb={4}>
+      <ContentContainer borderRadius={8} bg={"var(--p500a3)"} mb={4}>
         <HStack mb={2}>
           <Icon as={RiErrorWarningFill} fontSize={24} color={"p.500"} />
           <Text fontWeight={600} fontSize={18} color={"p.500"}>
@@ -137,7 +137,7 @@ export default function DatePickerDrawerShowcase() {
         </Accordion>
       </ContentContainer>
 
-      <ContentContainer bg={"var(--divider)"} mb={4}>
+      <ContentContainer borderRadius={8} bg={"var(--divider)"} mb={4}>
         <HStack mb={2}>
           <Icon as={RiQuestionFill} fontSize={24} />
           <Text fontWeight={600} fontSize={18}>
