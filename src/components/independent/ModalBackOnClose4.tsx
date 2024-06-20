@@ -28,7 +28,7 @@ export default function ModalBackOnClose4() {
         </ComponentShowCaseTitle>
 
         <Button onClick={onOpen} className="btn-solid clicky" w={"100%"}>
-          Open Modal
+          Open Modal 4
         </Button>
       </ComponentShowCaseContainer>
 
@@ -42,8 +42,8 @@ export default function ModalBackOnClose4() {
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
-          <ModalHeader ref={initialRef}>Modal Back On Close</ModalHeader>
-          <ModalBody></ModalBody>
+          <ModalHeader ref={initialRef}>Modal Back On Close 4</ModalHeader>
+          <ModalBody>Anjayyyy nested brayyy</ModalBody>
           <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
