@@ -1,4 +1,12 @@
-import { Heading, HStack, VStack, Wrap } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertIcon,
+  Heading,
+  HStack,
+  Text,
+  VStack,
+  Wrap,
+} from "@chakra-ui/react";
 import { ColorModeSwitcher } from "../ColorModeSwitcher";
 import ModalBackOnClose from "../components/independent/ModalBackOnClose";
 import NestedModalBackOnClose from "../components/independent/NestedModalBackOnClose";
@@ -14,7 +22,22 @@ export default function Landing() {
         <ColorModeSwitcher />
       </HStack>
 
-      <ComponentShowCaseTitle mb={2}>Modal</ComponentShowCaseTitle>
+      <ComponentShowCaseTitle>Modal</ComponentShowCaseTitle>
+
+      <Alert
+        status="info"
+        alignItems={"start"}
+        w={"100% !important"}
+        maxW={"100% !important"}
+        my={2}
+      >
+        <AlertIcon />
+        <Text>
+          using <b>useBackOnClose</b> hooks with required props (id, isOpen,
+          onOpen, onClose)
+        </Text>
+      </Alert>
+
       <Wrap>
         <ModalBackOnClose />
 
@@ -23,9 +46,19 @@ export default function Landing() {
         <NestedNestedModalBackOnClose />
       </Wrap>
 
-      <ComponentShowCaseTitle mt={6} mb={2}>
-        Modal
-      </ComponentShowCaseTitle>
+      <ComponentShowCaseTitle mt={6}>Input Component</ComponentShowCaseTitle>
+
+      <Alert
+        status="info"
+        alignItems={"start"}
+        w={"100% !important"}
+        maxW={"100% !important"}
+        my={2}
+      >
+        <AlertIcon />
+        Chakra is going live on August 30th. Get ready!
+      </Alert>
+
       <Wrap></Wrap>
     </VStack>
   );

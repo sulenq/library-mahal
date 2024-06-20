@@ -24,7 +24,7 @@ export default function NestedModalBackOnClose() {
 
   return (
     <>
-      <ComponentShowCaseContainer>
+      <ComponentShowCaseContainer flex={"1 1 0"}>
         <ComponentShowCaseTitle mb={4}>
           Nested Modal Back On Close
         </ComponentShowCaseTitle>

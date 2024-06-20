@@ -214,8 +214,8 @@ select {
 }
 
 .chakra-alert {
-  width: 80vw !important;
-  max-width: 400px !important;
+  width: 80vw;
+  max-width: 400px;
   padding: 16px !important;
 }
 .chakra-alert__title {

@@ -13,6 +13,7 @@ export default function ComponentShowCaseContainer({
       gap={0}
       p={4}
       borderRadius={8}
+      align={"stretch"}
       border={"1px solid var(--divider2)"}
       {...props}
     >

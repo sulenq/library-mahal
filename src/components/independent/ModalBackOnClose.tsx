@@ -22,7 +22,7 @@ export default function ModalBackOnClose() {
 
   return (
     <>
-      <ComponentShowCaseContainer>
+      <ComponentShowCaseContainer flex={"1 1 0"}>
         <ComponentShowCaseTitle mb={4}>
           Modal Back On Close
         </ComponentShowCaseTitle>

@@ -24,9 +24,9 @@ export default function NestedNestedModalBackOnClose() {
 
   return (
     <>
-      <ComponentShowCaseContainer>
+      <ComponentShowCaseContainer flex={"1 1 0"}>
         <ComponentShowCaseTitle mb={4}>
-          Nested Nested Modal Back On Close
+          Nested2 Modal Back On Close
         </ComponentShowCaseTitle>
 
         <Button onClick={onOpen} className="btn-solid clicky" w={"100%"}>
