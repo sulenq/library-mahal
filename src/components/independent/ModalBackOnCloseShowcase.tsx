@@ -8,31 +8,29 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
-  VStack,
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import useBackOnClose from "../../hooks/useBackOnClose";
 import backOnClose from "../../lib/backOnClose";
-import ModalBackOnClose3 from "./ModalBackOnClose3";
-import ComponentShowCaseContainer from "./wrapper/ComponentShowCaseContainer";
-import ComponentShowCaseTitle from "./wrapper/ComponentShowCaseTitle";
+import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
+import ComponentShowcaseTitle from "./wrapper/ComponentShowcaseTitle";
 
-export default function NestedNestedModalBackOnClose() {
+export default function ModalBackOnCloseShowcase() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  useBackOnClose("nestedModalBackOnClose_2", isOpen, onOpen, onClose);
+  useBackOnClose("modalBackOnClose_1", isOpen, onOpen, onClose);
   const initialRef = useRef(null);
 
   return (
     <>
-      <ComponentShowCaseContainer flex={"1 1 0"}>
-        <ComponentShowCaseTitle mb={4}>
-          Nested2 Modal Back On Close
-        </ComponentShowCaseTitle>
+      <ComponentShowcaseContainer flex={"1 1 0"} justify={"space-between"}>
+        <ComponentShowcaseTitle mb={4}>
+          Modal Back On Close
+        </ComponentShowcaseTitle>
 
         <Button onClick={onOpen} className="btn-solid clicky" w={"100%"}>
           Open Modal
         </Button>
-      </ComponentShowCaseContainer>
+      </ComponentShowcaseContainer>
 
       <Modal
         isOpen={isOpen}
@@ -40,17 +38,12 @@ export default function NestedNestedModalBackOnClose() {
           backOnClose(onClose);
         }}
         initialFocusRef={initialRef}
-        size={"full"}
       >
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
-          <ModalHeader ref={initialRef}>Nested Modal Back On Close</ModalHeader>
-          <ModalBody>
-            <VStack>
-              <ModalBackOnClose3 />
-            </VStack>
-          </ModalBody>
+          <ModalHeader ref={initialRef}>Modal Back On Close</ModalHeader>
+          <ModalBody></ModalBody>
           <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>

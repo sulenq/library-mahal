@@ -12,26 +12,25 @@ import {
 import { useRef } from "react";
 import useBackOnClose from "../../hooks/useBackOnClose";
 import backOnClose from "../../lib/backOnClose";
-import ComponentShowCaseContainer from "./wrapper/ComponentShowCaseContainer";
-import ComponentShowCaseTitle from "./wrapper/ComponentShowCaseTitle";
-import ModalBackOnClose4 from "./ModalBackOnClose4";
+import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
+import ComponentShowcaseTitle from "./wrapper/ComponentShowcaseTitle";
 
-export default function ModalBackOnClose3() {
+export default function ModalBackOnClose2Showcase() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  useBackOnClose("modalBackOnClose_3", isOpen, onOpen, onClose);
+  useBackOnClose("modalBackOnClose_2", isOpen, onOpen, onClose);
   const initialRef = useRef(null);
 
   return (
     <>
-      <ComponentShowCaseContainer>
-        <ComponentShowCaseTitle mb={4}>
+      <ComponentShowcaseContainer>
+        <ComponentShowcaseTitle mb={4}>
           Modal Back On Close
-        </ComponentShowCaseTitle>
+        </ComponentShowcaseTitle>
 
         <Button onClick={onOpen} className="btn-solid clicky" w={"100%"}>
-          Open Modal 3
+          Open Modal
         </Button>
-      </ComponentShowCaseContainer>
+      </ComponentShowcaseContainer>
 
       <Modal
         isOpen={isOpen}
@@ -43,10 +42,8 @@ export default function ModalBackOnClose3() {
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
-          <ModalHeader ref={initialRef}>Modal Back On Close 3</ModalHeader>
-          <ModalBody>
-            <ModalBackOnClose4 />
-          </ModalBody>
+          <ModalHeader ref={initialRef}>Modal Back On Close</ModalHeader>
+          <ModalBody></ModalBody>
           <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>

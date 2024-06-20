@@ -1,65 +1,29 @@
-import {
-  Alert,
-  AlertIcon,
-  Heading,
-  HStack,
-  Text,
-  VStack,
-  Wrap,
-} from "@chakra-ui/react";
+import { Heading, HStack, VStack } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "../ColorModeSwitcher";
-import ModalBackOnClose from "../components/independent/ModalBackOnClose";
-import NestedModalBackOnClose from "../components/independent/NestedModalBackOnClose";
-import NestedNestedModalBackOnClose from "../components/independent/NestedNestedModalBackOnClose";
-import ComponentShowCaseTitle from "../components/independent/wrapper/ComponentShowCaseTitle";
+import InputSection from "../components/independent/landingSections/InputSection";
+import ModalSection from "../components/independent/landingSections/ModalSection";
 
 export default function Landing() {
   return (
-    <VStack w={"100%"} align={"stretch"} gap={0} p={6}>
+    <VStack
+      w={"100%"}
+      maxW={"1440px"}
+      mx={"auto"}
+      align={"stretch"}
+      gap={0}
+      p={6}
+    >
       <HStack justify={"space-between"} mb={6}>
         <Heading>Komponen Mahal</Heading>
 
         <ColorModeSwitcher />
       </HStack>
 
-      <ComponentShowCaseTitle>Modal</ComponentShowCaseTitle>
+      <VStack align={"stretch"} gap={6}>
+        <ModalSection />
 
-      <Alert
-        status="info"
-        alignItems={"start"}
-        w={"100% !important"}
-        maxW={"100% !important"}
-        my={2}
-      >
-        <AlertIcon />
-        <Text>
-          using <b>useBackOnClose</b> hooks with required props (id, isOpen,
-          onOpen, onClose), now you can close modal with 'back'
-        </Text>
-      </Alert>
-
-      <Wrap>
-        <ModalBackOnClose />
-
-        <NestedModalBackOnClose />
-
-        <NestedNestedModalBackOnClose />
-      </Wrap>
-
-      <ComponentShowCaseTitle mt={6}>Input Component</ComponentShowCaseTitle>
-
-      <Alert
-        status="info"
-        alignItems={"start"}
-        w={"100% !important"}
-        maxW={"100% !important"}
-        my={2}
-      >
-        <AlertIcon />
-        Chakra is going live on August 30th. Get ready!
-      </Alert>
-
-      <Wrap></Wrap>
+        <InputSection />
+      </VStack>
     </VStack>
   );
 }

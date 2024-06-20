@@ -4,17 +4,18 @@ interface Props extends StackProps {
   children?: any;
 }
 
-export default function ComponentShowcaseContainer({
+export default function ComponentShowcaseMainContainer({
   children,
   ...props
 }: Props) {
   return (
     <VStack
+      w={"100%"}
       gap={0}
+      align={"stretch"}
       p={4}
       borderRadius={8}
-      align={"stretch"}
-      border={"1px solid var(--divider2)"}
+      bg={"var(--divider)"}
       {...props}
     >
       {children}

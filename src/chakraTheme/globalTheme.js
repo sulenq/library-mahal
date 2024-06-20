@@ -7,62 +7,62 @@ export const globalTheme = extendTheme({
 
   colors: {
     p: {
-      50: "#E9FFF6",
-      100: "#CFFBE9",
-      200: "#A0F7DC",
-      300: "#6EE8CD",
-      400: "#47D1BF",
-      500: "#16B3AC",
-      600: "#109399",
-      700: "#0B7180",
-      800: "#075267",
-      900: "#043C55",
+      50: "#d7f3ff",
+      100: "#b9ecff",
+      200: "#88e2ff",
+      300: "#50cfff",
+      400: "#28b3ff",
+      500: "#0693ff",
+      600: "#0a7eeb",
+      700: "#0f64be",
+      800: "#135695",
+      900: "#11345a",
     },
     ap: {
-      50: "#16B3AC1b",
-      100: "#16B3AC2b",
-      200: "#16B3AC",
-      300: "#16B3AC",
-      400: "#16B3AC",
-      500: "#16B3AC",
-      600: "#16B3AC",
-      700: "#16B3AC",
-      800: "#16B3AC",
-      900: "#16B3AC",
+      50: "#0693ff1b",
+      100: "#0693ff2b",
+      200: "#0693ff",
+      300: "#0693ff",
+      400: "#0693ff",
+      500: "#0693ff",
+      600: "#0693ff",
+      700: "#0693ff",
+      800: "#0693ff",
+      900: "#0693ff",
     },
-    ad: {
-      50: "#bfbfbf15",
-      100: "#bfbfbf15",
-      200: "#bfbfbf15",
-      300: "#bfbfbf15",
-      400: "#bfbfbf15",
-      500: "#bfbfbf15",
-      600: "#bfbfbf15",
-      700: "#bfbfbf15",
-      800: "#bfbfbf15",
-      900: "#bfbfbf15",
+    s: {
+      50: "#FEE4D8",
+      100: "#FFE6DB",
+      200: "#FFC7B8",
+      300: "#FFA294",
+      400: "#FF7F7A",
+      500: "#FF4E57",
+      600: "#DB394F",
+      700: "#B72748",
+      800: "#931840",
+      900: "#7A0E3A",
     },
-    ared: {
-      50: "#E53E3E1b",
-      100: "#E53E3E2b",
-      200: "#E53E3E",
-      300: "#E53E3E",
-      400: "#E53E3E",
-      500: "#E53E3E",
-      600: "#E53E3E",
-      700: "#E53E3E",
-      800: "#E53E3E",
-      900: "#E53E3E",
+    as: {
+      50: "#ff4e571b",
+      100: "#ff4e572b",
+      200: "#ff4e57",
+      300: "#ff4e57",
+      400: "#ff4e57",
+      500: "#ff4e57",
+      600: "#ff4e57",
+      700: "#ff4e57",
+      800: "#ff4e57",
+      900: "#ff4e57",
     },
-    dnw: {
+    bnw: {
       200: "white",
       300: "white",
-      500: "#181818",
-      600: "#181818",
+      500: "#191919",
+      600: "#191919",
     },
-    wnd: {
-      200: "#181818",
-      300: "#181818",
+    wnb: {
+      200: "#191919",
+      300: "#191919",
       500: "white",
       600: "white",
     },
@@ -70,23 +70,8 @@ export const globalTheme = extendTheme({
     bt: "#333333",
     w: "white",
     wt: "#eeeeee",
-    dark: "#181818",
     error: "#E53E3E",
-    divider: "#b4b4b420",
-    divider2: "#b4b4b440",
-    divider3: "#b4b4b450",
-
-    blue: {
-      100: "#D0EAFE",
-      200: "#A1D2FE",
-      300: "#72B5FE",
-      400: "#4F9CFD",
-      500: "#1672FC",
-      600: "#1058D8",
-      700: "#0B41B5",
-      800: "#072D92",
-      900: "#041F78",
-    },
+    dark: "#191919",
   },
 
   styles: {
@@ -99,10 +84,19 @@ export const globalTheme = extendTheme({
   },
 
   components: {
-    Skeleton: {
+    Accordion: {
       baseStyle: (props) => ({
-        // bg: "var(--divider3) !important",
-        borderRadius: "16px",
+        container: {
+          borderColor: "var(--divider)",
+        },
+      }),
+    },
+
+    Alert: {
+      baseStyle: (props) => ({
+        container: {
+          borderRadius: 8,
+        },
       }),
     },
 
@@ -114,12 +108,78 @@ export const globalTheme = extendTheme({
       }),
     },
 
+    Button: {
+      baseStyle: {
+        fontWeight: 550,
+        borderRadius: "8px",
+      },
+      variants: {
+        outline: {
+          // border: "2px solid",
+        },
+      },
+    },
+
+    Checkbox: {
+      baseStyle: (props) => ({
+        icon: {
+          color: "white",
+        },
+        control: {
+          border: props.isInvalid
+            ? "1.5px solid #E53E3E"
+            : "2px solid var(--divider3) !important",
+        },
+      }),
+    },
+
     Drawer: {
       baseStyle: (props) => ({
         dialog: {
           bg: "transparent",
           color: props.colorMode === "dark" ? "wt" : "wt",
           boxShadow: "none",
+        },
+      }),
+    },
+
+    Input: {
+      baseStyle: (props) => ({
+        field: {
+          _autofill: {
+            boxShadow:
+              props.colorMode === "dark"
+                ? "0 0 0px 1000px dark inset"
+                : "0 0 0px 1000px #ffffff inset",
+            border: "2px solid var(--divider) !important",
+          },
+        },
+      }),
+    },
+
+    Menu: {
+      baseStyle: (props) => ({
+        groupTitle: {
+          opacity: 0.5,
+          cursor: "default",
+        },
+        divider: {
+          my: 0,
+        },
+        list: {
+          bg: props.colorMode === "dark" ? "dark" : "white",
+          border: "1px solid var(--divider3)",
+          p: 0,
+          overflow: "hidden",
+          boxShadow: "none",
+          borderRadius: "8px",
+        },
+        item: {
+          bg: "transparent",
+          _hover: { bg: "var(--divider)" },
+          fontSize: 14,
+          py: 3,
+          px: 4,
         },
       }),
     },
@@ -190,96 +250,11 @@ export const globalTheme = extendTheme({
       }),
     },
 
-    Toast: {
-      baseStyle: {
-        fontSize: [13, null, 15],
+    Skeleton: {
+      baseStyle: (props) => ({
+        // bg: "var(--divider3) !important",
         borderRadius: "16px",
-      },
-    },
-
-    Alert: {
-      baseStyle: (props) => ({
-        container: {
-          borderRadius: 8,
-        },
       }),
-    },
-
-    Menu: {
-      baseStyle: (props) => ({
-        groupTitle: {
-          opacity: 0.5,
-          cursor: "default",
-        },
-        divider: {
-          my: 0,
-        },
-        list: {
-          bg: props.colorMode === "dark" ? "dark" : "white",
-          border: "1px solid var(--divider3)",
-          p: 0,
-          overflow: "hidden",
-          boxShadow: "none",
-          borderRadius: "8px",
-        },
-        item: {
-          bg: "transparent",
-          _hover: { bg: "var(--divider)" },
-          fontSize: 14,
-          py: 3,
-          px: 4,
-        },
-      }),
-    },
-
-    Button: {
-      baseStyle: {
-        fontWeight: 550,
-        borderRadius: "8px",
-      },
-      variants: {
-        outline: {
-          // border: "2px solid",
-        },
-      },
-    },
-
-    Input: {
-      baseStyle: (props) => ({
-        field: {
-          _autofill: {
-            boxShadow:
-              props.colorMode === "dark"
-                ? "0 0 0px 1000px dark inset"
-                : "0 0 0px 1000px #ffffff inset",
-            border: "2px solid var(--divider) !important",
-          },
-        },
-      }),
-    },
-
-    Checkbox: {
-      baseStyle: (props) => ({
-        icon: {
-          color: "white",
-        },
-        control: {
-          border: props.isInvalid
-            ? "1.5px solid #E53E3E"
-            : "2px solid var(--divider3) !important",
-        },
-      }),
-    },
-
-    Tooltip: {
-      baseStyle: {
-        bg: "dark",
-        color: "w",
-        "--popper-arrow-bg": "#0097e8",
-        borderRadius: 8,
-        px: 4,
-        py: 2,
-      },
     },
 
     Table: {
@@ -297,6 +272,24 @@ export const globalTheme = extendTheme({
             px: "16px",
           },
         },
+      },
+    },
+
+    Toast: {
+      baseStyle: {
+        fontSize: [13, null, 15],
+        borderRadius: "16px",
+      },
+    },
+
+    Tooltip: {
+      baseStyle: {
+        bg: "dark",
+        color: "w",
+        "--popper-arrow-bg": "#0097e8",
+        borderRadius: 8,
+        px: 4,
+        py: 2,
       },
     },
   },
