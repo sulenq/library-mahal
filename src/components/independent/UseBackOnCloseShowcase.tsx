@@ -23,22 +23,22 @@ export default function UseBackOnCloseShowcase() {
     {
       label: "id",
       type: "string",
-      desc: "just unique id accros ur entire project",
+      desc: <Text>just unique id accros ur entire project</Text>,
     },
     {
       label: "isOpen",
       type: "boolean",
-      desc: "state is open true or false",
+      desc: <Text>state is open true or false</Text>,
     },
     {
       label: "onOpen",
       type: "() => void",
-      desc: "function to open/set isOpen to true",
+      desc: <Text>function to open/set isOpen to true</Text>,
     },
     {
       label: "isOpen",
       type: "() => void",
-      desc: "function to close/set isOpen to false",
+      desc: <Text>function to close/set isOpen to false</Text>,
     },
   ];
 
