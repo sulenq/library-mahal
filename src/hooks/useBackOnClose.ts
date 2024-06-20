@@ -9,12 +9,6 @@ const useBackOnClose = (
 ) => {
   const location = useLocation();
 
-  const handlePopState = useCallback(() => {
-    if (isOpen) {
-      onClose();
-    }
-  }, [isOpen, onClose]);
-
   // handle onOpen, push history if needed
   useEffect(() => {
     const currentUrl = new URL(window.location.href);
@@ -25,6 +19,19 @@ const useBackOnClose = (
       window.history.pushState(null, "", currentUrl.toString());
     }
   }, [isOpen, id]);
+
+  const handlePopState = useCallback(() => {
+    const currentUrl = new URL(window.location.href);
+    const modalId = currentUrl.searchParams.get(id);
+    console.log(id, modalId, location);
+
+    if (modalId) {
+      console.log("masuk sini");
+      onOpen();
+    } else {
+      onClose();
+    }
+  }, [location, id, onOpen, onClose]);
 
   // handle trigger popstate (back)
   useEffect(() => {
@@ -39,15 +46,17 @@ const useBackOnClose = (
     };
   }, [isOpen, handlePopState]);
 
-  // handle initial load with query parameter
+  // handle initial onOpen with query parameter
   useEffect(() => {
     const currentUrl = new URL(window.location.href);
     const modalId = currentUrl.searchParams.get(id);
 
     if (modalId) {
       onOpen();
+    } else {
+      onClose();
     }
-  }, [location, id, onOpen]);
+  }, [location, id, onOpen, onClose]);
 };
 
 export default useBackOnClose;

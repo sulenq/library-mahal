@@ -15,9 +15,9 @@ import backOnClose from "../../lib/backOnClose";
 import ComponentShowCaseContainer from "./wrapper/ComponentShowCaseContainer";
 import ComponentShowCaseTitle from "./wrapper/ComponentShowCaseTitle";
 
-export default function ModalBackOnClose() {
+export default function ModalBackOnClose2() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  useBackOnClose("modalBackOnClose_1", isOpen, onOpen, onClose);
+  useBackOnClose("modalBackOnClose_2", isOpen, onOpen, onClose);
   const initialRef = useRef(null);
 
   return (

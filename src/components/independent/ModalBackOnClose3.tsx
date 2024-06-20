@@ -14,10 +14,11 @@ import useBackOnClose from "../../hooks/useBackOnClose";
 import backOnClose from "../../lib/backOnClose";
 import ComponentShowCaseContainer from "./wrapper/ComponentShowCaseContainer";
 import ComponentShowCaseTitle from "./wrapper/ComponentShowCaseTitle";
+import ModalBackOnClose4 from "./ModalBackOnClose4";
 
-export default function ModalBackOnClose() {
+export default function ModalBackOnClose3() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  useBackOnClose("modalBackOnClose_1", isOpen, onOpen, onClose);
+  useBackOnClose("modalBackOnClose_3", isOpen, onOpen, onClose);
   const initialRef = useRef(null);
 
   return (
@@ -43,7 +44,9 @@ export default function ModalBackOnClose() {
         <ModalContent>
           <ModalCloseButton />
           <ModalHeader ref={initialRef}>Modal Back On Close</ModalHeader>
-          <ModalBody></ModalBody>
+          <ModalBody>
+            <ModalBackOnClose4 />
+          </ModalBody>
           <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>
