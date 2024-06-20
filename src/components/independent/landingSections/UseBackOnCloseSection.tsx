@@ -18,11 +18,11 @@ import {
 import { iconSize } from "../../../constant/sizes";
 import ModalBackOnCloseShowcase from "../ModalBackOnCloseShowcase";
 import NestedModalBackOnCloseShowcase from "../NestedModalBackOnCloseShowcase";
-import NestedNestedModalBackOnCloseShowcase from "../NestedNestedModalBackOnCloseShowcase";
 import ComponentShowcaseMainContainer from "../wrapper/ComponentShowcaseMainContainer";
 import ComponentShowcaseTitle from "../wrapper/ComponentShowcaseTitle";
+import DrawerBackOnCloseShowCase from "../DrawerBackOnCloseShowCase";
 
-export default function ModalSection() {
+export default function UseBackOnCloseSection() {
   const requiredProps = [
     {
       label: "id",
@@ -48,7 +48,9 @@ export default function ModalSection() {
 
   return (
     <ComponentShowcaseMainContainer>
-      <ComponentShowcaseTitle fontSize={24}>Modal</ComponentShowcaseTitle>
+      <ComponentShowcaseTitle fontSize={24}>
+        useBackOnClose Hooks
+      </ComponentShowcaseTitle>
 
       <HStack my={2}>
         <Icon as={RiErrorWarningFill} fontSize={iconSize} color={"p.500"} />
@@ -95,7 +97,7 @@ export default function ModalSection() {
 
         <NestedModalBackOnCloseShowcase />
 
-        <NestedNestedModalBackOnCloseShowcase />
+        <DrawerBackOnCloseShowCase />
       </Wrap>
     </ComponentShowcaseMainContainer>
   );

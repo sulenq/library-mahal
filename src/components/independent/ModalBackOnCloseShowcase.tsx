@@ -38,6 +38,7 @@ export default function ModalBackOnCloseShowcase() {
           backOnClose(onClose);
         }}
         initialFocusRef={initialRef}
+        isCentered
       >
         <ModalOverlay />
         <ModalContent>

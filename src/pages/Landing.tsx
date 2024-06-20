@@ -1,7 +1,7 @@
 import { Heading, HStack, VStack } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "../ColorModeSwitcher";
 import InputSection from "../components/independent/landingSections/InputSection";
-import ModalSection from "../components/independent/landingSections/ModalSection";
+import UseBackOnCloseSection from "../components/independent/landingSections/UseBackOnCloseSection";
 
 export default function Landing() {
   return (
@@ -14,13 +14,13 @@ export default function Landing() {
       p={6}
     >
       <HStack justify={"space-between"} mb={6}>
-        <Heading>Komponen Mahal</Heading>
+        <Heading>Library Mahal</Heading>
 
         <ColorModeSwitcher />
       </HStack>
 
       <VStack align={"stretch"} gap={6}>
-        <ModalSection />
+        <UseBackOnCloseSection />
 
         <InputSection />
       </VStack>

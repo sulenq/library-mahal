@@ -136,8 +136,7 @@ export const globalTheme = extendTheme({
     Drawer: {
       baseStyle: (props) => ({
         dialog: {
-          bg: "transparent",
-          color: props.colorMode === "dark" ? "wt" : "wt",
+          bg: props.colorMode === "dark" ? "dark" : "white",
           boxShadow: "none",
         },
       }),
