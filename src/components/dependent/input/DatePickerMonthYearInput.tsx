@@ -75,9 +75,11 @@ export default function DatePickerMonthYearInput({
         onClick={onOpen}
         {...props}
       >
-        <Text fontSize={18} fontWeight={600}>
-          {`${formatDate(new Date(tahun, bulan - 1), { month: "long" })}`}
-          <span style={{ fontSize: 17 }}>{` ${tahun}`}</span>
+        <Text fontSize={17} fontWeight={600}>
+          {`${formatDate(new Date(tahun, bulan - 1), {
+            month: "long",
+            year: "numeric",
+          })}`}
         </Text>
       </HStack>
 

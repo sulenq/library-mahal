@@ -509,17 +509,19 @@ select {
   align-items: stretch !important;
   justify-content: stretch !important;
 }
+
 .rdp-cell {
   height: 46px !important;
   text-align: center !important;
 }
+
 .rdp-head_cell {
   height: 40px !important;
 }
 .rdp-button {
   width: 36px !important;
   height: 36px !important;
-  border-radius: 100px !important;
+  border-radius: 800px !important;
   transition: 200ms;
   /* margin-left: 5px !important; */
 }
@@ -548,6 +550,7 @@ select {
   /* border: 2px solid var(--p500); */
   opacity: 1 !important;
 }
+
 .rdp-day_outside {
   opacity: 0.4;
 }
