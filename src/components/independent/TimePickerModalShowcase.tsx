@@ -1,11 +1,10 @@
 import { FormControl, FormLabel, HStack, Icon, Text } from "@chakra-ui/react";
 import { RiSlideshow2Fill } from "@remixicon/react";
 import { useState } from "react";
-import DateRangePickerModal from "../dependent/input/DateRangePickerModal";
+import TimePickerModal from "../dependent/input/TimePickerModal";
 import PropsAccordions from "../dependent/PropsAccordions";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
 import ContentContainer from "./wrapper/ContentContainer";
-import TimePickerModal from "../dependent/input/TimePickerModal";
 
 export default function TimePickerModalShowcase() {
   const requiredProps = [
@@ -69,13 +68,7 @@ export default function TimePickerModalShowcase() {
   const [nonNullableInput, setNonNullableInput] = useState<Date | undefined>(
     dummyTime
   );
-  const [date, setDate] = useState<
-    | {
-        from: Date;
-        to: Date;
-      }
-    | undefined
-  >();
+  const [input, setInput] = useState<Date | undefined>();
 
   return (
     <ComponentShowcaseContainer title="Time Picker Modal">
@@ -92,8 +85,8 @@ export default function TimePickerModalShowcase() {
           </Text>
         </HStack>
 
-        <FormControl>
-          <FormLabel>Non-nullable Date Input</FormLabel>
+        <FormControl mb={2}>
+          <FormLabel>Non-nullable Time Input</FormLabel>
           <TimePickerModal
             id="nonNullable_time_picker"
             name="nonNullable_time"
@@ -103,19 +96,18 @@ export default function TimePickerModalShowcase() {
             inputValue={nonNullableInput}
             borderRadius={6}
             nonnullable
-            mb={2}
           />
         </FormControl>
 
         <FormControl>
-          <FormLabel>Date Input</FormLabel>
-          <DateRangePickerModal
-            id="dateRangeInput_modal"
-            name="date"
+          <FormLabel>Time Input</FormLabel>
+          <TimePickerModal
+            id="time_picker"
+            name="time"
             confirm={(inputValue) => {
-              setDate(inputValue);
+              setInput(inputValue);
             }}
-            inputValue={date}
+            inputValue={input}
             borderRadius={6}
           />
         </FormControl>

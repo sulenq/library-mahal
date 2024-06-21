@@ -45,13 +45,18 @@ export default function TimePickerModal({
   const initialValue = useRef(inputValue);
   const initialRef = useRef(null);
 
+  // const hoursArray = Array.from({ length: 23 }, (_, i) => i + 1);
+  // const minutesArray = Array.from({ length: 59 }, (_, i) => i + 1);
+
   const defaultTime = new Date();
-  defaultTime.setHours(12, 0, 0, 0);
+  defaultTime.setHours(0, 0, 0, 0);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   useBackOnClose(`${id}_${name}`, isOpen, onOpen, onClose);
 
-  const [time, setTime] = useState<Date>(initialValue.current || defaultTime);
+  const [time, setTime] = useState<Date | undefined>(
+    initialValue.current || defaultTime
+  );
   const [hours, setHours] = useState<number>(
     initialValue.current?.getHours() || defaultTime.getHours()
   );
@@ -61,6 +66,71 @@ export default function TimePickerModal({
   const [seconds, setSeconds] = useState<number>(
     initialValue.current?.getSeconds() || defaultTime.getSeconds()
   );
+
+  const intervalIncrementRef = useRef<ReturnType<typeof setInterval> | null>(
+    null
+  );
+  const timeoutIncrementRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
+
+  const intervalDecrementRef = useRef<ReturnType<typeof setInterval> | null>(
+    null
+  );
+  const timeoutDecrementRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
+
+  function handleMouseDownIncrement(type: string) {
+    if (timeoutIncrementRef.current || intervalIncrementRef.current) return;
+
+    timeoutIncrementRef.current = setTimeout(() => {
+      intervalIncrementRef.current = setInterval(() => {
+        if (type === "hours") {
+          setHours((ps) => (ps < 23 ? ps + 1 : 0));
+        } else if (type === "minutes") {
+          setMinutes((ps) => (ps < 59 ? ps + 1 : 0));
+        } else if (type === "seconds") {
+          setSeconds((ps) => (ps < 59 ? ps + 1 : 0));
+        }
+      }, 100);
+    }, 300);
+  }
+  function handleMouseUpIncrement() {
+    if (timeoutIncrementRef.current) {
+      clearTimeout(timeoutIncrementRef.current);
+      timeoutIncrementRef.current = null;
+    }
+    if (intervalIncrementRef.current) {
+      clearInterval(intervalIncrementRef.current);
+      intervalIncrementRef.current = null;
+    }
+  }
+  function handleMouseDownDecrement(type: string) {
+    if (timeoutDecrementRef.current || intervalDecrementRef.current) return;
+
+    timeoutDecrementRef.current = setTimeout(() => {
+      intervalDecrementRef.current = setInterval(() => {
+        if (type === "hours") {
+          setHours((ps) => (ps > 0 ? ps - 1 : 23));
+        } else if (type === "minutes") {
+          setMinutes((ps) => (ps > 0 ? ps - 1 : 59));
+        } else if (type === "seconds") {
+          setSeconds((ps) => (ps > 0 ? ps - 1 : 59));
+        }
+      }, 100);
+    }, 300);
+  }
+  function handleMouseUpDecrement() {
+    if (timeoutDecrementRef.current) {
+      clearTimeout(timeoutDecrementRef.current);
+      timeoutDecrementRef.current = null;
+    }
+    if (intervalDecrementRef.current) {
+      clearInterval(intervalDecrementRef.current);
+      intervalDecrementRef.current = null;
+    }
+  }
 
   function confirmSelected() {
     let confirmable = false;
@@ -73,11 +143,15 @@ export default function TimePickerModal({
     }
 
     if (confirmable) {
-      const confirmedTime = time;
-      confirmedTime.setHours(hours);
-      confirmedTime.setMinutes(minutes);
-      confirmedTime.setSeconds(seconds);
-      confirm(confirmedTime);
+      if (time) {
+        const confirmedTime = time;
+        confirmedTime.setHours(hours);
+        confirmedTime.setMinutes(minutes);
+        confirmedTime.setSeconds(seconds);
+        confirm(confirmedTime);
+      } else {
+        confirm(undefined);
+      }
       backOnClose();
     }
   }
@@ -102,13 +176,9 @@ export default function TimePickerModal({
         onClick={() => {
           onOpen();
           setTime(inputValue || defaultTime);
-          setHours(initialValue.current?.getHours() || defaultTime.getHours());
-          setMinutes(
-            initialValue.current?.getMinutes() || defaultTime.getMinutes()
-          );
-          setSeconds(
-            initialValue.current?.getSeconds() || defaultTime.getSeconds()
-          );
+          setHours(inputValue?.getHours() || defaultTime.getHours());
+          setMinutes(inputValue?.getMinutes() || defaultTime.getMinutes());
+          setSeconds(inputValue?.getSeconds() || defaultTime.getSeconds());
         }}
         // _focus={{ boxShadow: "0 0 0px 2px var(--p500)" }}
         _focus={{ border: "1px solid var(--p500)", boxShadow: "none" }}
@@ -149,12 +219,16 @@ export default function TimePickerModal({
                   icon={<Icon as={RiArrowUpSLine} fontSize={20} />}
                   className="btn-outline clicky"
                   onClick={() => {
-                    if (hours < 23) {
-                      setHours(hours + 1);
-                    } else {
-                      setHours(0);
+                    setHours((ps) => (ps < 23 ? ps + 1 : 0));
+                    if (!time) {
+                      setTime(defaultTime);
                     }
                   }}
+                  onMouseDown={() => {
+                    handleMouseDownIncrement("hours");
+                  }}
+                  onMouseUp={handleMouseUpIncrement}
+                  onMouseLeave={handleMouseUpIncrement}
                 />
 
                 <VStack my={4}>
@@ -165,7 +239,7 @@ export default function TimePickerModal({
                     lineHeight={1}
                     className="num"
                   >
-                    {String(hours).padStart(2, "0")}
+                    {time ? String(hours).padStart(2, "0") : "--"}
                   </Text>
                   <Text textAlign={"center"}>Jam</Text>
                 </VStack>
@@ -175,12 +249,16 @@ export default function TimePickerModal({
                   icon={<Icon as={RiArrowDownSLine} fontSize={20} />}
                   className="btn-outline clicky"
                   onClick={() => {
-                    if (hours > 0) {
-                      setHours(hours - 1);
-                    } else {
-                      setHours(23);
+                    setHours((ps) => (ps > 0 ? ps - 1 : 23));
+                    if (!time) {
+                      setTime(defaultTime);
                     }
                   }}
+                  onMouseDown={() => {
+                    handleMouseDownDecrement("hours");
+                  }}
+                  onMouseUp={handleMouseUpDecrement}
+                  onMouseLeave={handleMouseUpDecrement}
                 />
               </VStack>
 
@@ -194,12 +272,16 @@ export default function TimePickerModal({
                   icon={<Icon as={RiArrowUpSLine} fontSize={20} />}
                   className="btn-outline clicky"
                   onClick={() => {
-                    if (minutes < 59) {
-                      setMinutes(minutes + 1);
-                    } else {
-                      setMinutes(0);
+                    setMinutes((ps) => (ps < 59 ? ps + 1 : 0));
+                    if (!time) {
+                      setTime(defaultTime);
                     }
                   }}
+                  onMouseDown={() => {
+                    handleMouseDownIncrement("minutes");
+                  }}
+                  onMouseUp={handleMouseUpIncrement}
+                  onMouseLeave={handleMouseUpIncrement}
                 />
 
                 <VStack my={4}>
@@ -210,7 +292,7 @@ export default function TimePickerModal({
                     lineHeight={1}
                     className="num"
                   >
-                    {String(minutes).padStart(2, "0")}
+                    {time ? String(minutes).padStart(2, "0") : "--"}
                   </Text>
                   <Text textAlign={"center"}>Menit</Text>
                 </VStack>
@@ -220,12 +302,16 @@ export default function TimePickerModal({
                   icon={<Icon as={RiArrowDownSLine} fontSize={20} />}
                   className="btn-outline clicky"
                   onClick={() => {
-                    if (minutes > 0) {
-                      setMinutes(minutes - 1);
-                    } else {
-                      setMinutes(59);
+                    setMinutes((ps) => (ps > 0 ? ps - 1 : 59));
+                    if (!time) {
+                      setTime(defaultTime);
                     }
                   }}
+                  onMouseDown={() => {
+                    handleMouseDownDecrement("minutes");
+                  }}
+                  onMouseUp={handleMouseUpDecrement}
+                  onMouseLeave={handleMouseUpDecrement}
                 />
               </VStack>
 
@@ -239,12 +325,16 @@ export default function TimePickerModal({
                   icon={<Icon as={RiArrowUpSLine} fontSize={20} />}
                   className="btn-outline clicky"
                   onClick={() => {
-                    if (seconds < 59) {
-                      setSeconds(seconds + 1);
-                    } else {
-                      setSeconds(0);
+                    setSeconds((ps) => (ps < 59 ? ps + 1 : 0));
+                    if (!time) {
+                      setTime(defaultTime);
                     }
                   }}
+                  onMouseDown={() => {
+                    handleMouseDownIncrement("seconds");
+                  }}
+                  onMouseUp={handleMouseUpIncrement}
+                  onMouseLeave={handleMouseUpIncrement}
                 />
 
                 <VStack my={4}>
@@ -255,7 +345,7 @@ export default function TimePickerModal({
                     lineHeight={1}
                     className="num"
                   >
-                    {String(seconds).padStart(2, "0")}
+                    {time ? String(seconds).padStart(2, "0") : "--"}
                   </Text>
                   <Text textAlign={"center"}>Detik</Text>
                 </VStack>
@@ -265,18 +355,37 @@ export default function TimePickerModal({
                   icon={<Icon as={RiArrowDownSLine} fontSize={20} />}
                   className="btn-outline clicky"
                   onClick={() => {
-                    if (seconds > 0) {
-                      setSeconds(seconds - 1);
-                    } else {
-                      setSeconds(59);
+                    setSeconds((ps) => (ps > 0 ? ps - 1 : 59));
+                    if (!time) {
+                      setTime(defaultTime);
                     }
                   }}
+                  onMouseDown={() => {
+                    handleMouseDownDecrement("seconds");
+                  }}
+                  onMouseUp={handleMouseUpDecrement}
+                  onMouseLeave={handleMouseUpDecrement}
                 />
               </VStack>
             </HStack>
           </ModalBody>
 
-          <ModalFooter>
+          <ModalFooter gap={2}>
+            {!nonnullable && (
+              <Button
+                className="btn-solid clicky"
+                w={"100%"}
+                isDisabled={nonnullable ? (time ? false : true) : false}
+                onClick={() => {
+                  setTime(undefined);
+                  setHours(0);
+                  setMinutes(0);
+                  setSeconds(0);
+                }}
+              >
+                Clear
+              </Button>
+            )}
             <Button
               colorScheme="ap"
               className="btn-ap clicky"
