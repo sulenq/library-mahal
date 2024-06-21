@@ -217,7 +217,12 @@ export default function DatePickerDrawerShowcase() {
         </HStack>
 
         <Text mb={2}>Placement</Text>
-        <RadioGroup onChange={handlePlacementChange} value={placement} mb={2}>
+        <RadioGroup
+          onChange={handlePlacementChange}
+          colorScheme="ap"
+          value={placement}
+          mb={2}
+        >
           <Wrap direction="row" spacing={4}>
             <Radio value="top">Top</Radio>
             <Radio value="bottom">Bottom</Radio>

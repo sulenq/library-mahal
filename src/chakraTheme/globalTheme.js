@@ -121,6 +121,13 @@ export const globalTheme = extendTheme({
           bg: props.colorMode === "dark" ? "dark" : "white",
           boxShadow: "none",
         },
+        body: {
+          px: "24px",
+          py: "0px !important",
+          display: "flex",
+          flexDirection: "column",
+          // minH: window.innerWidth < 500 ? "300px" : "fit-content",
+        },
         closeButton: {
           borderRadius: "full",
           right: 4,

@@ -11,7 +11,7 @@ export default function ConfirmationBasedInputSection() {
         Confirmation Based Input
       </ComponentShowcaseTitle>
 
-      <SimpleGrid spacing={5} columns={[1, 2, null, 3]}>
+      <SimpleGrid spacing={5} columns={[1, 2, null, null, 3]}>
         <DatePickerModalShowcase />
 
         <DatePickerDrawerShowcase />

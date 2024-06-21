@@ -8,33 +8,26 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  FormControl,
-  FormLabel,
   HStack,
   Icon,
-  IconButton,
-  Input,
   Text,
   useDisclosure,
   VStack,
-  Wrap,
 } from "@chakra-ui/react";
 import {
   RiArrowLeftSLine,
   RiArrowRightSLine,
   RiCalendarLine,
-  RiCloseLine,
 } from "@remixicon/react";
 import { id as ind } from "date-fns/locale";
 import { useRef, useState } from "react";
 import { DayPicker } from "react-day-picker";
 import { useErrorColor } from "../../../constant/colors";
-import { iconSize } from "../../../constant/sizes";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
-import parseNumber from "../../../lib/parseNumber";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
+import DatePickerMonthYearInput from "./DatePickerMonthYearInput";
 type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
 interface Props extends ButtonProps {
@@ -75,13 +68,6 @@ export default function DatePickerDrawer({
     initialValue.current?.getFullYear() || date.getFullYear()
   );
   const [selected, setSelected] = useState<any>(inputValue);
-
-  const isBulanValid = (bulan: number) => {
-    return bulan > 0 && bulan <= 12;
-  };
-  const isTahunValid = (tahun: number) => {
-    return tahun >= 100 && tahun <= 270000;
-  };
 
   function confirmSelected() {
     let confirmable = false;
@@ -172,9 +158,14 @@ export default function DatePickerDrawer({
         onClose={backOnClose}
         initialFocusRef={initialRef}
         placement={placement || "bottom"}
+        size={placement === "left" || placement === "right" ? "sm" : ""}
       >
         <DrawerOverlay />
-        <DrawerContent borderRadius={"12px 12px 0 0"}>
+        <DrawerContent
+          borderRadius={
+            placement === "left" || placement === "right" ? "" : "12px 12px 0 0"
+          }
+        >
           <DrawerHeader
             ref={initialRef}
             w={"100%"}
@@ -190,120 +181,87 @@ export default function DatePickerDrawer({
             </HStack>
           </DrawerHeader>
 
-          <DrawerBody w={"100%"} maxW={"720px !important"} mx={"auto"}>
-            <Wrap mb={4}>
-              <FormControl flex={"1 1 0"}>
-                <FormLabel>Bulan</FormLabel>
-                <Input
-                  name="bulan"
-                  placeholder="Bulan ke-"
-                  onChange={(e) => {
-                    const value = parseNumber(e.target.value);
-                    if (value && value <= 12) {
-                      setDate(new Date(tahun, value - 1));
-                      setBulan(value);
-                    } else if (value === null) {
-                      setDate(new Date(tahun));
-                      setBulan(0);
-                    }
-                  }}
-                  value={bulan === 0 ? "" : bulan}
-                />
-              </FormControl>
-
-              <FormControl flex={"1 1 0"}>
-                <FormLabel>Tahun</FormLabel>
-                <Input
-                  name="tahun"
-                  placeholder="Tahun"
-                  onChange={(e) => {
-                    const value = parseNumber(e.target.value);
-                    if (value) {
-                      setDate(new Date(value, bulan - 1));
-                      setTahun(value);
-                    } else if (value === null) {
-                      setDate(new Date(bulan - 1));
-                      setTahun(0);
-                    }
-                  }}
-                  value={tahun === 0 ? "" : tahun}
-                />
-              </FormControl>
-            </Wrap>
-
+          <DrawerBody
+            w={"100%"}
+            maxW={"720px !important"}
+            mx={"auto"}
+            className="scrollY"
+          >
             <VStack align={"stretch"}>
-              {!isBulanValid(bulan) && isTahunValid(tahun) && (
-                <HStack h={"392px"} justify={"center"}>
-                  <Text textAlign={"center"}>Bulan tidak valid</Text>
-                </HStack>
-              )}
+              <VStack gap={0} overflowX={"auto"} w={"100%"} align={"stretch"}>
+                <ButtonGroup w={"100%"} mb={2}>
+                  <Button
+                    aria-label="Previous Month"
+                    leftIcon={<Icon as={RiArrowLeftSLine} fontSize={20} />}
+                    pr={"10px"}
+                    className="btn-outline clicky"
+                    onClick={prevMonth}
+                    w={"100%"}
+                    maxW={"50px"}
+                  ></Button>
 
-              {isBulanValid(bulan) && !isTahunValid(tahun) && (
-                <HStack h={"392px"} justify={"center"}>
-                  <Text textAlign={"center"}>Tahun tidak valid</Text>
-                </HStack>
-              )}
+                  <DatePickerMonthYearInput
+                    id={"datepicker_drawer_datepicker_month_year_input"}
+                    bulan={bulan}
+                    tahun={tahun}
+                    setBulan={setBulan}
+                    setTahun={setTahun}
+                    setDate={setDate}
+                  />
 
-              {!isBulanValid(bulan) && !isTahunValid(tahun) && (
-                <HStack h={"392px"} justify={"center"}>
-                  <Text textAlign={"center"}>Bulan dan Tahun tidak valid</Text>
-                </HStack>
-              )}
+                  <Button
+                    aria-label="Next Month"
+                    rightIcon={<Icon as={RiArrowRightSLine} fontSize={20} />}
+                    pl={"10px"}
+                    className="btn-outline clicky"
+                    onClick={nextMonth}
+                    w={"100%"}
+                    maxW={"50px"}
+                  ></Button>
+                </ButtonGroup>
 
-              {isBulanValid(bulan) && isTahunValid(tahun) && (
-                <>
-                  <VStack overflowX={"auto"} w={"100%"} align={"stretch"}>
-                    <DayPicker
-                      mode="single"
-                      selected={selected}
-                      onSelect={(date) => {
-                        setSelected(date);
-                      }}
-                      locale={ind}
-                      month={date}
-                      showOutsideDays
-                      fixedWeeks
-                      disableNavigation
-                    />
-                  </VStack>
+                <DayPicker
+                  mode="single"
+                  selected={selected}
+                  onSelect={(date) => {
+                    setSelected(date);
+                  }}
+                  locale={ind}
+                  month={date}
+                  showOutsideDays
+                  fixedWeeks
+                  disableNavigation
+                />
+              </VStack>
 
-                  <ButtonGroup w={"100%"}>
-                    <Button
-                      aria-label="Previous Month"
-                      leftIcon={
-                        <Icon as={RiArrowLeftSLine} fontSize={iconSize} />
-                      }
-                      pr={"10px"}
-                      className="btn-outline clicky"
-                      onClick={prevMonth}
-                      w={"20%"}
-                    ></Button>
-
-                    <Button
-                      flex={1}
-                      className="btn-outline clicky"
-                      onClick={setSelectedToToday}
-                    >
-                      Hari Ini
-                    </Button>
-
-                    <Button
-                      aria-label="Next Month"
-                      rightIcon={
-                        <Icon as={RiArrowRightSLine} fontSize={iconSize} />
-                      }
-                      pl={"10px"}
-                      className="btn-outline clicky"
-                      onClick={nextMonth}
-                      w={"20%"}
-                    ></Button>
-                  </ButtonGroup>
-                </>
-              )}
+              <ButtonGroup w={"100%"}>
+                <Button
+                  flex={1}
+                  className="btn-outline clicky"
+                  onClick={() => {
+                    setSelected(null);
+                  }}
+                >
+                  Reset
+                </Button>
+                <Button
+                  flex={1}
+                  className="btn-outline clicky"
+                  onClick={setSelectedToToday}
+                >
+                  Hari Ini
+                </Button>
+              </ButtonGroup>
             </VStack>
           </DrawerBody>
 
-          <DrawerFooter pb={8} w={"100%"} maxW={"720px !important"} mx={"auto"}>
+          <DrawerFooter
+            pt={"8px !important"}
+            pb={8}
+            w={"100%"}
+            maxW={"720px !important"}
+            mx={"auto"}
+          >
             <VStack align={"stretch"} w={"100%"}>
               <HStack
                 borderRadius={8}
@@ -313,31 +271,11 @@ export default function DatePickerDrawer({
                 justify={"center"}
                 h={"40px"}
               >
-                {selected && (
-                  <Icon as={RiCalendarLine} mr={"auto"} w={6} opacity={0.6} />
-                )}
-
                 <Text opacity={selected ? 1 : 0.6} fontWeight={500}>
                   {selected
                     ? `${formatDate(selected, "long")}`
                     : "Pilih tanggal"}
                 </Text>
-
-                {selected && (
-                  <IconButton
-                    aria-label="clear date button"
-                    icon={<Icon as={RiCloseLine} fontSize={iconSize} />}
-                    colorScheme="red"
-                    borderRadius={"full"}
-                    variant={"ghost"}
-                    size={"xs"}
-                    className="clicky"
-                    ml={"auto"}
-                    onClick={() => {
-                      setSelected(null);
-                    }}
-                  />
-                )}
               </HStack>
 
               <Button

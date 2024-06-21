@@ -23,7 +23,6 @@ import { id as ind } from "date-fns/locale";
 import { useRef, useState } from "react";
 import { DayPicker } from "react-day-picker";
 import { useErrorColor } from "../../../constant/colors";
-import { iconSize } from "../../../constant/sizes";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
@@ -67,13 +66,6 @@ export default function DatePickerModal({
     initialValue.current?.getFullYear() || date.getFullYear()
   );
   const [selected, setSelected] = useState<any>(inputValue);
-
-  const isBulanValid = (bulan: number) => {
-    return bulan > 0 && bulan <= 12;
-  };
-  const isTahunValid = (tahun: number) => {
-    return tahun >= 100 && tahun <= 270000;
-  };
 
   function confirmSelected() {
     let confirmable = false;
@@ -179,98 +171,70 @@ export default function DatePickerModal({
 
           <ModalBody>
             <VStack align={"stretch"}>
-              {!isBulanValid(bulan) && isTahunValid(tahun) && (
-                <HStack h={"392px"} justify={"center"}>
-                  <Text textAlign={"center"}>Bulan tidak valid</Text>
-                </HStack>
-              )}
-
-              {isBulanValid(bulan) && !isTahunValid(tahun) && (
-                <HStack h={"392px"} justify={"center"}>
-                  <Text textAlign={"center"}>Tahun tidak valid</Text>
-                </HStack>
-              )}
-
-              {!isBulanValid(bulan) && !isTahunValid(tahun) && (
-                <HStack h={"392px"} justify={"center"}>
-                  <Text textAlign={"center"}>Bulan dan Tahun tidak valid</Text>
-                </HStack>
-              )}
-
-              {isBulanValid(bulan) && isTahunValid(tahun) && (
-                <>
-                  <VStack
-                    gap={0}
-                    overflowX={"auto"}
+              <VStack gap={0} overflowX={"auto"} w={"100%"} align={"stretch"}>
+                <ButtonGroup w={"100%"} mb={2}>
+                  <Button
+                    aria-label="Previous Month"
+                    leftIcon={<Icon as={RiArrowLeftSLine} fontSize={20} />}
+                    pr={"10px"}
+                    className="btn-outline clicky"
+                    onClick={prevMonth}
                     w={"100%"}
-                    align={"stretch"}
-                  >
-                    <ButtonGroup w={"100%"} mb={2}>
-                      <Button
-                        aria-label="Previous Month"
-                        leftIcon={
-                          <Icon as={RiArrowLeftSLine} fontSize={iconSize} />
-                        }
-                        pr={"10px"}
-                        className="btn clicky"
-                        onClick={prevMonth}
-                        w={"20%"}
-                      ></Button>
+                    maxW={"50px"}
+                  ></Button>
 
-                      <DatePickerMonthYearInput
-                        bulan={bulan}
-                        tahun={tahun}
-                        setBulan={setBulan}
-                        setTahun={setTahun}
-                        setDate={setDate}
-                      />
+                  <DatePickerMonthYearInput
+                    id={"datepicker_modal_datepicker_month_year_input"}
+                    bulan={bulan}
+                    tahun={tahun}
+                    setBulan={setBulan}
+                    setTahun={setTahun}
+                    setDate={setDate}
+                  />
 
-                      <Button
-                        aria-label="Next Month"
-                        rightIcon={
-                          <Icon as={RiArrowRightSLine} fontSize={iconSize} />
-                        }
-                        pl={"10px"}
-                        className="btn clicky"
-                        onClick={nextMonth}
-                        w={"20%"}
-                      ></Button>
-                    </ButtonGroup>
+                  <Button
+                    aria-label="Next Month"
+                    rightIcon={<Icon as={RiArrowRightSLine} fontSize={20} />}
+                    pl={"10px"}
+                    className="btn-outline clicky"
+                    onClick={nextMonth}
+                    w={"100%"}
+                    maxW={"50px"}
+                  ></Button>
+                </ButtonGroup>
 
-                    <DayPicker
-                      mode="single"
-                      selected={selected}
-                      onSelect={(date) => {
-                        setSelected(date);
-                      }}
-                      locale={ind}
-                      month={date}
-                      showOutsideDays
-                      fixedWeeks
-                      disableNavigation
-                    />
-                  </VStack>
+                <DayPicker
+                  mode="single"
+                  selected={selected}
+                  onSelect={(date) => {
+                    setSelected(date);
+                  }}
+                  locale={ind}
+                  month={date}
+                  showOutsideDays
+                  fixedWeeks
+                  disableNavigation
+                />
+              </VStack>
 
-                  <ButtonGroup w={"100%"}>
-                    <Button
-                      flex={1}
-                      className="btn-outline clicky"
-                      onClick={() => {
-                        setSelected(null);
-                      }}
-                    >
-                      Reset
-                    </Button>
-                    <Button
-                      flex={1}
-                      className="btn-outline clicky"
-                      onClick={setSelectedToToday}
-                    >
-                      Hari Ini
-                    </Button>
-                  </ButtonGroup>
-                </>
-              )}
+              <ButtonGroup w={"100%"}>
+                <Button
+                  flex={1}
+                  className="btn-outline clicky"
+                  onClick={() => {
+                    setSelected(null);
+                  }}
+                >
+                  Reset
+                </Button>
+                <Button
+                  flex={1}
+                  className="btn-outline clicky"
+                  onClick={setSelectedToToday}
+                >
+                  Hari Ini
+                </Button>
+              </ButtonGroup>
             </VStack>
           </ModalBody>
 

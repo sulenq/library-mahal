@@ -24,7 +24,7 @@ export default function DrawerBackOnCloseShowcase() {
 
   const [placement, setPlacement] = useState<
     "top" | "bottom" | "left" | "right"
-  >("bottom");
+  >("right");
   const handlePlacementChange = (nextValue: string) => {
     if (["top", "bottom", "left", "right"].includes(nextValue)) {
       setPlacement(nextValue as "top" | "bottom" | "left" | "right");

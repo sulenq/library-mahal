@@ -109,9 +109,9 @@ button:focus-visible {
 .btn-solid:hover:not(:disabled) {
   background: var(--divider2) !important;
 }
-.btn-outline:hover:not(:disabled) {
+/* .btn-outline:hover:not(:disabled) {
   border: 1px solid var(--divider3);
-}
+} */
 
 .btn:hover:not(:disabled) {
   background: var(--divider2) !important;
@@ -476,6 +476,10 @@ select {
 .rdp-table {
   width: 100% !important;
   max-width: none !important;
+}
+.rdp-months {
+  /* border: 1px solid var(--divider3) !important; */
+  border-radius: 8px;
 }
 .rdp-caption_label {
   display: none;
