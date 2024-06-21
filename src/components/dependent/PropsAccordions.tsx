@@ -71,7 +71,7 @@ export default function PropsAccordions({
             <HStack>
               <Icon as={RiQuestionFill} fontSize={24} />
               <Text fontWeight={600} fontSize={18}>
-                Required Props
+                Optional Props
               </Text>
             </HStack>
           }

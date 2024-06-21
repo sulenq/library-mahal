@@ -112,6 +112,7 @@ export default function FileInputLargeShowcase() {
             }}
             inputValue={fileInput}
             accept=".pdf"
+            placeholder="Mendukung PDF"
           />
         </FormControl>
       </ContentContainer>
