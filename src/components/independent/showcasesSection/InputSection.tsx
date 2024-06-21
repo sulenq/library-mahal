@@ -7,7 +7,7 @@ import MasonryContainer from "../wrapper/MassonryContainer";
 
 export default function InputSection() {
   return (
-    <ComponentShowcaseMainContainer flex={"1 1 0"}>
+    <ComponentShowcaseMainContainer>
       <ComponentShowcaseTitle fontSize={24} mb={4}>
         Input
       </ComponentShowcaseTitle>
