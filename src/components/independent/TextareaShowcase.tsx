@@ -1,11 +1,10 @@
 import { FormControl, FormLabel, Text } from "@chakra-ui/react";
 import { useState } from "react";
-import PasswordInput from "../dependent/input/PasswordInput";
+import Textarea from "../dependent/input/Textarea";
 import PropsAccordions from "../dependent/PropsAccordions";
 import ShowcaseTitle from "./ShowcaseTitle";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
 import ContentContainer from "./wrapper/ContentContainer";
-import Textarea from "../dependent/input/Textarea";
 
 export default function TextareaShowcase() {
   const requiredProps = [

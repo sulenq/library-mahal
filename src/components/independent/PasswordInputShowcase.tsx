@@ -15,12 +15,12 @@ export default function PasswordInputShowcase() {
     },
     {
       label: "onChangeSetter",
-      type: "(inputValue: File | null) => void",
+      type: "(inputValue: File | undefined) => void",
       desc: <Text>function to set controlled input</Text>,
     },
     {
       label: "inputValue",
-      type: "File | null",
+      type: "File | undefined",
       desc: <Text>value for the input field</Text>,
     },
   ];

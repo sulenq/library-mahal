@@ -33,8 +33,8 @@ type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 interface Props extends ButtonProps {
   id: string;
   name: string;
-  confirm: (inputValue: Date | null) => void;
-  inputValue: Date | null;
+  confirm: (inputValue: Date | undefined) => void;
+  inputValue: Date | undefined;
   dateFormatOptions?: PrefixOption | object;
   placeholder?: string;
   nonnullable?: boolean;
@@ -222,7 +222,7 @@ export default function DatePickerModal({
                   flex={1}
                   className="btn-outline clicky"
                   onClick={() => {
-                    setSelected(null);
+                    setSelected(undefined);
                   }}
                 >
                   Reset

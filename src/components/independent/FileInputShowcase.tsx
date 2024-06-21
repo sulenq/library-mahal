@@ -15,12 +15,12 @@ export default function FileInputShowcase() {
     },
     {
       label: "onChangeSetter",
-      type: "(inputValue: File | null) => void",
+      type: "(inputValue: File | undefined) => void",
       desc: <Text>function to set controlled input</Text>,
     },
     {
       label: "inputValue",
-      type: "File | null",
+      type: "File | undefined",
       desc: <Text>value for the input field</Text>,
     },
   ];
@@ -71,10 +71,10 @@ export default function FileInputShowcase() {
     type: "text/plain",
     lastModified: new Date().getTime(),
   });
-  const [filledFIleInput, setFilledFileInput] = useState<File | null>(
+  const [filledFIleInput, setFilledFileInput] = useState<File | undefined>(
     dummyFile
   );
-  const [fileInput, setFileInput] = useState<File | null>(null);
+  const [fileInput, setFileInput] = useState<File | undefined>();
 
   return (
     <ComponentShowcaseContainer title="File Input">

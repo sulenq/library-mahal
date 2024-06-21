@@ -29,8 +29,8 @@ import { iconSize } from "../../../constant/sizes";
 
 interface Props {
   name: string;
-  onChangeSetter: (inputValue: File | null) => void;
-  inputValue: File | null;
+  onChangeSetter: (inputValue: File | undefined) => void;
+  inputValue: File | undefined;
   accept?: string;
   isError?: boolean;
   placeholder?: string;

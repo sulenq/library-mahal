@@ -36,12 +36,12 @@ export default function DateRangePickerDrawerShowcase() {
     },
     {
       label: "confirm",
-      type: "(inputValue: Date | null) => void",
+      type: "(inputValue: Date | undefined) => void",
       desc: <Text>function to set controlled input</Text>,
     },
     {
       label: "inputValue",
-      type: "Date | null",
+      type: "Date | undefined",
       desc: <Text>value for the input field</Text>,
     },
   ];
@@ -144,17 +144,20 @@ export default function DateRangePickerDrawerShowcase() {
     }
   };
 
-  const [nonNullableDate, setNonNullableDate] = useState<{
+  const [nonNullableInput, setNonNullableInput] = useState<{
     from: Date;
     to: Date;
   }>({
     from: new Date(),
     to: new Date(),
   });
-  const [date, setDate] = useState<{
-    from: Date;
-    to: Date;
-  } | null>(null);
+  const [date, setDate] = useState<
+    | {
+        from: Date;
+        to: Date;
+      }
+    | undefined
+  >();
 
   return (
     <ComponentShowcaseContainer title="Date Range Picker Drawer">
@@ -192,9 +195,9 @@ export default function DateRangePickerDrawerShowcase() {
             id="nonNullableDateRangeInput_drawer"
             name="nonNullable_date"
             confirm={(inputValue) => {
-              setNonNullableDate(inputValue);
+              setNonNullableInput(inputValue);
             }}
-            inputValue={nonNullableDate}
+            inputValue={nonNullableInput}
             borderRadius={6}
             nonnullable
             mb={2}

@@ -22,8 +22,8 @@ import formatBytes from "../../../lib/formatBytes";
 
 interface Props {
   name: string;
-  onChangeSetter: (inputValue: File | null) => void;
-  inputValue: File | null;
+  onChangeSetter: (inputValue: File | undefined) => void;
+  inputValue: File | undefined;
   accept?: string;
   isError?: boolean;
   placeholder?: string;
@@ -175,7 +175,7 @@ export default function FileInputLarge({
               whiteSpace={"wrap"}
               mb={2}
             >
-              Seret & Letakkan atau{" "}
+              {`Seret & Letakkan atau `}
               <span style={{ color: "var(--p500)" }}>Klik untuk telusuri</span>
             </Text>
 

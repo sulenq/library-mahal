@@ -1,21 +1,13 @@
-import {
-  FormControl,
-  FormLabel,
-  HStack,
-  Icon,
-  ListItem,
-  Text,
-  UnorderedList,
-  VStack,
-} from "@chakra-ui/react";
+import { FormControl, FormLabel, HStack, Icon, Text } from "@chakra-ui/react";
 import { RiSlideshow2Fill } from "@remixicon/react";
 import { useState } from "react";
 import DateRangePickerModal from "../dependent/input/DateRangePickerModal";
 import PropsAccordions from "../dependent/PropsAccordions";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
 import ContentContainer from "./wrapper/ContentContainer";
+import TimePickerModal from "../dependent/input/TimePickerModal";
 
-export default function DateRangePickerModalShowcase() {
+export default function TimePickerModalShowcase() {
   const requiredProps = [
     {
       label: "id",
@@ -43,48 +35,11 @@ export default function DateRangePickerModalShowcase() {
     },
   ];
 
-  const customDateFormatOptionExample = {
-    weekday: "short",
-    day: "numeric",
-    month: "long",
-    year: "long",
-  };
   const optionalProps = [
     {
       label: "isError",
       type: "boolean",
       desc: <Text>tell input if there is a validation error </Text>,
-    },
-    {
-      label: "dateFormatOptions",
-      type: "PrefixOption | object",
-      desc: (
-        <VStack gap={0} align={"stretch"}>
-          <Text>Prefix Options :</Text>
-          <UnorderedList>
-            <ListItem>
-              <Text>basic e.g 16 Juli 2024</Text>
-            </ListItem>
-            <ListItem>
-              <Text>basicShort e.g 16 Jul 2024</Text>
-            </ListItem>
-            <ListItem>
-              <Text>long e.g Senin, 16 Juli 2024</Text>
-            </ListItem>
-            <ListItem>
-              <Text>longShort e.g Sen, 16 Jul 2024</Text>
-            </ListItem>
-            <ListItem>
-              <Text>short e.g 16/07/2024</Text>
-            </ListItem>
-          </UnorderedList>
-          <Text wordBreak={"break-all"}>
-            for custom date formatting, just pass a date format options object,
-            e.g.
-          </Text>
-          <Text>{JSON.stringify(customDateFormatOptionExample)}</Text>
-        </VStack>
-      ),
     },
     {
       label: "placeholder",
@@ -108,13 +63,12 @@ export default function DateRangePickerModalShowcase() {
     },
   ];
 
-  const [nonNullableInput, setNonNullableInput] = useState<{
-    from: Date;
-    to: Date;
-  }>({
-    from: new Date(),
-    to: new Date(),
-  });
+  const dummyTime = new Date();
+  dummyTime.setHours(16, 0, 0, 0);
+
+  const [nonNullableInput, setNonNullableInput] = useState<Date | undefined>(
+    dummyTime
+  );
   const [date, setDate] = useState<
     | {
         from: Date;
@@ -124,7 +78,7 @@ export default function DateRangePickerModalShowcase() {
   >();
 
   return (
-    <ComponentShowcaseContainer title="Date Range Picker Modal">
+    <ComponentShowcaseContainer title="Time Picker Modal">
       <PropsAccordions
         requiredProps={requiredProps}
         optionalProps={optionalProps}
@@ -140,9 +94,9 @@ export default function DateRangePickerModalShowcase() {
 
         <FormControl>
           <FormLabel>Non-nullable Date Input</FormLabel>
-          <DateRangePickerModal
-            id="nonNullableDateRangeInput_modal"
-            name="nonNullable_date"
+          <TimePickerModal
+            id="nonNullable_time_picker"
+            name="nonNullable_time"
             confirm={(inputValue) => {
               setNonNullableInput(inputValue);
             }}

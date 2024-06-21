@@ -36,12 +36,12 @@ export default function DatePickerDrawerShowcase() {
     },
     {
       label: "confirm",
-      type: "(inputValue: Date | null) => void",
+      type: "(inputValue: Date | undefined) => void",
       desc: <Text>function to set controlled input</Text>,
     },
     {
       label: "inputValue",
-      type: "Date | null",
+      type: "Date | undefined",
       desc: <Text>value for the input field</Text>,
     },
   ];
@@ -143,10 +143,10 @@ export default function DatePickerDrawerShowcase() {
       setPlacement(nextValue as "top" | "bottom" | "left" | "right");
     }
   };
-  const [nonNullableDate, setNonNullableDate] = useState<Date | null>(
+  const [nonNullableInput, setNonNullableInput] = useState<Date | undefined>(
     new Date()
   );
-  const [date, setDate] = useState<Date | null>(null);
+  const [date, setDate] = useState<Date | undefined>();
 
   return (
     <ComponentShowcaseContainer title="Date Picker Drawer">
@@ -184,9 +184,9 @@ export default function DatePickerDrawerShowcase() {
             id="nonNullableDateInput_drawer"
             name="nonNullable_date"
             confirm={(inputValue) => {
-              setNonNullableDate(inputValue);
+              setNonNullableInput(inputValue);
             }}
-            inputValue={nonNullableDate}
+            inputValue={nonNullableInput}
             borderRadius={6}
             placement={placement}
             nonnullable

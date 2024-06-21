@@ -40,7 +40,7 @@ interface Props extends ButtonProps {
   id: string;
   name: string;
   confirm: (inputValue: { from: Date; to: Date }) => void;
-  inputValue: { from: Date; to: Date } | null;
+  inputValue: { from: Date; to: Date } | undefined;
   dateFormatOptions?: PrefixOption | object;
   placeholder?: string;
   nonnullable?: boolean;
@@ -259,7 +259,7 @@ export default function DateRangePickerModal({
                   flex={1}
                   className="btn-outline clicky"
                   onClick={() => {
-                    setSelected(null);
+                    setSelected(undefined);
                   }}
                 >
                   Reset
