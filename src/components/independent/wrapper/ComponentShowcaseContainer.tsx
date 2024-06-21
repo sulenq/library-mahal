@@ -11,7 +11,7 @@ import {
 import { useLightDarkColor } from "../../../constant/colors";
 
 interface Props extends StackProps {
-  title: string;
+  title: any;
   children?: any;
 }
 
@@ -32,7 +32,7 @@ export default function ComponentShowcaseContainer({
       {...props}
     >
       <Accordion allowMultiple>
-        <AccordionItem>
+        <AccordionItem border={"none"}>
           <h2>
             <AccordionButton>
               <Box
@@ -49,9 +49,7 @@ export default function ComponentShowcaseContainer({
             </AccordionButton>
           </h2>
 
-          <AccordionPanel pb={6} px={6}>
-            {children}
-          </AccordionPanel>
+          <AccordionPanel p={0}>{children}</AccordionPanel>
         </AccordionItem>
       </Accordion>
     </VStack>

@@ -1,23 +1,8 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  FormControl,
-  FormLabel,
-  HStack,
-  Icon,
-  Text,
-  Wrap,
-} from "@chakra-ui/react";
-import {
-  RiErrorWarningFill,
-  RiQuestionFill,
-  RiSlideshow2Fill,
-} from "@remixicon/react";
+import { FormControl, FormLabel, HStack, Icon, Text } from "@chakra-ui/react";
+import { RiSlideshow2Fill } from "@remixicon/react";
 import { useState } from "react";
 import FileInputLarge from "../dependent/input/FileInputLarge";
+import PropsAccordions from "../dependent/PropsAccordions";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
 import ContentContainer from "./wrapper/ContentContainer";
 
@@ -93,59 +78,12 @@ export default function FileInputLargeShowcase() {
 
   return (
     <ComponentShowcaseContainer title="File Input Large">
-      <ContentContainer borderRadius={8} bg={"var(--p500a3)"} mb={4}>
-        <HStack mb={2}>
-          <Icon as={RiErrorWarningFill} fontSize={24} color={"p.500"} />
-          <Text fontWeight={600} fontSize={18} color={"p.500"}>
-            Required Props
-          </Text>
-        </HStack>
+      <PropsAccordions
+        requiredProps={requiredProps}
+        optionalProps={optionalProps}
+      />
 
-        <Accordion allowMultiple>
-          {requiredProps.map((props, i) => (
-            <AccordionItem key={i}>
-              <h2>
-                <AccordionButton>
-                  <Wrap as="span" fontWeight={500} flex="1" textAlign="left">
-                    <Text>{props.label}</Text>
-                    <Text opacity={0.5}>{props.type}</Text>
-                  </Wrap>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              <AccordionPanel opacity={0.5}>{props.desc}</AccordionPanel>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </ContentContainer>
-
-      <ContentContainer borderRadius={8} bg={"var(--divider)"} mb={4}>
-        <HStack mb={2}>
-          <Icon as={RiQuestionFill} fontSize={24} />
-          <Text fontWeight={600} fontSize={18}>
-            Optional Props
-          </Text>
-        </HStack>
-
-        <Accordion allowMultiple>
-          {optionalProps.map((props, i) => (
-            <AccordionItem key={i}>
-              <h2>
-                <AccordionButton>
-                  <Wrap as="span" fontWeight={500} flex="1" textAlign="left">
-                    <Text>{props.label}</Text>
-                    <Text opacity={0.5}>{props.type}</Text>
-                  </Wrap>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              <AccordionPanel opacity={0.5}>{props.desc}</AccordionPanel>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </ContentContainer>
-
-      <ContentContainer p={0}>
+      <ContentContainer>
         <HStack mb={2}>
           <Icon as={RiSlideshow2Fill} fontSize={24} color={"p.500"} />
           <Text fontWeight={600} fontSize={18}>

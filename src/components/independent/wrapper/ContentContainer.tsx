@@ -11,7 +11,7 @@ export default function ContentContainer({ children, ...props }: Props) {
       align={"stretch"}
       gap={0}
       borderRadius={12}
-      p={4}
+      p={5}
       {...props}
     >
       {children}

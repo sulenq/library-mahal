@@ -1,16 +1,7 @@
-import {
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
-  HStack,
-  Icon,
-  Text,
-  Wrap,
-} from "@chakra-ui/react";
-import { RiErrorWarningFill, RiSlideshow2Fill } from "@remixicon/react";
+import { HStack, Icon, Text, Wrap } from "@chakra-ui/react";
+import { RiSlideshow2Fill } from "@remixicon/react";
 import { iconSize } from "../../constant/sizes";
+import PropsAccordions from "../dependent/PropsAccordions";
 import DrawerBackOnCloseShowcase from "./DrawerBackOnCloseShowcase";
 import ModalBackOnCloseShowcase from "./ModalBackOnCloseShowcase";
 import NestedModalBackOnCloseShowcase from "./NestedModalBackOnCloseShowcase";
@@ -43,33 +34,9 @@ export default function UseBackOnCloseShowcase() {
 
   return (
     <ComponentShowcaseContainer title="useBackOnClose" flex={"1 1 0"}>
-      <ContentContainer bg={"var(--p500a3)"} mb={4}>
-        <HStack mb={2}>
-          <Icon as={RiErrorWarningFill} fontSize={iconSize} color={"p.500"} />
-          <Text fontWeight={600} fontSize={18} color={"p.500"}>
-            Required Parameter
-          </Text>
-        </HStack>
+      <PropsAccordions requiredProps={requiredProps} />
 
-        <Accordion allowMultiple>
-          {requiredProps.map((props, i) => (
-            <AccordionItem key={i}>
-              <h2>
-                <AccordionButton>
-                  <Wrap as="span" fontWeight={500} flex="1" textAlign="left">
-                    <Text>{props.label}</Text>
-                    <Text opacity={0.5}>{props.type}</Text>
-                  </Wrap>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              <AccordionPanel opacity={0.5}>{props.desc}</AccordionPanel>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </ContentContainer>
-
-      <ContentContainer p={0}>
+      <ContentContainer>
         <HStack mb={2}>
           <Icon as={RiSlideshow2Fill} fontSize={iconSize} color={"p.500"} />
           <Text fontWeight={600} fontSize={18}>

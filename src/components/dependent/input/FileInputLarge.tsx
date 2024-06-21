@@ -64,7 +64,7 @@ export default function FileInputLarge({
     }
   };
 
-  console.log(inputValue);
+  // console.log(inputValue);
 
   // SX
   const errorColor = useErrorColor();
