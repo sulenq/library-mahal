@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  HStack,
-  Icon,
-  Input,
-  Text,
-  Tooltip,
-} from "@chakra-ui/react";
+import { Button, Icon, Input, Text, VStack } from "@chakra-ui/react";
 import {
   RiEyeFill,
   RiFileCodeLine,
@@ -26,6 +18,7 @@ import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useErrorColor } from "../../../constant/colors";
 import { iconSize } from "../../../constant/sizes";
+import formatBytes from "../../../lib/formatBytes";
 
 interface Props {
   name: string;
@@ -37,7 +30,7 @@ interface Props {
   initialFilepath?: string;
 }
 
-export default function FileInput({
+export default function FileInputLarge({
   name,
   onChange,
   inputValue,
@@ -48,11 +41,7 @@ export default function FileInput({
 }: Props) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const [fileName, setFileName] = useState(
-    inputValue
-      ? inputValue.name
-      : placeholder || "Seret & letakkan atau klik untuk telusuri"
-  );
+  const [fileName, setFileName] = useState(inputValue ? inputValue.name : "");
   const [isDraggingOver, setIsDraggingOver] = useState(false);
 
   const handleDragOver = (e: any) => {
@@ -75,7 +64,7 @@ export default function FileInput({
     }
   };
 
-  // console.log(inputValue);
+  console.log(inputValue);
 
   // SX
   const errorColor = useErrorColor();
@@ -146,13 +135,13 @@ export default function FileInput({
         mb={4}
       />
 
-      <Button
-        px={0}
+      <VStack
+        as={Button}
         w={"100%"}
-        fontWeight={400}
-        variant={"ghost"}
+        justify={"center"}
+        p={6}
+        h={"300px"}
         className="btn"
-        gap={0}
         border={`2px dashed ${
           isDraggingOver ? "var(--p500) !important" : "var(--divider3)"
         }`}
@@ -168,31 +157,47 @@ export default function FileInput({
           }
         }}
         onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
+        onDragLeave={handleDragLeave} // Tambahkan event handler untuk menangani event drag leave
         onDrop={handleDrop}
       >
-        <HStack gap={0} w={"100%"}>
-          <Box px={4} py={2} w={"100%"}>
-            <Tooltip label={inputValue ? inputValue.name : ""}>
-              <HStack justify={"center"} opacity={inputValue ? 1 : 0.3}>
-                <Icon
-                  as={
-                    inputValue ? fileIcons(inputValue.type) : RiUploadCloud2Line
-                  }
-                  fontSize={iconSize}
-                />
-                <Text
-                  noOfLines={1}
-                  fontSize={[12, null, 14]}
-                  whiteSpace={"normal"}
-                >
-                  {fileName}
-                </Text>
-              </HStack>
-            </Tooltip>
-          </Box>
-        </HStack>
-      </Button>
+        <Icon
+          as={inputValue ? fileIcons(inputValue.type) : RiUploadCloud2Line}
+          fontSize={124}
+          color={"p.500"}
+        />
+        {!fileName && (
+          <>
+            <Text
+              fontSize={22}
+              fontWeight={600}
+              maxW={"300px"}
+              textAlign={"center"}
+              whiteSpace={"wrap"}
+              mb={2}
+            >
+              Seret & Letakkan atau{" "}
+              <span style={{ color: "var(--p500)" }}>Klik untuk telusuri</span>
+            </Text>
+
+            <Text
+              fontWeight={400}
+              fontSize={14}
+              textAlign={"center"}
+              opacity={0.6}
+            >
+              {placeholder || "Mendukung semua tipe file"}
+            </Text>
+          </>
+        )}
+        {inputValue && fileName && (
+          <>
+            <Text fontSize={18}>{fileName}</Text>
+            <Text opacity={0.6} fontSize={14}>
+              {formatBytes(inputValue.size)}
+            </Text>
+          </>
+        )}
+      </VStack>
 
       {inputValue && initialFilepath && (
         <Button

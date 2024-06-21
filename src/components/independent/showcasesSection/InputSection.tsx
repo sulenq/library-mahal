@@ -1,3 +1,4 @@
+import FileInputLargeShowcase from "../FileInputLargeShowcase";
 import FileInputShowcase from "../FileInputShowcase";
 import ComponentShowcaseMainContainer from "../wrapper/ComponentShowcaseMainContainer";
 import ComponentShowcaseTitle from "../wrapper/ComponentShowcaseTitle";
@@ -12,6 +13,8 @@ export default function InputSection() {
 
       <MasonryContainer>
         <FileInputShowcase />
+
+        <FileInputLargeShowcase />
       </MasonryContainer>
     </ComponentShowcaseMainContainer>
   );

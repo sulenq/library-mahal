@@ -17,11 +17,11 @@ import {
   RiSlideshow2Fill,
 } from "@remixicon/react";
 import { useState } from "react";
+import FileInputLarge from "../dependent/input/FileInputLarge";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
 import ContentContainer from "./wrapper/ContentContainer";
-import FileInput from "../dependent/input/FileInput";
 
-export default function FileInputShowcase() {
+export default function FileInputLargeShowcase() {
   const requiredProps = [
     {
       label: "name",
@@ -92,7 +92,7 @@ export default function FileInputShowcase() {
   const [fileInput, setFileInput] = useState<File | null>(null);
 
   return (
-    <ComponentShowcaseContainer title="File Input">
+    <ComponentShowcaseContainer title="File Input Large">
       <ContentContainer borderRadius={8} bg={"var(--p500a3)"} mb={4}>
         <HStack mb={2}>
           <Icon as={RiErrorWarningFill} fontSize={24} color={"p.500"} />
@@ -154,9 +154,9 @@ export default function FileInputShowcase() {
         </HStack>
 
         <FormControl mb={2}>
-          <FormLabel>Filled File Input</FormLabel>
-          <FileInput
-            name="filledFileInput"
+          <FormLabel>Filled File Input Large</FormLabel>
+          <FileInputLarge
+            name="filledFileInputLarge"
             onChange={(inputValue) => {
               setFilledFileInput(inputValue);
             }}
@@ -166,9 +166,9 @@ export default function FileInputShowcase() {
         </FormControl>
 
         <FormControl>
-          <FormLabel>File Input Accept PDF</FormLabel>
-          <FileInput
-            name="fileInput"
+          <FormLabel>File Input Large Accept PDF</FormLabel>
+          <FileInputLarge
+            name="fileInputLarge"
             onChange={(inputValue) => {
               setFileInput(inputValue);
             }}
