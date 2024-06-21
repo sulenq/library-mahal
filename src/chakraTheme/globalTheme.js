@@ -198,7 +198,7 @@ export const globalTheme = extendTheme({
         },
         header: {
           py: "20px",
-          pt: "16px",
+          pt: "18px",
           px: "24px",
           // pr: "70px !important",
         },

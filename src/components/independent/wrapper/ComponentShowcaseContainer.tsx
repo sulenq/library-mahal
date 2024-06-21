@@ -1,4 +1,5 @@
 import { StackProps, VStack } from "@chakra-ui/react";
+import { useLightDarkColor } from "../../../constant/colors";
 
 interface Props extends StackProps {
   children?: any;
@@ -13,10 +14,10 @@ export default function ComponentShowcaseContainer({
       gap={0}
       p={4}
       borderRadius={12}
-      border={"1px solid var(--divider3)"}
+      border={"1px solid var(--divider)"}
       align={"stretch"}
       h={"fit-content"}
-      // bg={useLightDarkColor()}
+      bg={useLightDarkColor()}
       {...props}
     >
       {children}

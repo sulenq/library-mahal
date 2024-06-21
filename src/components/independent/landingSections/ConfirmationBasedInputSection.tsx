@@ -1,8 +1,9 @@
-import { SimpleGrid } from "@chakra-ui/react";
 import DatePickerDrawerShowcase from "../DatePickerDrawerShowcase";
 import DatePickerModalShowcase from "../DatePickerModalShowcase";
+import DateRangePickerModalShowcase from "../DateRangePickerModalShowcase";
 import ComponentShowcaseMainContainer from "../wrapper/ComponentShowcaseMainContainer";
 import ComponentShowcaseTitle from "../wrapper/ComponentShowcaseTitle";
+import MasonryContainer from "../wrapper/MassonryContainer";
 
 export default function ConfirmationBasedInputSection() {
   return (
@@ -11,11 +12,13 @@ export default function ConfirmationBasedInputSection() {
         Confirmation Based Input
       </ComponentShowcaseTitle>
 
-      <SimpleGrid spacing={5} columns={[1, 2, null, null, 3]}>
+      <MasonryContainer>
         <DatePickerModalShowcase />
 
         <DatePickerDrawerShowcase />
-      </SimpleGrid>
+
+        <DateRangePickerModalShowcase />
+      </MasonryContainer>
     </ComponentShowcaseMainContainer>
   );
 }

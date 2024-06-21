@@ -1,7 +1,9 @@
 import {
+  Box,
   Button,
   ButtonGroup,
   ButtonProps,
+  Center,
   HStack,
   Icon,
   Modal,
@@ -10,12 +12,15 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Stack,
   Text,
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import {
+  RiArrowDownLine,
   RiArrowLeftSLine,
+  RiArrowRightLine,
   RiArrowRightSLine,
   RiCalendarLine,
 } from "@remixicon/react";
@@ -28,20 +33,21 @@ import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
 import DatePickerMonthYearInput from "./DatePickerMonthYearInput";
+import useScreenWidth from "../../../lib/useScreenWidth";
 type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
 interface Props extends ButtonProps {
   id: string;
   name: string;
-  confirm: (newInputValue: Date) => void;
-  inputValue: Date | null;
+  confirm: (newInputValue: { from: Date; to: Date }) => void;
+  inputValue: { from: Date; to: Date } | null;
   dateFormatOptions?: PrefixOption | object;
   placeholder?: string;
   nonnullable?: boolean;
   isError?: boolean;
 }
 
-export default function DatePickerModal({
+export default function DateRangePickerModal({
   id,
   name,
   confirm,
@@ -58,12 +64,18 @@ export default function DatePickerModal({
   const { isOpen, onOpen, onClose } = useDisclosure();
   useBackOnClose(`${id}_${name}`, isOpen, onOpen, onClose);
 
-  const [date, setDate] = useState<Date>(initialValue.current || new Date());
+  const [date, setDate] = useState<Date>(
+    initialValue.current ? initialValue.current.from : new Date()
+  );
   const [bulan, setBulan] = useState<number>(
-    (initialValue.current?.getMonth() || date.getMonth()) + 1
+    (initialValue.current
+      ? initialValue.current.from?.getMonth()
+      : date.getMonth()) + 1
   );
   const [tahun, setTahun] = useState<number>(
-    initialValue.current?.getFullYear() || date.getFullYear()
+    initialValue.current
+      ? initialValue.current.from?.getFullYear()
+      : date.getFullYear()
   );
   const [selected, setSelected] = useState<any>(inputValue);
 
@@ -82,10 +94,24 @@ export default function DatePickerModal({
       backOnClose();
     }
   }
-  function setSelectedToToday() {
+  function setSelectedToThisWeek() {
     const today = new Date();
+
+    // Get the current day of the week (0 - Sunday, 6 - Saturday)
+    const dayOfWeek = today.getDay();
+
+    // Calculate the date of the start of the week (Monday)
+    const startOfWeek = new Date(today);
+    const dayDiffToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // if today is Sunday, set the difference to 6, else subtract 1
+    startOfWeek.setDate(today.getDate() - dayDiffToMonday);
+
+    // Calculate the date of the end of the week (Sunday)
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6); // 6 days after Monday is Sunday
+
+    // Set the state with the calculated dates
     setDate(today);
-    setSelected(today);
+    setSelected({ from: startOfWeek, to: endOfWeek });
     setBulan(today.getMonth() + 1);
     setTahun(today.getFullYear());
   }
@@ -116,6 +142,7 @@ export default function DatePickerModal({
 
   // SX
   const errorColor = useErrorColor();
+  const sw = useScreenWidth();
 
   return (
     <>
@@ -134,18 +161,28 @@ export default function DatePickerModal({
         onClick={() => {
           onOpen();
           setSelected(inputValue);
-          setDate(inputValue || new Date());
-          setBulan((inputValue?.getMonth() || new Date().getMonth()) + 1);
-          setTahun(inputValue?.getFullYear() || new Date().getFullYear());
+          setDate(inputValue ? inputValue.from : new Date());
+          setBulan(
+            (inputValue ? inputValue.from?.getMonth() : new Date().getMonth()) +
+              1
+          );
+          setTahun(
+            inputValue
+              ? inputValue.from?.getFullYear()
+              : new Date().getFullYear()
+          );
         }}
         // _focus={{ boxShadow: "0 0 0px 2px var(--p500)" }}
         _focus={{ border: "1px solid var(--p500)", boxShadow: "none" }}
         {...props}
       >
         {inputValue ? (
-          <Text>{formatDate(inputValue, dateFormatOptions)}</Text>
+          <Text>{`${formatDate(
+            inputValue.from,
+            dateFormatOptions
+          )} - ${formatDate(inputValue.to, dateFormatOptions)}`}</Text>
         ) : (
-          <Text opacity={0.6}>{placeholder || `Pilih Tanggal`}</Text>
+          <Text opacity={0.6}>{placeholder || `Pilih rentang Tanggal`}</Text>
         )}
 
         <Icon as={RiCalendarLine} mb={"1px"} />
@@ -162,7 +199,7 @@ export default function DatePickerModal({
           <ModalHeader ref={initialRef}>
             <HStack justify={"space-between"}>
               <Text fontSize={20} fontWeight={600}>
-                {placeholder || "Pilih Tanggal"}
+                {placeholder || "Pilih rentang Tanggal"}
               </Text>
 
               <BackOnCloseButton aria-label="close-back-button" />
@@ -204,7 +241,7 @@ export default function DatePickerModal({
                 </ButtonGroup>
 
                 <DayPicker
-                  mode="single"
+                  mode="range"
                   selected={selected}
                   onSelect={(date) => {
                     setSelected(date);
@@ -230,9 +267,9 @@ export default function DatePickerModal({
                 <Button
                   flex={1}
                   className="btn-outline clicky"
-                  onClick={setSelectedToToday}
+                  onClick={setSelectedToThisWeek}
                 >
-                  Hari Ini
+                  Minggu Ini
                 </Button>
               </ButtonGroup>
             </VStack>
@@ -240,20 +277,41 @@ export default function DatePickerModal({
 
           <ModalFooter pt={"8px !important"}>
             <VStack align={"stretch"} w={"100%"}>
-              <HStack
-                borderRadius={8}
-                bg={"var(--divider)"}
-                p={2}
-                gap={1}
-                h={"40px"}
-                justify={"center"}
-              >
-                <Text opacity={selected ? 1 : 0.6} fontWeight={500}>
-                  {selected
-                    ? `${formatDate(selected, "longShort")}`
-                    : "Pilih tanggal"}
-                </Text>
-              </HStack>
+              <Stack flexDir={["column", "row"]}>
+                <Box flex={[null, "1 1 180px"]}>
+                  <VStack borderRadius={8} bg={"var(--divider)"} p={2} gap={1}>
+                    <Text opacity={selected?.from ? 1 : 0.6}>
+                      {selected?.from
+                        ? `${formatDate(selected.from, {
+                            weekday: "short",
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}`
+                        : "Pilih tanggal awal"}
+                    </Text>
+                  </VStack>
+                </Box>
+
+                <Center>
+                  <Icon as={sw < 480 ? RiArrowDownLine : RiArrowRightLine} />
+                </Center>
+
+                <Box flex={[null, "1 1 180px"]}>
+                  <VStack borderRadius={8} bg={"var(--divider)"} p={2} gap={1}>
+                    <Text opacity={selected?.to ? 1 : 0.6}>
+                      {selected?.to
+                        ? `${formatDate(selected.to, {
+                            weekday: "short",
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}`
+                        : "Pilih tanggal akhir"}
+                    </Text>
+                  </VStack>
+                </Box>
+              </Stack>
 
               <Button
                 colorScheme="ap"

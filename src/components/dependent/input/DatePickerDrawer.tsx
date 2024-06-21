@@ -273,7 +273,7 @@ export default function DatePickerDrawer({
               >
                 <Text opacity={selected ? 1 : 0.6} fontWeight={500}>
                   {selected
-                    ? `${formatDate(selected, "long")}`
+                    ? `${formatDate(selected, "longShort")}`
                     : "Pilih tanggal"}
                 </Text>
               </HStack>
