@@ -34,13 +34,13 @@ export default function ComponentShowcaseContainer({
       <Accordion allowMultiple>
         <AccordionItem border={"none"}>
           <h2>
-            <AccordionButton>
+            <AccordionButton px={5}>
               <Box
                 as="span"
                 flex={1}
                 textAlign={"left"}
                 fontSize={20}
-                p={2}
+                py={2}
                 fontWeight={600}
               >
                 {title}
