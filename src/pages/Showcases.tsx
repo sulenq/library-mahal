@@ -28,8 +28,8 @@ export default function Showcases() {
       >
         <HStack justify={"space-between"} mb={8} align={"start"}>
           <Wrap spacingY={6} align={"center"}>
-            <Image src="/logo.png" borderRadius={"full"} h={"42px"} mr={2} />
-            <Heading>Library Mahal Distro Studio</Heading>
+            <Image src="/logo.png" borderRadius={"full"} h={"60px"} />
+            <Heading>Distro Library</Heading>
           </Wrap>
 
           <ColorModeSwitcher borderRadius={"full"} />

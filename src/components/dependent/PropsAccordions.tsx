@@ -29,7 +29,7 @@ export default function PropsAccordions({
       {requiredProps && (
         <ComponentShowcaseContainer
           title={
-            <HStack>
+            <HStack ml={-1}>
               <Icon as={RiErrorWarningFill} fontSize={24} color={"p.500"} />
               <Text fontWeight={600} fontSize={18} color={"p.500"}>
                 Required Props
@@ -68,7 +68,7 @@ export default function PropsAccordions({
       {optionalProps && (
         <ComponentShowcaseContainer
           title={
-            <HStack>
+            <HStack ml={-1}>
               <Icon as={RiQuestionFill} fontSize={24} />
               <Text fontWeight={600} fontSize={18}>
                 Optional Props
