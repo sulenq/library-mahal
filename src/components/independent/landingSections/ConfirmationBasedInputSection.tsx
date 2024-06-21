@@ -1,5 +1,6 @@
 import DatePickerDrawerShowcase from "../DatePickerDrawerShowcase";
 import DatePickerModalShowcase from "../DatePickerModalShowcase";
+import DateRangePickerDrawerShowcase from "../DateRangePickerDrawerShowcase";
 import DateRangePickerModalShowcase from "../DateRangePickerModalShowcase";
 import ComponentShowcaseMainContainer from "../wrapper/ComponentShowcaseMainContainer";
 import ComponentShowcaseTitle from "../wrapper/ComponentShowcaseTitle";
@@ -18,6 +19,8 @@ export default function ConfirmationBasedInputSection() {
         <DatePickerDrawerShowcase />
 
         <DateRangePickerModalShowcase />
+
+        <DateRangePickerDrawerShowcase />
       </MasonryContainer>
     </ComponentShowcaseMainContainer>
   );
