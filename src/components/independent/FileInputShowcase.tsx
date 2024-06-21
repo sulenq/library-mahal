@@ -8,10 +8,7 @@ import {
   FormLabel,
   HStack,
   Icon,
-  ListItem,
   Text,
-  UnorderedList,
-  VStack,
   Wrap,
 } from "@chakra-ui/react";
 import {
@@ -20,80 +17,47 @@ import {
   RiSlideshow2Fill,
 } from "@remixicon/react";
 import { useState } from "react";
-import DatePickerModal from "../dependent/input/DatePickerModal";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
 import ContentContainer from "./wrapper/ContentContainer";
+import FileInput from "../dependent/input/FileInput";
 
-export default function DatePickerModalShowcase() {
+export default function FileInputShowcase() {
   const requiredProps = [
-    {
-      label: "id",
-      type: "string",
-      desc: (
-        <Text>
-          just unique id accros ur entire project, it will be merge with name
-        </Text>
-      ),
-    },
     {
       label: "name",
       type: "string",
       desc: <Text>name the input, of course it must have name</Text>,
     },
     {
-      label: "confirm",
-      type: "(inputValue: Date | null) => void",
+      label: "onChange",
+      type: "(inputValue: File | File[] | null) => void",
       desc: <Text>function to set controlled input</Text>,
     },
     {
       label: "inputValue",
-      type: "Date | null",
+      type: "File | File[] | null",
       desc: <Text>value for the input field</Text>,
     },
   ];
 
-  const customDateFormatOptionExample = {
-    weekday: "short",
-    day: "numeric",
-    month: "long",
-    year: "long",
-  };
   const optionalProps = [
+    {
+      label: "accept",
+      type: "string",
+      desc: (
+        <Text>
+          if you wanna limit the input for ms word just pass 'docx', if you want
+          multiple file that can be accepted you can write like this '.docx,
+          .pdf', but this is not prevent user for drag n drop file, to validate
+          allowed file you must use validation schema like formik with yup for
+          example
+        </Text>
+      ),
+    },
     {
       label: "isError",
       type: "boolean",
       desc: <Text>tell input if there is a validation error </Text>,
-    },
-    {
-      label: "dateFormatOptions",
-      type: "PrefixOption | object",
-      desc: (
-        <VStack gap={0} align={"stretch"}>
-          <Text>Prefix Options :</Text>
-          <UnorderedList>
-            <ListItem>
-              <Text>basic e.g 16 Juli 2024</Text>
-            </ListItem>
-            <ListItem>
-              <Text>basicShort e.g 16 Jul 2024</Text>
-            </ListItem>
-            <ListItem>
-              <Text>long e.g Senin, 16 Juli 2024</Text>
-            </ListItem>
-            <ListItem>
-              <Text>longShort e.g Sen, 16 Jul 2024</Text>
-            </ListItem>
-            <ListItem>
-              <Text>short e.g 16/07/2024</Text>
-            </ListItem>
-          </UnorderedList>
-          <Text wordBreak={"break-all"}>
-            for custom date formatting, just pass a date format options object,
-            e.g.
-          </Text>
-          <Text>{JSON.stringify(customDateFormatOptionExample)}</Text>
-        </VStack>
-      ),
     },
     {
       label: "placeholder",
@@ -106,24 +70,29 @@ export default function DatePickerModalShowcase() {
       ),
     },
     {
-      label: "nonnullable",
-      type: "boolean",
+      label: "initialFilepath",
+      type: "string",
       desc: (
         <Text>
-          default is false, if true, then if value is not filled, confirmation
-          button is disabled
+          if the input is filled, for example when editing data, pass the
+          filepath
         </Text>
       ),
     },
   ];
 
-  const [nonNullableDate, setNonNullableDate] = useState<Date | null>(
-    new Date()
+  const blob = new Blob(["Dummy file content"], { type: "text/plain" });
+  const dummyFile = new File([blob], "dummy.txt", {
+    type: "text/plain",
+    lastModified: new Date().getTime(),
+  });
+  const [filledFIleInput, setFilledFileInput] = useState<File | null>(
+    dummyFile
   );
-  const [date, setDate] = useState<Date | null>(null);
+  const [fileInput, setFileInput] = useState<File | null>(null);
 
   return (
-    <ComponentShowcaseContainer title="Date Picker Modal">
+    <ComponentShowcaseContainer title="File Input">
       <ContentContainer borderRadius={8} bg={"var(--p500a3)"} mb={4}>
         <HStack mb={2}>
           <Icon as={RiErrorWarningFill} fontSize={24} color={"p.500"} />
@@ -185,29 +154,26 @@ export default function DatePickerModalShowcase() {
         </HStack>
 
         <FormControl mb={2}>
-          <FormLabel>Non-nullable Date Input</FormLabel>
-          <DatePickerModal
-            id="nonNullableDateInput"
-            name="nonNullable_date"
-            confirm={(inputValue) => {
-              setNonNullableDate(inputValue);
+          <FormLabel>Filled File Input</FormLabel>
+          <FileInput
+            name="fileInput"
+            onChange={(inputValue) => {
+              setFilledFileInput(inputValue);
             }}
-            inputValue={nonNullableDate}
-            borderRadius={6}
-            nonnullable
+            inputValue={filledFIleInput}
+            initialFilepath="/dummy.txt"
           />
         </FormControl>
 
         <FormControl>
-          <FormLabel>Date Input</FormLabel>
-          <DatePickerModal
-            id="DateInput"
-            name="date"
-            confirm={(inputValue) => {
-              setDate(inputValue);
+          <FormLabel>File Input Accept PDF</FormLabel>
+          <FileInput
+            name="fileInput"
+            onChange={(inputValue) => {
+              setFileInput(inputValue);
             }}
-            inputValue={date}
-            borderRadius={6}
+            inputValue={fileInput}
+            accept=".pdf"
           />
         </FormControl>
       </ContentContainer>

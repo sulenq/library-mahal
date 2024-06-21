@@ -42,7 +42,7 @@ export default function DateRangePickerModalShowcase() {
     },
     {
       label: "confirm",
-      type: "(inputValue: Date) => void",
+      type: "(inputValue: Date | null) => void",
       desc: <Text>function to set controlled input</Text>,
     },
     {
@@ -59,6 +59,11 @@ export default function DateRangePickerModalShowcase() {
     year: "long",
   };
   const optionalProps = [
+    {
+      label: "isError",
+      type: "boolean",
+      desc: <Text>tell input if there is a validation error </Text>,
+    },
     {
       label: "dateFormatOptions",
       type: "PrefixOption | object",

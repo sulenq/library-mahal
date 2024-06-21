@@ -44,7 +44,7 @@ export default function DatePickerDrawerShowcase() {
     },
     {
       label: "confirm",
-      type: "(inputValue: Date) => void",
+      type: "(inputValue: Date | null) => void",
       desc: <Text>function to set controlled input</Text>,
     },
     {
@@ -61,6 +61,11 @@ export default function DatePickerDrawerShowcase() {
     year: "long",
   };
   const optionalProps = [
+    {
+      label: "isError",
+      type: "boolean",
+      desc: <Text>tell input if there is a validation error </Text>,
+    },
     {
       label: "placement",
       type: "PrefixOption",
@@ -146,7 +151,9 @@ export default function DatePickerDrawerShowcase() {
       setPlacement(nextValue as "top" | "bottom" | "left" | "right");
     }
   };
-  const [nonNullableDate, setNonNullableDate] = useState<Date>(new Date());
+  const [nonNullableDate, setNonNullableDate] = useState<Date | null>(
+    new Date()
+  );
   const [date, setDate] = useState<Date | null>(null);
 
   return (

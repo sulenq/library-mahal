@@ -10,9 +10,10 @@ import {
   Wrap,
 } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "../ColorModeSwitcher";
-import ConfirmationBasedInputSection from "../components/independent/landingSections/ConfirmationBasedInputSection";
-import HooksSection from "../components/independent/landingSections/HooksSection";
+import ConfirmationBasedInputSection from "../components/independent/showcasesSection/ConfirmationBasedInputSection";
+import HooksSection from "../components/independent/showcasesSection/HooksSection";
 import { useContentBgColor, useWarningColor } from "../constant/colors";
+import InputSection from "../components/independent/showcasesSection/InputSection";
 
 export default function Showcases() {
   return (
@@ -27,7 +28,7 @@ export default function Showcases() {
       >
         <HStack justify={"space-between"} mb={8} align={"start"}>
           <Wrap spacingY={6} align={"center"}>
-            <Image src="/logo192.png" borderRadius={"full"} h={"38px"} mr={2} />
+            <Image src="/logo.png" borderRadius={"full"} h={"42px"} mr={2} />
             <Heading>Library Mahal Distro Studio</Heading>
           </Wrap>
 
@@ -43,11 +44,14 @@ export default function Showcases() {
               </Text>
             </HStack>
 
+            <Text fontWeight={600}>Must have ChakraUI in ur project</Text>
             <Text>npm i @remixicon/react react-date-picker</Text>
           </Box>
         </Alert>
 
         <VStack align={"stretch"} spacing={5}>
+          <InputSection />
+
           <ConfirmationBasedInputSection />
 
           <HooksSection />

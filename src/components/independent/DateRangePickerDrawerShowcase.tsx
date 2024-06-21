@@ -44,7 +44,7 @@ export default function DateRangePickerDrawerShowcase() {
     },
     {
       label: "confirm",
-      type: "(inputValue: Date) => void",
+      type: "(inputValue: Date | null) => void",
       desc: <Text>function to set controlled input</Text>,
     },
     {
@@ -61,6 +61,35 @@ export default function DateRangePickerDrawerShowcase() {
     year: "long",
   };
   const optionalProps = [
+    {
+      label: "isError",
+      type: "boolean",
+      desc: <Text>tell input if there is a validation error </Text>,
+    },
+    {
+      label: "placement",
+      type: "PrefixOption",
+      desc: (
+        <VStack gap={0} align={"stretch"}>
+          <Text>Prefix Options :</Text>
+          <UnorderedList>
+            <ListItem>
+              <Text>top</Text>
+            </ListItem>
+            <ListItem>
+              <Text>bottom</Text>
+            </ListItem>
+            <ListItem>
+              <Text>left</Text>
+            </ListItem>
+            <ListItem>
+              <Text>right</Text>
+            </ListItem>
+          </UnorderedList>
+          <Text>default is bottom</Text>
+        </VStack>
+      ),
+    },
     {
       label: "dateFormatOptions",
       type: "PrefixOption | object",
@@ -136,7 +165,7 @@ export default function DateRangePickerDrawerShowcase() {
   } | null>(null);
 
   return (
-    <ComponentShowcaseContainer title="Date Range Picker Modal">
+    <ComponentShowcaseContainer title="Date Range Picker Drawer">
       <ContentContainer borderRadius={8} bg={"var(--p500a3)"} mb={4}>
         <HStack mb={2}>
           <Icon as={RiErrorWarningFill} fontSize={24} color={"p.500"} />

@@ -33,7 +33,7 @@ type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 interface Props extends ButtonProps {
   id: string;
   name: string;
-  confirm: (newInputValue: Date) => void;
+  confirm: (inputValue: Date | null) => void;
   inputValue: Date | null;
   placement?: "top" | "bottom" | "left" | "right";
   dateFormatOptions?: PrefixOption | object;
