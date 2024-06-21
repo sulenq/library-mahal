@@ -24,7 +24,6 @@ import {
 import { useState } from "react";
 import DatePickerDrawer from "../dependent/input/DatePickerDrawer";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
-import ComponentShowcaseTitle from "./wrapper/ComponentShowcaseTitle";
 import ContentContainer from "./wrapper/ContentContainer";
 
 export default function DatePickerDrawerShowcase() {
@@ -151,11 +150,7 @@ export default function DatePickerDrawerShowcase() {
   const [date, setDate] = useState<Date | null>(null);
 
   return (
-    <ComponentShowcaseContainer>
-      <ComponentShowcaseTitle fontSize={20} mb={4}>
-        Date Picker Drawer
-      </ComponentShowcaseTitle>
-
+    <ComponentShowcaseContainer title="Date Picker Drawer">
       <ContentContainer borderRadius={8} bg={"var(--p500a3)"} mb={4}>
         <HStack mb={2}>
           <Icon as={RiErrorWarningFill} fontSize={24} color={"p.500"} />

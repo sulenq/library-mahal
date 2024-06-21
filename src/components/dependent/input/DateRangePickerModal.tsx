@@ -317,7 +317,16 @@ export default function DateRangePickerModal({
                 colorScheme="ap"
                 className="btn-ap clicky"
                 w={"100%"}
-                isDisabled={nonnullable ? (selected ? false : true) : false}
+                isDisabled={
+                  nonnullable
+                    ? selected && selected.from && selected.to
+                      ? false
+                      : true
+                    : (selected && selected.from && selected.to) ||
+                      selected === null
+                    ? false
+                    : true
+                }
                 onClick={confirmSelected}
               >
                 Konfirmasi

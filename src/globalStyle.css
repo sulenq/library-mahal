@@ -465,17 +465,17 @@ select {
 
 .my-masonry-grid {
   display: flex;
-  margin-left: -20px; /* gutter size offset */
+  margin-left: -16px; /* gutter size offset */
   width: auto;
 }
 .my-masonry-grid_column {
-  padding-left: 20px; /* gutter size */
+  padding-left: 16px; /* gutter size */
   background-clip: padding-box;
 }
 
 /* Style your items */
 .my-masonry-grid_column > div {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 /* Date Picker Start */

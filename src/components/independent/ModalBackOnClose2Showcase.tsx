@@ -13,7 +13,6 @@ import { useRef } from "react";
 import useBackOnClose from "../../hooks/useBackOnClose";
 import backOnClose from "../../lib/backOnClose";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
-import ComponentShowcaseTitle from "./wrapper/ComponentShowcaseTitle";
 
 export default function ModalBackOnClose2Showcase() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -22,11 +21,7 @@ export default function ModalBackOnClose2Showcase() {
 
   return (
     <>
-      <ComponentShowcaseContainer>
-        <ComponentShowcaseTitle mb={4}>
-          Modal Back On Close
-        </ComponentShowcaseTitle>
-
+      <ComponentShowcaseContainer title="Modal Back On Close">
         <Button onClick={onOpen} className="btn-solid clicky" w={"100%"}>
           Open Modal
         </Button>

@@ -22,7 +22,6 @@ import {
 import { useState } from "react";
 import DateRangePickerModal from "../dependent/input/DateRangePickerModal";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
-import ComponentShowcaseTitle from "./wrapper/ComponentShowcaseTitle";
 import ContentContainer from "./wrapper/ContentContainer";
 
 export default function DateRangePickerModalShowcase() {
@@ -126,11 +125,7 @@ export default function DateRangePickerModalShowcase() {
   } | null>(null);
 
   return (
-    <ComponentShowcaseContainer>
-      <ComponentShowcaseTitle fontSize={20} mb={4}>
-        Date Range Picker Modal
-      </ComponentShowcaseTitle>
-
+    <ComponentShowcaseContainer title="Date Range Picker Modal">
       <ContentContainer borderRadius={8} bg={"var(--p500a3)"} mb={4}>
         <HStack mb={2}>
           <Icon as={RiErrorWarningFill} fontSize={24} color={"p.500"} />

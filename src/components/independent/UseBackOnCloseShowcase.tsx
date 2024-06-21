@@ -11,12 +11,11 @@ import {
 } from "@chakra-ui/react";
 import { RiErrorWarningFill, RiSlideshow2Fill } from "@remixicon/react";
 import { iconSize } from "../../constant/sizes";
+import DrawerBackOnCloseShowcase from "./DrawerBackOnCloseShowcase";
 import ModalBackOnCloseShowcase from "./ModalBackOnCloseShowcase";
 import NestedModalBackOnCloseShowcase from "./NestedModalBackOnCloseShowcase";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
-import ComponentShowcaseTitle from "./wrapper/ComponentShowcaseTitle";
 import ContentContainer from "./wrapper/ContentContainer";
-import DrawerBackOnCloseShowcase from "./DrawerBackOnCloseShowcase";
 
 export default function UseBackOnCloseShowcase() {
   const requiredProps = [
@@ -43,11 +42,7 @@ export default function UseBackOnCloseShowcase() {
   ];
 
   return (
-    <ComponentShowcaseContainer flex={"1 1 0"}>
-      <ComponentShowcaseTitle fontSize={20} mb={4}>
-        useBackOnClose
-      </ComponentShowcaseTitle>
-
+    <ComponentShowcaseContainer title="useBackOnClose" flex={"1 1 0"}>
       <ContentContainer bg={"var(--p500a3)"} mb={4}>
         <HStack mb={2}>
           <Icon as={RiErrorWarningFill} fontSize={iconSize} color={"p.500"} />

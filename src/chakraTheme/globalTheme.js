@@ -60,6 +60,9 @@ export const globalTheme = extendTheme({
         container: {
           borderColor: "var(--divider)",
         },
+        panel: {
+          pb: 2,
+        },
       }),
     },
 
