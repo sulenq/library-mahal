@@ -220,7 +220,7 @@ export default function DateRangePickerDrawerShowcase() {
         <FormControl>
           <FormLabel>Non-nullable Date Input</FormLabel>
           <DateRangePickerDrawer
-            id="nonNullableDateRangeInput_modal"
+            id="nonNullableDateRangeInput_drawer"
             name="nonNullable_date"
             confirm={(inputValue) => {
               setNonNullableDate(inputValue);
@@ -236,7 +236,7 @@ export default function DateRangePickerDrawerShowcase() {
         <FormControl>
           <FormLabel>Date Input</FormLabel>
           <DateRangePickerDrawer
-            id="dateRangeInput_modal"
+            id="dateRangeInput_drawer"
             name="date"
             confirm={(inputValue) => {
               setDate(inputValue);
