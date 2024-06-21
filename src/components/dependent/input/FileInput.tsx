@@ -29,7 +29,7 @@ import { iconSize } from "../../../constant/sizes";
 
 interface Props {
   name: string;
-  onChange: (inputValue: File | null) => void;
+  onChangeSetter: (inputValue: File | null) => void;
   inputValue: File | null;
   accept?: string;
   isError?: boolean;
@@ -39,7 +39,7 @@ interface Props {
 
 export default function FileInput({
   name,
-  onChange,
+  onChangeSetter,
   inputValue,
   accept,
   isError,
@@ -71,7 +71,7 @@ export default function FileInput({
     if (file) {
       // console.log(file);
       setFileName(file.name);
-      onChange(file);
+      onChangeSetter(file);
     }
   };
 
@@ -140,7 +140,7 @@ export default function FileInput({
           if (files && files.length > 0) {
             const file = files[0];
             setFileName(file.name);
-            onChange(file);
+            onChangeSetter(file);
           }
         }}
         mb={4}

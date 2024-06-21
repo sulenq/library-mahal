@@ -22,7 +22,7 @@ import formatBytes from "../../../lib/formatBytes";
 
 interface Props {
   name: string;
-  onChange: (inputValue: File | null) => void;
+  onChangeSetter: (inputValue: File | null) => void;
   inputValue: File | null;
   accept?: string;
   isError?: boolean;
@@ -32,7 +32,7 @@ interface Props {
 
 export default function FileInputLarge({
   name,
-  onChange,
+  onChangeSetter,
   inputValue,
   accept,
   isError,
@@ -60,7 +60,7 @@ export default function FileInputLarge({
     if (file) {
       // console.log(file);
       setFileName(file.name);
-      onChange(file);
+      onChangeSetter(file);
     }
   };
 
@@ -129,7 +129,7 @@ export default function FileInputLarge({
           if (files && files.length > 0) {
             const file = files[0];
             setFileName(file.name);
-            onChange(file);
+            onChangeSetter(file);
           }
         }}
         mb={4}

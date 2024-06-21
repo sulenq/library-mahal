@@ -24,11 +24,11 @@ export default function Showcases() {
         mx={"auto"}
         align={"stretch"}
         gap={0}
-        p={6}
+        p={[4, 5, 6]}
       >
         <HStack justify={"space-between"} mb={8} align={"start"}>
           <Wrap spacingY={6} align={"center"}>
-            <Image src="/logo.png" borderRadius={"full"} h={"60px"} />
+            <Image src="/logoBg.png" borderRadius={"full"} h={"38px"} mr={2} />
             <Heading>Distro UI + Library</Heading>
           </Wrap>
 
@@ -44,7 +44,7 @@ export default function Showcases() {
               </Text>
             </HStack>
 
-            <Text fontWeight={600}>Must have ChakraUI in ur project</Text>
+            <Text fontWeight={600}>Must have ChakraUI in your project</Text>
             <Text>npm i @remixicon/react react-date-picker</Text>
           </Box>
         </Alert>

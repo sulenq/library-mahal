@@ -5,8 +5,9 @@ import PropsAccordions from "../dependent/PropsAccordions";
 import ShowcaseTitle from "./ShowcaseTitle";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
 import ContentContainer from "./wrapper/ContentContainer";
+import Textarea from "../dependent/input/Textarea";
 
-export default function PasswordInputShowcase() {
+export default function TextareaShowcase() {
   const requiredProps = [
     {
       label: "name",
@@ -15,12 +16,12 @@ export default function PasswordInputShowcase() {
     },
     {
       label: "onChangeSetter",
-      type: "(inputValue: File | null) => void",
+      type: "(inputValue: string | undefined) => void",
       desc: <Text>function to set controlled input</Text>,
     },
     {
       label: "inputValue",
-      type: "File | null",
+      type: "string | undefined",
       desc: <Text>value for the input field</Text>,
     },
   ];
@@ -44,12 +45,12 @@ export default function PasswordInputShowcase() {
   ];
 
   const [filledInput, setFilledInput] = useState<string | undefined>(
-    "!Hello_world"
+    "This text area is auto resize when you continue write this, just see the magic"
   );
   const [input, setInput] = useState<string | undefined>(undefined);
 
   return (
-    <ComponentShowcaseContainer title="Password Input">
+    <ComponentShowcaseContainer title="Auto Expand Textarea">
       <PropsAccordions
         requiredProps={requiredProps}
         optionalProps={optionalProps}
@@ -59,8 +60,8 @@ export default function PasswordInputShowcase() {
         <ShowcaseTitle />
 
         <FormControl mb={2}>
-          <FormLabel>Filled Password Input</FormLabel>
-          <PasswordInput
+          <FormLabel>Filled Textarea</FormLabel>
+          <Textarea
             name="filledInput"
             onChangeSetter={(inputValue) => {
               setFilledInput(inputValue);
@@ -70,8 +71,8 @@ export default function PasswordInputShowcase() {
         </FormControl>
 
         <FormControl>
-          <FormLabel>Password Input</FormLabel>
-          <PasswordInput
+          <FormLabel>Textarea</FormLabel>
+          <Textarea
             name="fileInput"
             onChangeSetter={(inputValue) => {
               setInput(inputValue);

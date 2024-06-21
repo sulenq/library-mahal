@@ -1,6 +1,7 @@
 import FileInputLargeShowcase from "../FileInputLargeShowcase";
 import FileInputShowcase from "../FileInputShowcase";
 import PasswordInputShowcase from "../PasswordInputShowcase";
+import TextareaShowcase from "../TextareaShowcase";
 import ComponentShowcaseMainContainer from "../wrapper/ComponentShowcaseMainContainer";
 import ComponentShowcaseTitle from "../wrapper/ComponentShowcaseTitle";
 import MasonryContainer from "../wrapper/MassonryContainer";
@@ -18,6 +19,8 @@ export default function InputSection() {
         <FileInputLargeShowcase />
 
         <PasswordInputShowcase />
+
+        <TextareaShowcase />
       </MasonryContainer>
     </ComponentShowcaseMainContainer>
   );

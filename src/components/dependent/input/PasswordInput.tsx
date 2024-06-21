@@ -4,7 +4,7 @@ import { useState } from "react";
 
 interface Props {
   name: string;
-  onChange: (inputValue: string | undefined) => void;
+  onChangeSetter: (inputValue: string | undefined) => void;
   inputValue: string | undefined;
   isError?: boolean;
   placeholder?: string;
@@ -12,7 +12,7 @@ interface Props {
 
 export default function PasswordInput({
   name,
-  onChange,
+  onChangeSetter,
   inputValue,
   isError,
   placeholder,
@@ -25,7 +25,7 @@ export default function PasswordInput({
       <Input
         placeholder={placeholder || "*******"}
         onChange={(e) => {
-          onChange(e.target.value);
+          onChangeSetter(e.target.value);
         }}
         value={inputValue}
         type={showPassword ? "text" : "password"}

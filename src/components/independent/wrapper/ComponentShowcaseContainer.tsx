@@ -34,13 +34,13 @@ export default function ComponentShowcaseContainer({
       <Accordion allowMultiple>
         <AccordionItem border={"none"}>
           <h2>
-            <AccordionButton px={5}>
+            <AccordionButton _hover={{ bg: "transparent" }}>
               <Box
                 as="span"
                 flex={1}
                 textAlign={"left"}
                 fontSize={20}
-                py={2}
+                py={1}
                 fontWeight={600}
               >
                 {title}

@@ -14,7 +14,7 @@ export default function FileInputShowcase() {
       desc: <Text>name the input, of course it must have name</Text>,
     },
     {
-      label: "onChange",
+      label: "onChangeSetter",
       type: "(inputValue: File | null) => void",
       desc: <Text>function to set controlled input</Text>,
     },
@@ -95,7 +95,7 @@ export default function FileInputShowcase() {
           <FormLabel>Filled File Input</FormLabel>
           <FileInput
             name="filledFileInput"
-            onChange={(inputValue) => {
+            onChangeSetter={(inputValue) => {
               setFilledFileInput(inputValue);
             }}
             inputValue={filledFIleInput}
@@ -107,7 +107,7 @@ export default function FileInputShowcase() {
           <FormLabel>File Input Accept PDF</FormLabel>
           <FileInput
             name="fileInput"
-            onChange={(inputValue) => {
+            onChangeSetter={(inputValue) => {
               setFileInput(inputValue);
             }}
             inputValue={fileInput}
