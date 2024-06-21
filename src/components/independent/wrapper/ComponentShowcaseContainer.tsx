@@ -15,6 +15,7 @@ export default function ComponentShowcaseContainer({
       borderRadius={12}
       border={"1px solid var(--divider3)"}
       align={"stretch"}
+      h={"fit-content"}
       // bg={useLightDarkColor()}
       {...props}
     >

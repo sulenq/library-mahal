@@ -42,6 +42,7 @@ interface Props extends ButtonProps {
   name: string;
   confirm: (newInputValue: Date) => void;
   inputValue: Date | null;
+  placement?: "top" | "bottom" | "left" | "right";
   dateFormatOptions?: PrefixOption | object;
   placeholder?: string;
   nonnullable?: boolean;
@@ -53,6 +54,7 @@ export default function DatePickerDrawer({
   name,
   confirm,
   inputValue,
+  placement,
   dateFormatOptions,
   placeholder,
   nonnullable,
@@ -169,7 +171,7 @@ export default function DatePickerDrawer({
         isOpen={isOpen}
         onClose={backOnClose}
         initialFocusRef={initialRef}
-        placement="bottom"
+        placement={placement || "bottom"}
       >
         <DrawerOverlay />
         <DrawerContent borderRadius={"12px 12px 0 0"}>

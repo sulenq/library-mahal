@@ -12,7 +12,7 @@ export default function BackOnCloseButton({ ...props }: Props) {
       borderRadius={"full"}
       className="btn"
       onClick={backOnClose}
-      mr={"-6px"}
+      mr={"-4px"}
       {...props}
     />
   );

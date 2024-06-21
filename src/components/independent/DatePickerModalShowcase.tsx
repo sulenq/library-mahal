@@ -67,16 +67,27 @@ export default function DatePickerModalShowcase() {
         <VStack gap={0} align={"stretch"}>
           <Text>Prefix Options :</Text>
           <UnorderedList>
-            <ListItem>basic e.g 16 Juli 2024</ListItem>
-            <ListItem>basicShort e.g 16 Jul 2024</ListItem>
-            <ListItem>long e.g Senin, 16 Juli 2024</ListItem>
-            <ListItem>longShort e.g Sen, 16 Jul 2024</ListItem>
-            <ListItem>short e.g 16/07/2024</ListItem>
+            <ListItem>
+              <Text>basic e.g 16 Juli 2024</Text>
+            </ListItem>
+            <ListItem>
+              <Text>basicShort e.g 16 Jul 2024</Text>
+            </ListItem>
+            <ListItem>
+              <Text>long e.g Senin, 16 Juli 2024</Text>
+            </ListItem>
+            <ListItem>
+              <Text>longShort e.g Sen, 16 Jul 2024</Text>
+            </ListItem>
+            <ListItem>
+              <Text>short e.g 16/07/2024</Text>
+            </ListItem>
           </UnorderedList>
-          <Text>
+          <Text wordBreak={"break-all"}>
             for custom date formatting, just pass a date format options object,
-            e.g. {JSON.stringify(customDateFormatOptionExample)}.
+            e.g.
           </Text>
+          <Text>{JSON.stringify(customDateFormatOptionExample)}</Text>
         </VStack>
       ),
     },
@@ -106,7 +117,7 @@ export default function DatePickerModalShowcase() {
   const [date, setDate] = useState<Date | null>(null);
 
   return (
-    <ComponentShowcaseContainer flex={"1 1 0"}>
+    <ComponentShowcaseContainer flex={"1 1 450px"}>
       <ComponentShowcaseTitle fontSize={20} mb={4}>
         Date Picker Modal
       </ComponentShowcaseTitle>

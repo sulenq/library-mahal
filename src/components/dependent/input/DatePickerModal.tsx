@@ -2,12 +2,8 @@ import {
   Button,
   ButtonGroup,
   ButtonProps,
-  FormControl,
-  FormLabel,
   HStack,
   Icon,
-  IconButton,
-  Input,
   Modal,
   ModalBody,
   ModalContent,
@@ -17,13 +13,11 @@ import {
   Text,
   useDisclosure,
   VStack,
-  Wrap,
 } from "@chakra-ui/react";
 import {
   RiArrowLeftSLine,
   RiArrowRightSLine,
   RiCalendarLine,
-  RiCloseLine,
 } from "@remixicon/react";
 import { id as ind } from "date-fns/locale";
 import { useRef, useState } from "react";
@@ -33,8 +27,8 @@ import { iconSize } from "../../../constant/sizes";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
-import parseNumber from "../../../lib/parseNumber";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
+import DatePickerMonthYearInput from "./DatePickerMonthYearInput";
 type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
 interface Props extends ButtonProps {
@@ -184,46 +178,6 @@ export default function DatePickerModal({
           </ModalHeader>
 
           <ModalBody>
-            <Wrap mb={4}>
-              <FormControl flex={"1 1 0"}>
-                <FormLabel>Bulan</FormLabel>
-                <Input
-                  name="bulan"
-                  placeholder="Bulan ke-"
-                  onChange={(e) => {
-                    const value = parseNumber(e.target.value);
-                    if (value && value <= 12) {
-                      setDate(new Date(tahun, value - 1));
-                      setBulan(value);
-                    } else if (value === null) {
-                      setDate(new Date(tahun));
-                      setBulan(0);
-                    }
-                  }}
-                  value={bulan === 0 ? "" : bulan}
-                />
-              </FormControl>
-
-              <FormControl flex={"1 1 0"}>
-                <FormLabel>Tahun</FormLabel>
-                <Input
-                  name="tahun"
-                  placeholder="Tahun"
-                  onChange={(e) => {
-                    const value = parseNumber(e.target.value);
-                    if (value) {
-                      setDate(new Date(value, bulan - 1));
-                      setTahun(value);
-                    } else if (value === null) {
-                      setDate(new Date(bulan - 1));
-                      setTahun(0);
-                    }
-                  }}
-                  value={tahun === 0 ? "" : tahun}
-                />
-              </FormControl>
-            </Wrap>
-
             <VStack align={"stretch"}>
               {!isBulanValid(bulan) && isTahunValid(tahun) && (
                 <HStack h={"392px"} justify={"center"}>
@@ -245,7 +199,44 @@ export default function DatePickerModal({
 
               {isBulanValid(bulan) && isTahunValid(tahun) && (
                 <>
-                  <VStack overflowX={"auto"} w={"100%"} align={"stretch"}>
+                  <VStack
+                    gap={0}
+                    overflowX={"auto"}
+                    w={"100%"}
+                    align={"stretch"}
+                  >
+                    <ButtonGroup w={"100%"} mb={2}>
+                      <Button
+                        aria-label="Previous Month"
+                        leftIcon={
+                          <Icon as={RiArrowLeftSLine} fontSize={iconSize} />
+                        }
+                        pr={"10px"}
+                        className="btn clicky"
+                        onClick={prevMonth}
+                        w={"20%"}
+                      ></Button>
+
+                      <DatePickerMonthYearInput
+                        bulan={bulan}
+                        tahun={tahun}
+                        setBulan={setBulan}
+                        setTahun={setTahun}
+                        setDate={setDate}
+                      />
+
+                      <Button
+                        aria-label="Next Month"
+                        rightIcon={
+                          <Icon as={RiArrowRightSLine} fontSize={iconSize} />
+                        }
+                        pl={"10px"}
+                        className="btn clicky"
+                        onClick={nextMonth}
+                        w={"20%"}
+                      ></Button>
+                    </ButtonGroup>
+
                     <DayPicker
                       mode="single"
                       selected={selected}
@@ -262,16 +253,14 @@ export default function DatePickerModal({
 
                   <ButtonGroup w={"100%"}>
                     <Button
-                      aria-label="Previous Month"
-                      leftIcon={
-                        <Icon as={RiArrowLeftSLine} fontSize={iconSize} />
-                      }
-                      pr={"10px"}
+                      flex={1}
                       className="btn-outline clicky"
-                      onClick={prevMonth}
-                      w={"20%"}
-                    ></Button>
-
+                      onClick={() => {
+                        setSelected(null);
+                      }}
+                    >
+                      Reset
+                    </Button>
                     <Button
                       flex={1}
                       className="btn-outline clicky"
@@ -279,24 +268,13 @@ export default function DatePickerModal({
                     >
                       Hari Ini
                     </Button>
-
-                    <Button
-                      aria-label="Next Month"
-                      rightIcon={
-                        <Icon as={RiArrowRightSLine} fontSize={iconSize} />
-                      }
-                      pl={"10px"}
-                      className="btn-outline clicky"
-                      onClick={nextMonth}
-                      w={"20%"}
-                    ></Button>
                   </ButtonGroup>
                 </>
               )}
             </VStack>
           </ModalBody>
 
-          <ModalFooter>
+          <ModalFooter pt={"8px !important"}>
             <VStack align={"stretch"} w={"100%"}>
               <HStack
                 borderRadius={8}
@@ -306,31 +284,11 @@ export default function DatePickerModal({
                 h={"40px"}
                 justify={"center"}
               >
-                {selected && (
-                  <Icon as={RiCalendarLine} mr={"auto"} w={6} opacity={0.6} />
-                )}
-
                 <Text opacity={selected ? 1 : 0.6} fontWeight={500}>
                   {selected
                     ? `${formatDate(selected, "long")}`
                     : "Pilih tanggal"}
                 </Text>
-
-                {selected && (
-                  <IconButton
-                    aria-label="clear date button"
-                    icon={<Icon as={RiCloseLine} fontSize={iconSize} />}
-                    colorScheme="red"
-                    borderRadius={"full"}
-                    variant={"ghost"}
-                    size={"xs"}
-                    className="clicky"
-                    ml={"auto"}
-                    onClick={() => {
-                      setSelected(null);
-                    }}
-                  />
-                )}
               </HStack>
 
               <Button

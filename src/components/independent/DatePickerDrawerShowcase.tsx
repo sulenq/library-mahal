@@ -9,6 +9,8 @@ import {
   HStack,
   Icon,
   ListItem,
+  Radio,
+  RadioGroup,
   Text,
   UnorderedList,
   VStack,
@@ -61,22 +63,57 @@ export default function DatePickerDrawerShowcase() {
   };
   const optionalProps = [
     {
+      label: "placement",
+      type: "PrefixOption",
+      desc: (
+        <VStack gap={0} align={"stretch"}>
+          <Text>Prefix Options :</Text>
+          <UnorderedList>
+            <ListItem>
+              <Text>top</Text>
+            </ListItem>
+            <ListItem>
+              <Text>bottom</Text>
+            </ListItem>
+            <ListItem>
+              <Text>left</Text>
+            </ListItem>
+            <ListItem>
+              <Text>right</Text>
+            </ListItem>
+          </UnorderedList>
+          <Text>default is bottom</Text>
+        </VStack>
+      ),
+    },
+    {
       label: "dateFormatOptions",
       type: "PrefixOption | object",
       desc: (
         <VStack gap={0} align={"stretch"}>
           <Text>Prefix Options :</Text>
           <UnorderedList>
-            <ListItem>basic e.g 16 Juli 2024</ListItem>
-            <ListItem>basicShort e.g 16 Jul 2024</ListItem>
-            <ListItem>long e.g Senin, 16 Juli 2024</ListItem>
-            <ListItem>longShort e.g Sen, 16 Jul 2024</ListItem>
-            <ListItem>short e.g 16/07/2024</ListItem>
+            <ListItem>
+              <Text>basic e.g 16 Juli 2024</Text>
+            </ListItem>
+            <ListItem>
+              <Text>basicShort e.g 16 Jul 2024</Text>
+            </ListItem>
+            <ListItem>
+              <Text>long e.g Senin, 16 Juli 2024</Text>
+            </ListItem>
+            <ListItem>
+              <Text>longShort e.g Sen, 16 Jul 2024</Text>
+            </ListItem>
+            <ListItem>
+              <Text>short e.g 16/07/2024</Text>
+            </ListItem>
           </UnorderedList>
-          <Text>
+          <Text wordBreak={"break-all"}>
             for custom date formatting, just pass a date format options object,
-            e.g. {JSON.stringify(customDateFormatOptionExample)}.
+            e.g.
           </Text>
+          <Text>{JSON.stringify(customDateFormatOptionExample)}</Text>
         </VStack>
       ),
     },
@@ -102,11 +139,19 @@ export default function DatePickerDrawerShowcase() {
     },
   ];
 
+  const [placement, setPlacement] = useState<
+    "top" | "bottom" | "left" | "right"
+  >("bottom");
+  const handlePlacementChange = (nextValue: string) => {
+    if (["top", "bottom", "left", "right"].includes(nextValue)) {
+      setPlacement(nextValue as "top" | "bottom" | "left" | "right");
+    }
+  };
   const [nonNullableDate, setNonNullableDate] = useState<Date>(new Date());
   const [date, setDate] = useState<Date | null>(null);
 
   return (
-    <ComponentShowcaseContainer flex={"1 1 0"}>
+    <ComponentShowcaseContainer>
       <ComponentShowcaseTitle fontSize={20} mb={4}>
         Date Picker Drawer
       </ComponentShowcaseTitle>
@@ -171,6 +216,16 @@ export default function DatePickerDrawerShowcase() {
           </Text>
         </HStack>
 
+        <Text mb={2}>Placement</Text>
+        <RadioGroup onChange={handlePlacementChange} value={placement} mb={2}>
+          <Wrap direction="row" spacing={4}>
+            <Radio value="top">Top</Radio>
+            <Radio value="bottom">Bottom</Radio>
+            <Radio value="left">Left</Radio>
+            <Radio value="right">Right</Radio>
+          </Wrap>
+        </RadioGroup>
+
         <FormControl>
           <FormLabel>Non-nullable Date Input</FormLabel>
           <DatePickerDrawer
@@ -181,6 +236,7 @@ export default function DatePickerDrawerShowcase() {
             }}
             inputValue={nonNullableDate}
             borderRadius={6}
+            placement={placement}
             nonnullable
             mb={2}
           />
@@ -196,6 +252,7 @@ export default function DatePickerDrawerShowcase() {
             }}
             inputValue={date}
             borderRadius={6}
+            placement={placement}
           />
         </FormControl>
       </ContentContainer>

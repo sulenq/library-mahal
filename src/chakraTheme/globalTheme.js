@@ -191,6 +191,7 @@ export const globalTheme = extendTheme({
         },
         header: {
           py: "20px",
+          pt: "16px",
           px: "24px",
           // pr: "70px !important",
         },
@@ -235,6 +236,14 @@ export const globalTheme = extendTheme({
         closeButton: {
           right: 1,
           fontSize: "12px !important",
+        },
+      }),
+    },
+
+    Radio: {
+      baseStyle: (props) => ({
+        control: {
+          border: "1px solid var(--divider3) !important",
         },
       }),
     },
