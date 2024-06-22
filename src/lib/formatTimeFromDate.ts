@@ -1,8 +1,9 @@
-export default function formatTimeFromDate(dateRaw: Date | string) {
-  // Buat objek Date dari string waktu yang diberikan
+export default function formatTimeFromDate(
+  dateRaw: Date | string,
+  includeSeconds?: boolean
+) {
   let date = new Date(dateRaw);
 
-  // Ambil jam dan menit dari objek Date
   let hours = date.getHours();
   let minutes = date.getMinutes();
   let seconds = date.getSeconds();
@@ -13,7 +14,8 @@ export default function formatTimeFromDate(dateRaw: Date | string) {
   let formattedMSeconds = String(seconds).padStart(2, "0");
 
   // Gabungkan jam dan menit dalam format yang diinginkan
-  let formattedTime = `${formattedHours}:${formattedMinutes}:${formattedMSeconds}`;
+  let formattedTime = `${formattedHours}:${formattedMinutes}`;
+  let formattedTimeIncludeSeconds = `${formattedHours}:${formattedMinutes}:${formattedMSeconds}`;
 
-  return formattedTime;
+  return includeSeconds ? formattedTimeIncludeSeconds : formattedTime;
 }
