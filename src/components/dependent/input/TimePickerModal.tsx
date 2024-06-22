@@ -186,7 +186,7 @@ export default function TimePickerModal({
         {...props}
       >
         {inputValue ? (
-          <Text>{formatTimeFromDate(inputValue)}</Text>
+          <Text>{formatTimeFromDate(inputValue, includeSeconds)}</Text>
         ) : (
           <Text opacity={0.6}>{placeholder || `Pilih Waktu`}</Text>
         )}
