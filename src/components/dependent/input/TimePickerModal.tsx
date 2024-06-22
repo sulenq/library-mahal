@@ -396,30 +396,27 @@ export default function TimePickerModal({
 
           <ModalFooter gap={2}>
             <VStack w={"100%"}>
-              {!nonNullable && (
-                <Button
-                  className="btn-outline clicky"
-                  w={"100%"}
-                  isDisabled={nonNullable ? (time ? false : true) : false}
-                  onClick={() => {
-                    if (time && hours === 0 && minutes === 0 && seconds === 0) {
-                      setTime(undefined);
-                      setHours(0);
-                      setMinutes(0);
-                      setSeconds(0);
-                    } else {
-                      setTime(defaultTime);
-                      setHours(0);
-                      setMinutes(0);
-                      setSeconds(0);
-                    }
-                  }}
-                >
-                  {time && hours === 0 && minutes === 0 && seconds === 0
-                    ? "Clear"
-                    : "Reset"}
-                </Button>
-              )}
+              <Button
+                className="btn-outline clicky"
+                w={"100%"}
+                onClick={() => {
+                  if (time && hours === 0 && minutes === 0 && seconds === 0) {
+                    setTime(undefined);
+                    setHours(0);
+                    setMinutes(0);
+                    setSeconds(0);
+                  } else {
+                    setTime(defaultTime);
+                    setHours(0);
+                    setMinutes(0);
+                    setSeconds(0);
+                  }
+                }}
+              >
+                {time && hours === 0 && minutes === 0 && seconds === 0
+                  ? "Clear"
+                  : "Reset"}
+              </Button>
 
               <Button
                 colorScheme="ap"

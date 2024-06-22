@@ -17,11 +17,13 @@ import { RiErrorWarningFill, RiQuestionFill } from "@remixicon/react";
 interface Props extends StackProps {
   requiredProps?: any;
   optionalProps?: any;
+  type?: "library" | "component";
 }
 
 export default function PropsAccordions({
   requiredProps,
   optionalProps,
+  type,
   ...props
 }: Props) {
   return (
@@ -32,7 +34,7 @@ export default function PropsAccordions({
             <HStack ml={-1}>
               <Icon as={RiErrorWarningFill} fontSize={24} color={"p.500"} />
               <Text fontWeight={600} fontSize={18} color={"p.500"}>
-                Required Props
+                {type === "library" ? "Required Parameter" : "Required Props"}
               </Text>
             </HStack>
           }

@@ -34,7 +34,7 @@ export default function UseBackOnCloseShowcase() {
 
   return (
     <ComponentShowcaseContainer title="useBackOnClose" flex={"1 1 0"}>
-      <PropsAccordions requiredProps={requiredProps} />
+      <PropsAccordions type="library" requiredProps={requiredProps} />
 
       <ContentContainer>
         <HStack mb={2}>

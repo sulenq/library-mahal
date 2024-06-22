@@ -29,7 +29,7 @@ export default function Showcases() {
         <HStack justify={"space-between"} mb={8} align={"start"}>
           <Wrap spacingY={6} align={"center"}>
             <Image src="/logoBg.png" borderRadius={"full"} h={"38px"} mr={2} />
-            <Heading>Distro UI + Library</Heading>
+            <Heading>Distro Components + Library</Heading>
           </Wrap>
 
           <ColorModeSwitcher borderRadius={"full"} />
