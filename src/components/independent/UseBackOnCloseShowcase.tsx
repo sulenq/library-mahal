@@ -23,12 +23,12 @@ export default function UseBackOnCloseShowcase() {
     {
       label: "onOpen",
       type: "() => void",
-      desc: <Text>function to open/set isOpen to true</Text>,
+      desc: <Text>function to open/set parameter isOpen to true</Text>,
     },
     {
       label: "isOpen",
       type: "() => void",
-      desc: <Text>function to close/set isOpen to false</Text>,
+      desc: <Text>function to close/set parameter isOpen to false</Text>,
     },
   ];
 
