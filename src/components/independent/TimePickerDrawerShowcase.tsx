@@ -1,4 +1,13 @@
-import { FormControl, FormLabel, HStack, Icon, Text } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormLabel,
+  HStack,
+  Icon,
+  ListItem,
+  Text,
+  UnorderedList,
+  VStack,
+} from "@chakra-ui/react";
 import { RiSlideshow2Fill } from "@remixicon/react";
 import { useState } from "react";
 import TimePickerDrawer from "../dependent/input/TimePickerDrawer";
@@ -41,6 +50,30 @@ export default function TimePickerDrawerShowcase() {
       desc: <Text>tell input if there is a validation error </Text>,
     },
     {
+      label: "placement",
+      type: "PrefixOption",
+      desc: (
+        <VStack gap={0} align={"stretch"}>
+          <Text>Prefix Options :</Text>
+          <UnorderedList>
+            <ListItem>
+              <Text>top</Text>
+            </ListItem>
+            <ListItem>
+              <Text>bottom</Text>
+            </ListItem>
+            <ListItem>
+              <Text>left</Text>
+            </ListItem>
+            <ListItem>
+              <Text>right</Text>
+            </ListItem>
+          </UnorderedList>
+          <Text>default is bottom</Text>
+        </VStack>
+      ),
+    },
+    {
       label: "placeholder",
       type: "string",
       desc: (
@@ -51,7 +84,7 @@ export default function TimePickerDrawerShowcase() {
       ),
     },
     {
-      label: "nonnullable",
+      label: "nonNullable",
       type: "boolean",
       desc: (
         <Text>
@@ -95,7 +128,7 @@ export default function TimePickerDrawerShowcase() {
             }}
             inputValue={nonNullableInput}
             borderRadius={6}
-            nonnullable
+            nonNullable
           />
         </FormControl>
 

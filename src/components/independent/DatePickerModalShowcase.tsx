@@ -97,7 +97,7 @@ export default function DatePickerModalShowcase() {
       ),
     },
     {
-      label: "nonnullable",
+      label: "nonNullable",
       type: "boolean",
       desc: (
         <Text>
@@ -138,7 +138,7 @@ export default function DatePickerModalShowcase() {
             }}
             inputValue={nonNullableInput}
             borderRadius={6}
-            nonnullable
+            nonNullable
           />
         </FormControl>
 

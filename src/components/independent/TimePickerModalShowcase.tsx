@@ -51,7 +51,7 @@ export default function TimePickerModalShowcase() {
       ),
     },
     {
-      label: "nonnullable",
+      label: "nonNullable",
       type: "boolean",
       desc: (
         <Text>
@@ -95,7 +95,7 @@ export default function TimePickerModalShowcase() {
             }}
             inputValue={nonNullableInput}
             borderRadius={6}
-            nonnullable
+            nonNullable
           />
         </FormControl>
 

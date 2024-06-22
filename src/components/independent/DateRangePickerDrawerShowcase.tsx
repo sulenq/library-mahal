@@ -124,7 +124,7 @@ export default function DateRangePickerDrawerShowcase() {
       ),
     },
     {
-      label: "nonnullable",
+      label: "nonNullable",
       type: "boolean",
       desc: (
         <Text>
@@ -199,7 +199,7 @@ export default function DateRangePickerDrawerShowcase() {
             }}
             inputValue={nonNullableInput}
             borderRadius={6}
-            nonnullable
+            nonNullable
             mb={2}
             placement={placement}
           />

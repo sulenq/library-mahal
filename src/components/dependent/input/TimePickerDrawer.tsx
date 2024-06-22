@@ -29,7 +29,7 @@ interface Props extends ButtonProps {
   inputValue: Date | undefined;
   placement?: "top" | "bottom" | "left" | "right";
   placeholder?: string;
-  nonnullable?: boolean;
+  nonNullable?: boolean;
   isError?: boolean;
 }
 
@@ -40,7 +40,7 @@ export default function TimePickerDrawer({
   inputValue,
   placement,
   placeholder,
-  nonnullable,
+  nonNullable,
   isError,
   ...props
 }: Props) {
@@ -136,7 +136,7 @@ export default function TimePickerDrawer({
 
   function confirmSelected() {
     let confirmable = false;
-    if (!nonnullable) {
+    if (!nonNullable) {
       confirmable = true;
     } else {
       if (time) {
@@ -402,11 +402,11 @@ export default function TimePickerDrawer({
 
           <DrawerFooter gap={2} pb={8} w={"100%"} maxW={"720px !important"}>
             <VStack w={"100%"}>
-              {!nonnullable && (
+              {!nonNullable && (
                 <Button
                   className="btn-outline clicky"
                   w={"100%"}
-                  isDisabled={nonnullable ? (time ? false : true) : false}
+                  isDisabled={nonNullable ? (time ? false : true) : false}
                   onClick={() => {
                     if (time && hours === 0 && minutes === 0 && seconds === 0) {
                       setTime(undefined);
@@ -431,7 +431,7 @@ export default function TimePickerDrawer({
                 colorScheme="ap"
                 className="btn-ap clicky"
                 w={"100%"}
-                isDisabled={nonnullable ? (time ? false : true) : false}
+                isDisabled={nonNullable ? (time ? false : true) : false}
                 onClick={confirmSelected}
               >
                 Konfirmasi

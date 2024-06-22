@@ -38,7 +38,7 @@ interface Props extends ButtonProps {
   placement?: "top" | "bottom" | "left" | "right";
   dateFormatOptions?: PrefixOption | object;
   placeholder?: string;
-  nonnullable?: boolean;
+  nonNullable?: boolean;
   isError?: boolean;
 }
 
@@ -50,7 +50,7 @@ export default function DatePickerDrawer({
   placement,
   dateFormatOptions,
   placeholder,
-  nonnullable,
+  nonNullable,
   isError,
   ...props
 }: Props) {
@@ -71,7 +71,7 @@ export default function DatePickerDrawer({
 
   function confirmSelected() {
     let confirmable = false;
-    if (!nonnullable) {
+    if (!nonNullable) {
       confirmable = true;
     } else {
       if (selected) {
@@ -266,7 +266,7 @@ export default function DatePickerDrawer({
                 colorScheme="ap"
                 className="btn-ap clicky"
                 w={"100%"}
-                isDisabled={nonnullable ? (selected ? false : true) : false}
+                isDisabled={nonNullable ? (selected ? false : true) : false}
                 onClick={confirmSelected}
               >
                 Konfirmasi

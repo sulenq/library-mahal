@@ -28,7 +28,7 @@ interface Props extends ButtonProps {
   confirm: (inputValue: Date | undefined) => void;
   inputValue: Date | undefined;
   placeholder?: string;
-  nonnullable?: boolean;
+  nonNullable?: boolean;
   isError?: boolean;
 }
 
@@ -38,7 +38,7 @@ export default function TimePickerModal({
   confirm,
   inputValue,
   placeholder,
-  nonnullable,
+  nonNullable,
   isError,
   ...props
 }: Props) {
@@ -134,7 +134,7 @@ export default function TimePickerModal({
 
   function confirmSelected() {
     let confirmable = false;
-    if (!nonnullable) {
+    if (!nonNullable) {
       confirmable = true;
     } else {
       if (time) {
@@ -396,11 +396,11 @@ export default function TimePickerModal({
 
           <ModalFooter gap={2}>
             <VStack w={"100%"}>
-              {!nonnullable && (
+              {!nonNullable && (
                 <Button
                   className="btn-outline clicky"
                   w={"100%"}
-                  isDisabled={nonnullable ? (time ? false : true) : false}
+                  isDisabled={nonNullable ? (time ? false : true) : false}
                   onClick={() => {
                     if (time && hours === 0 && minutes === 0 && seconds === 0) {
                       setTime(undefined);
@@ -425,7 +425,7 @@ export default function TimePickerModal({
                 colorScheme="ap"
                 className="btn-ap clicky"
                 w={"100%"}
-                isDisabled={nonnullable ? (time ? false : true) : false}
+                isDisabled={nonNullable ? (time ? false : true) : false}
                 onClick={confirmSelected}
               >
                 Konfirmasi

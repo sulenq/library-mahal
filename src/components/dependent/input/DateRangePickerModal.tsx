@@ -43,7 +43,7 @@ interface Props extends ButtonProps {
   inputValue: { from: Date; to: Date } | undefined;
   dateFormatOptions?: PrefixOption | object;
   placeholder?: string;
-  nonnullable?: boolean;
+  nonNullable?: boolean;
   isError?: boolean;
 }
 
@@ -54,7 +54,7 @@ export default function DateRangePickerModal({
   inputValue,
   dateFormatOptions,
   placeholder,
-  nonnullable,
+  nonNullable,
   isError,
   ...props
 }: Props) {
@@ -81,7 +81,7 @@ export default function DateRangePickerModal({
 
   function confirmSelected() {
     let confirmable = false;
-    if (!nonnullable) {
+    if (!nonNullable) {
       confirmable = true;
     } else {
       if (selected) {
@@ -318,7 +318,7 @@ export default function DateRangePickerModal({
                 className="btn-ap clicky"
                 w={"100%"}
                 isDisabled={
-                  nonnullable
+                  nonNullable
                     ? selected && selected.from && selected.to
                       ? false
                       : true
