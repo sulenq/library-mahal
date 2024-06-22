@@ -184,7 +184,7 @@ export const globalTheme = extendTheme({
     Modal: {
       baseStyle: (props) => ({
         dialogContainer: {
-          // p: 6,
+          p: 4,
         },
         dialog: {
           bg: props.colorMode === "dark" ? "dark" : "white",

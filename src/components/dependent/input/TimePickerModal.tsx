@@ -229,6 +229,10 @@ export default function TimePickerModal({
                   }}
                   onMouseUp={handleMouseUpIncrement}
                   onMouseLeave={handleMouseUpIncrement}
+                  onTouchStart={() => {
+                    handleMouseDownIncrement("hours");
+                  }}
+                  onTouchEnd={handleMouseUpIncrement}
                 />
 
                 <VStack my={4}>
@@ -259,6 +263,10 @@ export default function TimePickerModal({
                   }}
                   onMouseUp={handleMouseUpDecrement}
                   onMouseLeave={handleMouseUpDecrement}
+                  onTouchStart={() => {
+                    handleMouseDownDecrement("hours");
+                  }}
+                  onTouchEnd={handleMouseUpDecrement}
                 />
               </VStack>
 
@@ -282,6 +290,10 @@ export default function TimePickerModal({
                   }}
                   onMouseUp={handleMouseUpIncrement}
                   onMouseLeave={handleMouseUpIncrement}
+                  onTouchStart={() => {
+                    handleMouseDownIncrement("minutes");
+                  }}
+                  onTouchEnd={handleMouseUpIncrement}
                 />
 
                 <VStack my={4}>
@@ -312,6 +324,10 @@ export default function TimePickerModal({
                   }}
                   onMouseUp={handleMouseUpDecrement}
                   onMouseLeave={handleMouseUpDecrement}
+                  onTouchStart={() => {
+                    handleMouseDownDecrement("minutes");
+                  }}
+                  onTouchEnd={handleMouseUpDecrement}
                 />
               </VStack>
 
@@ -335,6 +351,10 @@ export default function TimePickerModal({
                   }}
                   onMouseUp={handleMouseUpIncrement}
                   onMouseLeave={handleMouseUpIncrement}
+                  onTouchStart={() => {
+                    handleMouseDownIncrement("seconds");
+                  }}
+                  onTouchEnd={handleMouseUpIncrement}
                 />
 
                 <VStack my={4}>
@@ -365,36 +385,43 @@ export default function TimePickerModal({
                   }}
                   onMouseUp={handleMouseUpDecrement}
                   onMouseLeave={handleMouseUpDecrement}
+                  onTouchStart={() => {
+                    handleMouseDownDecrement("seconds");
+                  }}
+                  onTouchEnd={handleMouseUpDecrement}
                 />
               </VStack>
             </HStack>
           </ModalBody>
 
           <ModalFooter gap={2}>
-            {!nonnullable && (
+            <VStack w={"100%"}>
               <Button
-                className="btn-solid clicky"
+                colorScheme="ap"
+                className="btn-ap clicky"
                 w={"100%"}
                 isDisabled={nonnullable ? (time ? false : true) : false}
-                onClick={() => {
-                  setTime(undefined);
-                  setHours(0);
-                  setMinutes(0);
-                  setSeconds(0);
-                }}
+                onClick={confirmSelected}
               >
-                Clear
+                Konfirmasi
               </Button>
-            )}
-            <Button
-              colorScheme="ap"
-              className="btn-ap clicky"
-              w={"100%"}
-              isDisabled={nonnullable ? (time ? false : true) : false}
-              onClick={confirmSelected}
-            >
-              Konfirmasi
-            </Button>
+
+              {!nonnullable && (
+                <Button
+                  className="btn-solid clicky"
+                  w={"100%"}
+                  isDisabled={nonnullable ? (time ? false : true) : false}
+                  onClick={() => {
+                    setTime(undefined);
+                    setHours(0);
+                    setMinutes(0);
+                    setSeconds(0);
+                  }}
+                >
+                  Clear
+                </Button>
+              )}
+            </VStack>
           </ModalFooter>
         </ModalContent>
       </Modal>
