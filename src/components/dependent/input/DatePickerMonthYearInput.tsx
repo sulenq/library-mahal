@@ -95,7 +95,7 @@ export default function DatePickerMonthYearInput({
         <ModalContent>
           <ModalCloseButton />
           <ModalHeader ref={initialRef}>
-            <HStack justify={"space-between"}>
+            <HStack align={"start"} justify={"space-between"}>
               <Text fontSize={20} fontWeight={600}>
                 Set Bulan & Tahun
               </Text>

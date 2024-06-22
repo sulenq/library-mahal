@@ -8,7 +8,8 @@ export default function BackOnCloseButton({ ...props }: Props) {
   return (
     <IconButton
       icon={<Icon as={RiCloseLine} fontSize={24} className="custom-icon" />}
-      size={"sm"}
+      minW="30px !important"
+      h="30px !important"
       borderRadius={"full"}
       className="btn"
       onClick={backOnClose}

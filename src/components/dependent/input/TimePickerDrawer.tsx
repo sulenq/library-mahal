@@ -210,7 +210,7 @@ export default function TimePickerDrawer({
           }
         >
           <DrawerHeader ref={initialRef}>
-            <HStack justify={"space-between"}>
+            <HStack align={"start"} justify={"space-between"}>
               <Text fontSize={20} fontWeight={600}>
                 {placeholder || "Pilih Waktu"}
               </Text>

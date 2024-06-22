@@ -124,6 +124,12 @@ export const globalTheme = extendTheme({
           bg: props.colorMode === "dark" ? "dark" : "white",
           boxShadow: "none",
         },
+        header: {
+          py: "20px",
+          pt: "18px",
+          px: "24px",
+          pr: "20px",
+        },
         body: {
           px: "24px",
           py: "0px !important",
@@ -184,13 +190,14 @@ export const globalTheme = extendTheme({
     Modal: {
       baseStyle: (props) => ({
         dialogContainer: {
-          // p: 4,
+          p: 4,
         },
         dialog: {
           bg: props.colorMode === "dark" ? "dark" : "white",
           color: props.colorMode === "dark" ? "wt" : "bt",
           boxShadow: "none",
           borderRadius: 12,
+          // m: 4,
           // maxH: "100%",
           // border: "1px solid var(--divider)",
         },
@@ -202,7 +209,7 @@ export const globalTheme = extendTheme({
           py: "20px",
           pt: "18px",
           px: "24px",
-          // pr: "70px !important",
+          pr: "20px",
         },
         body: {
           px: "24px",
