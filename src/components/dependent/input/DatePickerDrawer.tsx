@@ -166,12 +166,7 @@ export default function DatePickerDrawer({
             placement === "left" || placement === "right" ? "" : "12px 12px 0 0"
           }
         >
-          <DrawerHeader
-            ref={initialRef}
-            w={"100%"}
-            maxW={"720px !important"}
-            mx={"auto"}
-          >
+          <DrawerHeader ref={initialRef} mx={"auto"}>
             <HStack justify={"space-between"}>
               <Text fontSize={20} fontWeight={600}>
                 {placeholder || "Pilih Tanggal"}
@@ -181,15 +176,10 @@ export default function DatePickerDrawer({
             </HStack>
           </DrawerHeader>
 
-          <DrawerBody
-            w={"100%"}
-            maxW={"720px !important"}
-            mx={"auto"}
-            className="scrollY"
-          >
+          <DrawerBody mx={"auto"} className="scrollY">
             <VStack align={"stretch"}>
               <VStack gap={0} overflowX={"auto"} w={"100%"} align={"stretch"}>
-                <ButtonGroup w={"100%"} mb={2}>
+                <ButtonGroup w={"100%"} mb={3}>
                   <Button
                     aria-label="Previous Month"
                     leftIcon={<Icon as={RiArrowLeftSLine} fontSize={20} />}
@@ -233,7 +223,11 @@ export default function DatePickerDrawer({
                   disableNavigation
                 />
               </VStack>
+            </VStack>
+          </DrawerBody>
 
+          <DrawerFooter pt={"16px !important"} pb={8} mx={"auto"}>
+            <VStack align={"stretch"} w={"100%"}>
               <ButtonGroup w={"100%"}>
                 <Button
                   flex={1}
@@ -252,17 +246,7 @@ export default function DatePickerDrawer({
                   Hari Ini
                 </Button>
               </ButtonGroup>
-            </VStack>
-          </DrawerBody>
 
-          <DrawerFooter
-            pt={"8px !important"}
-            pb={8}
-            w={"100%"}
-            maxW={"720px !important"}
-            mx={"auto"}
-          >
-            <VStack align={"stretch"} w={"100%"}>
               <HStack
                 borderRadius={8}
                 bg={"var(--divider)"}

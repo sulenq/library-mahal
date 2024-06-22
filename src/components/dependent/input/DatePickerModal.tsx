@@ -172,7 +172,7 @@ export default function DatePickerModal({
           <ModalBody>
             <VStack align={"stretch"}>
               <VStack gap={0} overflowX={"auto"} w={"100%"} align={"stretch"}>
-                <ButtonGroup w={"100%"} mb={2}>
+                <ButtonGroup w={"100%"} mb={3}>
                   <Button
                     aria-label="Previous Month"
                     leftIcon={<Icon as={RiArrowLeftSLine} fontSize={20} />}
@@ -216,7 +216,11 @@ export default function DatePickerModal({
                   disableNavigation
                 />
               </VStack>
+            </VStack>
+          </ModalBody>
 
+          <ModalFooter pt={"16px !important"}>
+            <VStack align={"stretch"} w={"100%"}>
               <ButtonGroup w={"100%"}>
                 <Button
                   flex={1}
@@ -235,11 +239,7 @@ export default function DatePickerModal({
                   Hari Ini
                 </Button>
               </ButtonGroup>
-            </VStack>
-          </ModalBody>
 
-          <ModalFooter pt={"8px !important"}>
-            <VStack align={"stretch"} w={"100%"}>
               <HStack
                 borderRadius={8}
                 bg={"var(--divider)"}

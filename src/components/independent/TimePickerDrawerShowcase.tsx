@@ -1,0 +1,117 @@
+import { FormControl, FormLabel, HStack, Icon, Text } from "@chakra-ui/react";
+import { RiSlideshow2Fill } from "@remixicon/react";
+import { useState } from "react";
+import TimePickerDrawer from "../dependent/input/TimePickerDrawer";
+import PropsAccordions from "../dependent/PropsAccordions";
+import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
+import ContentContainer from "./wrapper/ContentContainer";
+
+export default function TimePickerDrawerShowcase() {
+  const requiredProps = [
+    {
+      label: "id",
+      type: "string",
+      desc: (
+        <Text>
+          just unique id accros ur entire project, it will be merge with name
+        </Text>
+      ),
+    },
+    {
+      label: "name",
+      type: "string",
+      desc: <Text>name the input, of course it must have name</Text>,
+    },
+    {
+      label: "confirm",
+      type: "(inputValue: Date | undefined) => void",
+      desc: <Text>function to set controlled input</Text>,
+    },
+    {
+      label: "inputValue",
+      type: "Date | undefined",
+      desc: <Text>value for the input field</Text>,
+    },
+  ];
+
+  const optionalProps = [
+    {
+      label: "isError",
+      type: "boolean",
+      desc: <Text>tell input if there is a validation error </Text>,
+    },
+    {
+      label: "placeholder",
+      type: "string",
+      desc: (
+        <Text>
+          default is false, if true, then if value is not filled, confirmation
+          button is disabled
+        </Text>
+      ),
+    },
+    {
+      label: "nonnullable",
+      type: "boolean",
+      desc: (
+        <Text>
+          default is false, if true, then if value is not filled, confirmation
+          button is disabled
+        </Text>
+      ),
+    },
+  ];
+
+  const dummyTime = new Date();
+  dummyTime.setHours(16, 0, 0, 0);
+
+  const [nonNullableInput, setNonNullableInput] = useState<Date | undefined>(
+    dummyTime
+  );
+  const [input, setInput] = useState<Date | undefined>();
+
+  return (
+    <ComponentShowcaseContainer title="Time Picker Drawer">
+      <PropsAccordions
+        requiredProps={requiredProps}
+        optionalProps={optionalProps}
+      />
+
+      <ContentContainer>
+        <HStack mb={2}>
+          <Icon as={RiSlideshow2Fill} fontSize={24} color={"p.500"} />
+          <Text fontWeight={600} fontSize={18}>
+            Showcase
+          </Text>
+        </HStack>
+
+        <FormControl mb={2}>
+          <FormLabel>Non-nullable Time Input</FormLabel>
+          <TimePickerDrawer
+            id="nonNullable_time_picker_drawer"
+            name="nonNullable_time"
+            confirm={(inputValue) => {
+              setNonNullableInput(inputValue);
+            }}
+            inputValue={nonNullableInput}
+            borderRadius={6}
+            nonnullable
+          />
+        </FormControl>
+
+        <FormControl>
+          <FormLabel>Time Input</FormLabel>
+          <TimePickerDrawer
+            id="time_picker_drawer"
+            name="time"
+            confirm={(inputValue) => {
+              setInput(inputValue);
+            }}
+            inputValue={input}
+            borderRadius={6}
+          />
+        </FormControl>
+      </ContentContainer>
+    </ComponentShowcaseContainer>
+  );
+}

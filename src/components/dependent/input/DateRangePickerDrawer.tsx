@@ -198,7 +198,11 @@ export default function DateRangePickerDrawer({
         size={placement === "left" || placement === "right" ? "sm" : ""}
       >
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent
+          borderRadius={
+            placement === "left" || placement === "right" ? "" : "12px 12px 0 0"
+          }
+        >
           <DrawerHeader ref={initialRef}>
             <HStack justify={"space-between"}>
               <Text fontSize={20} fontWeight={600}>
@@ -212,7 +216,7 @@ export default function DateRangePickerDrawer({
           <DrawerBody>
             <VStack align={"stretch"}>
               <VStack gap={0} overflowX={"auto"} w={"100%"} align={"stretch"}>
-                <ButtonGroup w={"100%"} mb={2}>
+                <ButtonGroup w={"100%"} mb={3}>
                   <Button
                     aria-label="Previous Month"
                     leftIcon={<Icon as={RiArrowLeftSLine} fontSize={20} />}

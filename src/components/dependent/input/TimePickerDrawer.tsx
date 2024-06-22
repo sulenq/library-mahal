@@ -1,15 +1,15 @@
 import {
   Button,
   ButtonProps,
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
   HStack,
   Icon,
   IconButton,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   Text,
   useDisclosure,
   VStack,
@@ -27,16 +27,18 @@ interface Props extends ButtonProps {
   name: string;
   confirm: (inputValue: Date | undefined) => void;
   inputValue: Date | undefined;
+  placement?: "top" | "bottom" | "left" | "right";
   placeholder?: string;
   nonnullable?: boolean;
   isError?: boolean;
 }
 
-export default function TimePickerModal({
+export default function TimePickerDrawer({
   id,
   name,
   confirm,
   inputValue,
+  placement,
   placeholder,
   nonnullable,
   isError,
@@ -193,15 +195,19 @@ export default function TimePickerModal({
         <Icon as={RiTimeLine} mb={"1px"} fontSize={17} />
       </Button>
 
-      <Modal
+      <Drawer
         isOpen={isOpen}
         onClose={backOnClose}
         initialFocusRef={initialRef}
-        isCentered
+        placement={placement || "bottom"}
       >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader ref={initialRef}>
+        <DrawerOverlay />
+        <DrawerContent
+          borderRadius={
+            placement === "left" || placement === "right" ? "" : "12px 12px 0 0"
+          }
+        >
+          <DrawerHeader ref={initialRef}>
             <HStack justify={"space-between"}>
               <Text fontSize={20} fontWeight={600}>
                 {placeholder || "Pilih Waktu"}
@@ -209,9 +215,9 @@ export default function TimePickerModal({
 
               <BackOnCloseButton aria-label="close-back-button" />
             </HStack>
-          </ModalHeader>
+          </DrawerHeader>
 
-          <ModalBody>
+          <DrawerBody>
             <HStack justify={"space-between"}>
               <VStack flex={"1 1 0"} align={"stretch"} gap={0}>
                 <IconButton
@@ -392,9 +398,9 @@ export default function TimePickerModal({
                 />
               </VStack>
             </HStack>
-          </ModalBody>
+          </DrawerBody>
 
-          <ModalFooter gap={2}>
+          <DrawerFooter gap={2} pb={8} w={"100%"} maxW={"720px !important"}>
             <VStack w={"100%"}>
               {!nonnullable && (
                 <Button
@@ -431,9 +437,9 @@ export default function TimePickerModal({
                 Konfirmasi
               </Button>
             </VStack>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </>
   );
 }
