@@ -33,7 +33,7 @@ export default function UseBackOnCloseShowcase() {
   ];
 
   return (
-    <ComponentShowcaseContainer title="useBackOnClose" flex={"1 1 0"}>
+    <ComponentShowcaseContainer title="useBackOnClose">
       <PropsAccordions type="library" requiredProps={requiredProps} />
 
       <ContentContainer>
