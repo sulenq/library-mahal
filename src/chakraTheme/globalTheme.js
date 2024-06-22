@@ -184,7 +184,7 @@ export const globalTheme = extendTheme({
     Modal: {
       baseStyle: (props) => ({
         dialogContainer: {
-          p: 4,
+          // p: 4,
         },
         dialog: {
           bg: props.colorMode === "dark" ? "dark" : "white",
@@ -193,7 +193,6 @@ export const globalTheme = extendTheme({
           borderRadius: 12,
           // maxH: "100%",
           // border: "1px solid var(--divider)",
-          // mx: "16px",
         },
         overlay: {
           bg: "#00000011",
