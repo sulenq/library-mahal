@@ -36,6 +36,11 @@ export default function TimePickerModalShowcase() {
 
   const optionalProps = [
     {
+      label: "includeSeconds",
+      type: "boolean",
+      desc: <Text>default is false, add seconds to the time picker</Text>,
+    },
+    {
       label: "isError",
       type: "boolean",
       desc: <Text>tell input if there is a validation error </Text>,

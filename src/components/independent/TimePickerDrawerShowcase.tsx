@@ -48,6 +48,11 @@ export default function TimePickerDrawerShowcase() {
 
   const optionalProps = [
     {
+      label: "includeSeconds",
+      type: "boolean",
+      desc: <Text>default is false, add seconds to the time picker</Text>,
+    },
+    {
       label: "isError",
       type: "boolean",
       desc: <Text>tell input if there is a validation error </Text>,
@@ -161,7 +166,7 @@ export default function TimePickerDrawerShowcase() {
         </FormControl>
 
         <FormControl>
-          <FormLabel>Time Input</FormLabel>
+          <FormLabel>Time Input Include Seconds</FormLabel>
           <TimePickerDrawer
             id="time_picker_drawer"
             name="time"
@@ -170,6 +175,7 @@ export default function TimePickerDrawerShowcase() {
             }}
             inputValue={input}
             placement={placement}
+            includeSeconds
             borderRadius={6}
           />
         </FormControl>

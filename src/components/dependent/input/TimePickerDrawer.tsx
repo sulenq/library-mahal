@@ -27,6 +27,7 @@ interface Props extends ButtonProps {
   name: string;
   confirm: (inputValue: Date | undefined) => void;
   inputValue: Date | undefined;
+  includeSeconds?: boolean;
   placement?: "top" | "bottom" | "left" | "right";
   placeholder?: string;
   nonNullable?: boolean;
@@ -38,6 +39,7 @@ export default function TimePickerDrawer({
   name,
   confirm,
   inputValue,
+  includeSeconds,
   placement,
   placeholder,
   nonNullable,
@@ -337,66 +339,70 @@ export default function TimePickerDrawer({
                 />
               </VStack>
 
-              <Text fontSize={50} opacity={0.2} mt={-10}>
-                :
-              </Text>
-
-              <VStack flex={"1 1 0"} align={"stretch"} gap={0}>
-                <IconButton
-                  aria-label="add hour button"
-                  icon={<Icon as={RiArrowUpSLine} fontSize={20} />}
-                  className="btn-outline clicky"
-                  onClick={() => {
-                    setSeconds((ps) => (ps < 59 ? ps + 1 : 0));
-                    if (!time) {
-                      setTime(defaultTime);
-                    }
-                  }}
-                  onMouseDown={() => {
-                    handleMouseDownIncrement("seconds");
-                  }}
-                  onMouseUp={handleMouseUpIncrement}
-                  onMouseLeave={handleMouseUpIncrement}
-                  onTouchStart={() => {
-                    handleMouseDownIncrement("seconds");
-                  }}
-                  onTouchEnd={handleMouseUpIncrement}
-                />
-
-                <VStack my={4}>
-                  <Text
-                    fontSize={52}
-                    fontWeight={600}
-                    textAlign={"center"}
-                    lineHeight={1}
-                    className="num"
-                  >
-                    {time ? String(seconds).padStart(2, "0") : "--"}
+              {includeSeconds && (
+                <>
+                  <Text fontSize={50} opacity={0.2} mt={-10}>
+                    :
                   </Text>
-                  <Text textAlign={"center"}>Detik</Text>
-                </VStack>
 
-                <IconButton
-                  aria-label="reduce hour button"
-                  icon={<Icon as={RiArrowDownSLine} fontSize={20} />}
-                  className="btn-outline clicky"
-                  onClick={() => {
-                    setSeconds((ps) => (ps > 0 ? ps - 1 : 59));
-                    if (!time) {
-                      setTime(defaultTime);
-                    }
-                  }}
-                  onMouseDown={() => {
-                    handleMouseDownDecrement("seconds");
-                  }}
-                  onMouseUp={handleMouseUpDecrement}
-                  onMouseLeave={handleMouseUpDecrement}
-                  onTouchStart={() => {
-                    handleMouseDownDecrement("seconds");
-                  }}
-                  onTouchEnd={handleMouseUpDecrement}
-                />
-              </VStack>
+                  <VStack flex={"1 1 0"} align={"stretch"} gap={0}>
+                    <IconButton
+                      aria-label="add hour button"
+                      icon={<Icon as={RiArrowUpSLine} fontSize={20} />}
+                      className="btn-outline clicky"
+                      onClick={() => {
+                        setSeconds((ps) => (ps < 59 ? ps + 1 : 0));
+                        if (!time) {
+                          setTime(defaultTime);
+                        }
+                      }}
+                      onMouseDown={() => {
+                        handleMouseDownIncrement("seconds");
+                      }}
+                      onMouseUp={handleMouseUpIncrement}
+                      onMouseLeave={handleMouseUpIncrement}
+                      onTouchStart={() => {
+                        handleMouseDownIncrement("seconds");
+                      }}
+                      onTouchEnd={handleMouseUpIncrement}
+                    />
+
+                    <VStack my={4}>
+                      <Text
+                        fontSize={52}
+                        fontWeight={600}
+                        textAlign={"center"}
+                        lineHeight={1}
+                        className="num"
+                      >
+                        {time ? String(seconds).padStart(2, "0") : "--"}
+                      </Text>
+                      <Text textAlign={"center"}>Detik</Text>
+                    </VStack>
+
+                    <IconButton
+                      aria-label="reduce hour button"
+                      icon={<Icon as={RiArrowDownSLine} fontSize={20} />}
+                      className="btn-outline clicky"
+                      onClick={() => {
+                        setSeconds((ps) => (ps > 0 ? ps - 1 : 59));
+                        if (!time) {
+                          setTime(defaultTime);
+                        }
+                      }}
+                      onMouseDown={() => {
+                        handleMouseDownDecrement("seconds");
+                      }}
+                      onMouseUp={handleMouseUpDecrement}
+                      onMouseLeave={handleMouseUpDecrement}
+                      onTouchStart={() => {
+                        handleMouseDownDecrement("seconds");
+                      }}
+                      onTouchEnd={handleMouseUpDecrement}
+                    />
+                  </VStack>
+                </>
+              )}
             </HStack>
           </DrawerBody>
 
