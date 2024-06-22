@@ -4,9 +4,12 @@ import {
   HStack,
   Icon,
   ListItem,
+  Radio,
+  RadioGroup,
   Text,
   UnorderedList,
   VStack,
+  Wrap,
 } from "@chakra-ui/react";
 import { RiSlideshow2Fill } from "@remixicon/react";
 import { useState } from "react";
@@ -95,6 +98,15 @@ export default function TimePickerDrawerShowcase() {
     },
   ];
 
+  const [placement, setPlacement] = useState<
+    "top" | "bottom" | "left" | "right"
+  >("bottom");
+  const handlePlacementChange = (nextValue: string) => {
+    if (["top", "bottom", "left", "right"].includes(nextValue)) {
+      setPlacement(nextValue as "top" | "bottom" | "left" | "right");
+    }
+  };
+
   const dummyTime = new Date();
   dummyTime.setHours(16, 0, 0, 0);
 
@@ -118,6 +130,21 @@ export default function TimePickerDrawerShowcase() {
           </Text>
         </HStack>
 
+        <Text mb={2}>Placement</Text>
+        <RadioGroup
+          onChange={handlePlacementChange}
+          colorScheme="ap"
+          value={placement}
+          mb={2}
+        >
+          <Wrap direction="row" spacing={4}>
+            <Radio value="top">Top</Radio>
+            <Radio value="bottom">Bottom</Radio>
+            <Radio value="left">Left</Radio>
+            <Radio value="right">Right</Radio>
+          </Wrap>
+        </RadioGroup>
+
         <FormControl mb={2}>
           <FormLabel>Non-nullable Time Input</FormLabel>
           <TimePickerDrawer
@@ -127,8 +154,9 @@ export default function TimePickerDrawerShowcase() {
               setNonNullableInput(inputValue);
             }}
             inputValue={nonNullableInput}
-            borderRadius={6}
             nonNullable
+            placement={placement}
+            borderRadius={6}
           />
         </FormControl>
 
@@ -141,6 +169,7 @@ export default function TimePickerDrawerShowcase() {
               setInput(inputValue);
             }}
             inputValue={input}
+            placement={placement}
             borderRadius={6}
           />
         </FormControl>
