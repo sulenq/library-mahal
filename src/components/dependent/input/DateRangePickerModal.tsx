@@ -322,7 +322,7 @@ export default function DateRangePickerModal({
                       ? false
                       : true
                     : (selected && selected.from && selected.to) ||
-                      selected === null
+                      selected === undefined
                     ? false
                     : true
                 }
