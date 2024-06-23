@@ -105,7 +105,7 @@ export default function TimePickerModalShowcase() {
         </FormControl>
 
         <FormControl>
-          <FormLabel>Time Input Inclide Seconds</FormLabel>
+          <FormLabel>Time Input Include Seconds</FormLabel>
           <TimePickerModal
             id="time_picker"
             name="time"

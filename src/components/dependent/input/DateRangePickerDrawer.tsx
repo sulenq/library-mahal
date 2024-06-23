@@ -29,11 +29,11 @@ import { useRef, useState } from "react";
 import { DayPicker } from "react-day-picker";
 import { useErrorColor } from "../../../constant/colors";
 import useBackOnClose from "../../../hooks/useBackOnClose";
+import useScreenWidth from "../../../hooks/useScreenWidth";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
-import useScreenWidth from "../../../lib/useScreenWidth";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
-import DatePickerMonthYearInput from "./DatePickerMonthYearInput";
+import DatePickerMonthYearInputDrawer from "./DatePickerMonthYearInputDrawer";
 type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
 interface Props extends ButtonProps {
@@ -70,9 +70,9 @@ export default function DateRangePickerDrawer({
     initialValue.current ? initialValue.current.from : new Date()
   );
   const [bulan, setBulan] = useState<number>(
-    (initialValue.current
+    initialValue.current
       ? initialValue.current.from?.getMonth()
-      : date.getMonth()) + 1
+      : date.getMonth()
   );
   const [tahun, setTahun] = useState<number>(
     initialValue.current
@@ -114,7 +114,7 @@ export default function DateRangePickerDrawer({
     // Set the state with the calculated dates
     setDate(today);
     setSelected({ from: startOfWeek, to: endOfWeek });
-    setBulan(today.getMonth() + 1);
+    setBulan(today.getMonth());
     setTahun(today.getFullYear());
   }
   function nextMonth() {
@@ -126,7 +126,7 @@ export default function DateRangePickerDrawer({
       bulan === 12 ? 0 : currentMonth + 1
     );
     setDate(nextMonth);
-    setBulan(nextMonth.getMonth() + 1);
+    setBulan(nextMonth.getMonth());
     setTahun(nextMonth.getFullYear());
   }
   function prevMonth() {
@@ -138,7 +138,7 @@ export default function DateRangePickerDrawer({
       bulan === 1 ? 11 : currentMonth - 1
     );
     setDate(prevMonth);
-    setBulan(prevMonth.getMonth() + 1);
+    setBulan(prevMonth.getMonth());
     setTahun(prevMonth.getFullYear());
   }
 
@@ -165,8 +165,7 @@ export default function DateRangePickerDrawer({
           setSelected(inputValue);
           setDate(inputValue ? inputValue.from : new Date());
           setBulan(
-            (inputValue ? inputValue.from?.getMonth() : new Date().getMonth()) +
-              1
+            inputValue ? inputValue.from?.getMonth() : new Date().getMonth()
           );
           setTahun(
             inputValue
@@ -227,8 +226,8 @@ export default function DateRangePickerDrawer({
                     maxW={"50px"}
                   ></Button>
 
-                  <DatePickerMonthYearInput
-                    id={"datepicker_modal_datepicker_month_year_input"}
+                  <DatePickerMonthYearInputDrawer
+                    id={"date_range_picker_input_month_year_drawer"}
                     bulan={bulan}
                     tahun={tahun}
                     setBulan={setBulan}
@@ -282,7 +281,10 @@ export default function DateRangePickerDrawer({
             </VStack>
           </DrawerBody>
 
-          <DrawerFooter pt={"8px !important"}>
+          <DrawerFooter
+            pt={"8px !important"}
+            pb={placement === "bottom" ? 8 : 6}
+          >
             <VStack align={"stretch"} w={"100%"}>
               <Stack flexDir={["column", "row"]}>
                 <Box flex={[null, "1 1 180px"]}>

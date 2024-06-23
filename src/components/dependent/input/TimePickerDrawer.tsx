@@ -406,7 +406,7 @@ export default function TimePickerDrawer({
             </HStack>
           </DrawerBody>
 
-          <DrawerFooter gap={2} pb={8} w={"100%"}>
+          <DrawerFooter gap={2} pb={placement === "bottom" ? 8 : 6} w={"100%"}>
             <VStack w={"100%"}>
               <Button
                 className="btn-outline clicky"

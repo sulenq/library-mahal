@@ -27,7 +27,7 @@ import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
-import DatePickerMonthYearInput from "./DatePickerMonthYearInput";
+import DatePickerMonthYearInputDrawer from "./DatePickerMonthYearInputDrawer";
 type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
 interface Props extends ButtonProps {
@@ -88,7 +88,7 @@ export default function DatePickerDrawer({
     const today = new Date();
     setDate(today);
     setSelected(today);
-    setBulan(today.getMonth() + 1);
+    setBulan(today.getMonth());
     setTahun(today.getFullYear());
   }
   function nextMonth() {
@@ -100,7 +100,7 @@ export default function DatePickerDrawer({
       bulan === 12 ? 0 : currentMonth + 1
     );
     setDate(nextMonth);
-    setBulan(nextMonth.getMonth() + 1);
+    setBulan(nextMonth.getMonth());
     setTahun(nextMonth.getFullYear());
   }
   function prevMonth() {
@@ -112,7 +112,7 @@ export default function DatePickerDrawer({
       bulan === 1 ? 11 : currentMonth - 1
     );
     setDate(prevMonth);
-    setBulan(prevMonth.getMonth() + 1);
+    setBulan(prevMonth.getMonth());
     setTahun(prevMonth.getFullYear());
   }
 
@@ -166,7 +166,7 @@ export default function DatePickerDrawer({
             placement === "left" || placement === "right" ? "" : "12px 12px 0 0"
           }
         >
-          <DrawerHeader ref={initialRef} mx={"auto"}>
+          <DrawerHeader ref={initialRef}>
             <HStack align={"start"} justify={"space-between"}>
               <Text fontSize={20} fontWeight={600}>
                 {placeholder || "Pilih Tanggal"}
@@ -176,7 +176,7 @@ export default function DatePickerDrawer({
             </HStack>
           </DrawerHeader>
 
-          <DrawerBody mx={"auto"} className="scrollY">
+          <DrawerBody className="scrollY">
             <VStack align={"stretch"}>
               <VStack gap={0} overflowX={"auto"} w={"100%"} align={"stretch"}>
                 <ButtonGroup w={"100%"} mb={3}>
@@ -190,8 +190,8 @@ export default function DatePickerDrawer({
                     maxW={"50px"}
                   ></Button>
 
-                  <DatePickerMonthYearInput
-                    id={"datepicker_drawer_datepicker_month_year_input"}
+                  <DatePickerMonthYearInputDrawer
+                    id={"date_picker_input_month_year_drawer"}
                     bulan={bulan}
                     tahun={tahun}
                     setBulan={setBulan}
@@ -226,7 +226,10 @@ export default function DatePickerDrawer({
             </VStack>
           </DrawerBody>
 
-          <DrawerFooter pt={"16px !important"} pb={8} mx={"auto"}>
+          <DrawerFooter
+            pt={"16px !important"}
+            pb={placement === "bottom" ? 8 : 6}
+          >
             <VStack align={"stretch"} w={"100%"}>
               <ButtonGroup w={"100%"}>
                 <Button

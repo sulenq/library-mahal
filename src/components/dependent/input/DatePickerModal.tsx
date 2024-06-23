@@ -27,7 +27,7 @@ import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
-import DatePickerMonthYearInput from "./DatePickerMonthYearInput";
+import DatePickerMonthYearInputModal from "./DatePickerMonthYearInputModal";
 type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
 interface Props extends ButtonProps {
@@ -60,7 +60,7 @@ export default function DatePickerModal({
 
   const [date, setDate] = useState<Date>(initialValue.current || new Date());
   const [bulan, setBulan] = useState<number>(
-    (initialValue.current?.getMonth() || date.getMonth()) + 1
+    initialValue.current?.getMonth() || date.getMonth()
   );
   const [tahun, setTahun] = useState<number>(
     initialValue.current?.getFullYear() || date.getFullYear()
@@ -86,7 +86,7 @@ export default function DatePickerModal({
     const today = new Date();
     setDate(today);
     setSelected(today);
-    setBulan(today.getMonth() + 1);
+    setBulan(today.getMonth());
     setTahun(today.getFullYear());
   }
   function nextMonth() {
@@ -98,7 +98,7 @@ export default function DatePickerModal({
       bulan === 12 ? 0 : currentMonth + 1
     );
     setDate(nextMonth);
-    setBulan(nextMonth.getMonth() + 1);
+    setBulan(nextMonth.getMonth());
     setTahun(nextMonth.getFullYear());
   }
   function prevMonth() {
@@ -110,7 +110,7 @@ export default function DatePickerModal({
       bulan === 1 ? 11 : currentMonth - 1
     );
     setDate(prevMonth);
-    setBulan(prevMonth.getMonth() + 1);
+    setBulan(prevMonth.getMonth());
     setTahun(prevMonth.getFullYear());
   }
 
@@ -135,7 +135,7 @@ export default function DatePickerModal({
           onOpen();
           setSelected(inputValue);
           setDate(inputValue || new Date());
-          setBulan((inputValue?.getMonth() || new Date().getMonth()) + 1);
+          setBulan(inputValue?.getMonth() || new Date().getMonth());
           setTahun(inputValue?.getFullYear() || new Date().getFullYear());
         }}
         // _focus={{ boxShadow: "0 0 0px 2px var(--p500)" }}
@@ -183,8 +183,8 @@ export default function DatePickerModal({
                     maxW={"50px"}
                   ></Button>
 
-                  <DatePickerMonthYearInput
-                    id={"datepicker_modal_datepicker_month_year_input"}
+                  <DatePickerMonthYearInputModal
+                    id={"date_picker_input_month_year_modal"}
                     bulan={bulan}
                     tahun={tahun}
                     setBulan={setBulan}

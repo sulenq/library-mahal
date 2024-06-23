@@ -1,5 +1,12 @@
 import {
   Button,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -7,26 +14,19 @@ import {
   Icon,
   IconButton,
   Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
+  SimpleGrid,
   StackProps,
   Text,
   useDisclosure,
-  Wrap,
 } from "@chakra-ui/react";
+import { RiAddLine, RiSubtractLine } from "@remixicon/react";
 import { Dispatch, useRef, useState } from "react";
 import months from "../../../constant/months";
+import { iconSize } from "../../../constant/sizes";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
 import parseNumber from "../../../lib/parseNumber";
-import { RiAddLine, RiSubtractLine } from "@remixicon/react";
-import { iconSize } from "../../../constant/sizes";
 
 interface Props extends StackProps {
   id: string;
@@ -35,20 +35,27 @@ interface Props extends StackProps {
   tahun: number;
   setTahun: Dispatch<number>;
   setDate: Dispatch<Date>;
+  placement?: "top" | "bottom" | "left" | "right";
 }
 
-export default function DatePickerMonthYearInput({
+export default function DatePickerMonthYearInputDrawer({
   id,
   bulan,
   setBulan,
   tahun,
   setTahun,
   setDate,
+  placement,
   ...props
 }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
-  useBackOnClose(id || "datepicker_month_year_input", isOpen, onOpen, onClose);
+  useBackOnClose(
+    id || "datepicker_month_year_input_modal",
+    isOpen,
+    onOpen,
+    onClose
+  );
 
   const [bulanLocal, setBulanLocal] = useState<number>(bulan);
   const [tahunLocal, setTahunLocal] = useState<number>(tahun);
@@ -58,9 +65,9 @@ export default function DatePickerMonthYearInput({
   };
 
   function confirm() {
-    setBulan(bulanLocal + 1);
+    setBulan(bulanLocal);
     setTahun(tahunLocal);
-    setDate(new Date(tahunLocal, bulanLocal + 1));
+    setDate(new Date(tahunLocal, bulanLocal));
     backOnClose();
   }
 
@@ -72,44 +79,52 @@ export default function DatePickerMonthYearInput({
         justify={"center"}
         flex={1}
         _hover={{ bg: "var(--divider)" }}
-        onClick={onOpen}
+        onClick={() => {
+          onOpen();
+          setBulanLocal(bulan);
+          setTahunLocal(tahun);
+        }}
         {...props}
       >
         <Text fontSize={17} fontWeight={600}>
-          {`${formatDate(new Date(tahun, bulan - 1), {
+          {`${formatDate(new Date(tahun, bulan), {
             month: "long",
             year: "numeric",
           })}`}
         </Text>
       </HStack>
 
-      <Modal
+      <Drawer
         isOpen={isOpen}
         onClose={() => {
           backOnClose();
         }}
         initialFocusRef={initialRef}
-        isCentered
+        placement={placement || "bottom"}
+        size={placement === "left" || placement === "right" ? "sm" : ""}
       >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalCloseButton />
-          <ModalHeader ref={initialRef}>
+        <DrawerOverlay />
+        <DrawerContent
+          borderRadius={
+            placement === "left" || placement === "right" ? "" : "12px 12px 0 0"
+          }
+        >
+          <DrawerCloseButton />
+          <DrawerHeader ref={initialRef}>
             <HStack align={"start"} justify={"space-between"}>
               <Text fontSize={20} fontWeight={600}>
                 Set Bulan & Tahun
               </Text>
             </HStack>
-          </ModalHeader>
+          </DrawerHeader>
 
-          <ModalBody>
+          <DrawerBody>
             <FormControl mb={4}>
               <FormLabel>Bulan</FormLabel>
-              <Wrap>
+              <SimpleGrid columns={[2, 3]} gap={2}>
                 {months.map((month, i) => (
                   <Button
                     key={i}
-                    flex={"1 1 100px"}
                     borderColor={i === bulanLocal ? "p.500" : ""}
                     bg={i === bulanLocal ? "var(--p500a3) !important" : ""}
                     className="btn-outline"
@@ -120,7 +135,7 @@ export default function DatePickerMonthYearInput({
                     {month}
                   </Button>
                 ))}
-              </Wrap>
+              </SimpleGrid>
             </FormControl>
 
             <FormControl isInvalid={!isTahunValid(tahunLocal)}>
@@ -167,9 +182,9 @@ export default function DatePickerMonthYearInput({
                 </Text>
               </FormErrorMessage>
             </FormControl>
-          </ModalBody>
+          </DrawerBody>
 
-          <ModalFooter>
+          <DrawerFooter pb={placement === "bottom" ? 8 : 6}>
             <Button
               onClick={confirm}
               w={"100%"}
@@ -179,9 +194,9 @@ export default function DatePickerMonthYearInput({
             >
               Terapkan
             </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </>
   );
 }

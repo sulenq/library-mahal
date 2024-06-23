@@ -32,8 +32,8 @@ import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
-import DatePickerMonthYearInput from "./DatePickerMonthYearInput";
-import useScreenWidth from "../../../lib/useScreenWidth";
+import useScreenWidth from "../../../hooks/useScreenWidth";
+import DatePickerMonthYearInputModal from "./DatePickerMonthYearInputModal";
 type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
 interface Props extends ButtonProps {
@@ -68,9 +68,9 @@ export default function DateRangePickerModal({
     initialValue.current ? initialValue.current.from : new Date()
   );
   const [bulan, setBulan] = useState<number>(
-    (initialValue.current
+    initialValue.current
       ? initialValue.current.from?.getMonth()
-      : date.getMonth()) + 1
+      : date.getMonth()
   );
   const [tahun, setTahun] = useState<number>(
     initialValue.current
@@ -112,7 +112,7 @@ export default function DateRangePickerModal({
     // Set the state with the calculated dates
     setDate(today);
     setSelected({ from: startOfWeek, to: endOfWeek });
-    setBulan(today.getMonth() + 1);
+    setBulan(today.getMonth());
     setTahun(today.getFullYear());
   }
   function nextMonth() {
@@ -124,7 +124,7 @@ export default function DateRangePickerModal({
       bulan === 12 ? 0 : currentMonth + 1
     );
     setDate(nextMonth);
-    setBulan(nextMonth.getMonth() + 1);
+    setBulan(nextMonth.getMonth());
     setTahun(nextMonth.getFullYear());
   }
   function prevMonth() {
@@ -136,7 +136,7 @@ export default function DateRangePickerModal({
       bulan === 1 ? 11 : currentMonth - 1
     );
     setDate(prevMonth);
-    setBulan(prevMonth.getMonth() + 1);
+    setBulan(prevMonth.getMonth());
     setTahun(prevMonth.getFullYear());
   }
 
@@ -163,8 +163,7 @@ export default function DateRangePickerModal({
           setSelected(inputValue);
           setDate(inputValue ? inputValue.from : new Date());
           setBulan(
-            (inputValue ? inputValue.from?.getMonth() : new Date().getMonth()) +
-              1
+            inputValue ? inputValue.from?.getMonth() : new Date().getMonth()
           );
           setTahun(
             inputValue
@@ -220,8 +219,8 @@ export default function DateRangePickerModal({
                     maxW={"50px"}
                   ></Button>
 
-                  <DatePickerMonthYearInput
-                    id={"datepicker_modal_datepicker_month_year_input"}
+                  <DatePickerMonthYearInputModal
+                    id={"date_range_picker_input_month_year_modal"}
                     bulan={bulan}
                     tahun={tahun}
                     setBulan={setBulan}
