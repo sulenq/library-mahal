@@ -181,7 +181,7 @@ export default function DateRangePickerModal({
             dateFormatOptions
           )} - ${formatDate(inputValue.to, dateFormatOptions)}`}</Text>
         ) : (
-          <Text opacity={0.6}>{placeholder || `Pilih rentang Tanggal`}</Text>
+          <Text opacity={0.6}>{placeholder || `Pilih Rentang Tanggal`}</Text>
         )}
 
         <Icon as={RiCalendarLine} mb={"1px"} />
@@ -198,7 +198,7 @@ export default function DateRangePickerModal({
           <ModalHeader ref={initialRef}>
             <HStack align={"start"} justify={"space-between"}>
               <Text fontSize={20} fontWeight={600}>
-                {placeholder || "Pilih rentang Tanggal"}
+                {placeholder || "Pilih Rentang Tanggal"}
               </Text>
 
               <BackOnCloseButton aria-label="close-back-button" />
