@@ -233,6 +233,7 @@ export default function DateRangePickerDrawer({
                     setBulan={setBulan}
                     setTahun={setTahun}
                     setDate={setDate}
+                    placement={placement}
                   />
 
                   <Button

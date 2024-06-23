@@ -197,6 +197,7 @@ export default function DatePickerDrawer({
                     setBulan={setBulan}
                     setTahun={setTahun}
                     setDate={setDate}
+                    placement={placement}
                   />
 
                   <Button

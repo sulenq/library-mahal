@@ -120,6 +120,10 @@ export const globalTheme = extendTheme({
 
     Drawer: {
       baseStyle: (props) => ({
+        overlay: {
+          bg: "#00000011",
+          backdropFilter: "blur(5px)",
+        },
         dialog: {
           bg: props.colorMode === "dark" ? "dark" : "white",
           boxShadow: "none",
