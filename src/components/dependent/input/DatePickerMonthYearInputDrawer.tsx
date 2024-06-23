@@ -106,7 +106,11 @@ export default function DatePickerMonthYearInputDrawer({
         <DrawerOverlay />
         <DrawerContent
           borderRadius={
-            placement === "left" || placement === "right" ? "" : "12px 12px 0 0"
+            placement === "left" || placement === "right"
+              ? ""
+              : placement === "top"
+              ? "0 0 12px 12px "
+              : "12px 12px 0 0"
           }
         >
           <DrawerCloseButton />
