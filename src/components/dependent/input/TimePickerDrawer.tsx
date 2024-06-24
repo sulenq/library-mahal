@@ -27,10 +27,10 @@ interface Props extends ButtonProps {
   name: string;
   confirm: (inputValue: Date | undefined) => void;
   inputValue: Date | undefined;
-  includeSeconds?: boolean;
+  withSeconds?: boolean;
   placement?: "top" | "bottom" | "left" | "right";
   placeholder?: string;
-  nonNullable?: boolean;
+  required?: boolean;
   isError?: boolean;
 }
 
@@ -39,14 +39,13 @@ export default function TimePickerDrawer({
   name,
   confirm,
   inputValue,
-  includeSeconds,
+  withSeconds,
   placement,
   placeholder,
-  nonNullable,
+  required,
   isError,
   ...props
 }: Props) {
-  const initialValue = useRef(inputValue);
   const initialRef = useRef(null);
 
   // const hoursArray = Array.from({ length: 23 }, (_, i) => i + 1);
@@ -56,19 +55,17 @@ export default function TimePickerDrawer({
   defaultTime.setHours(0, 0, 0, 0);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  useBackOnClose(`${id}_${name}`, isOpen, onOpen, onClose);
+  useBackOnClose(`${id}-[${name}]`, isOpen, onOpen, onClose);
 
-  const [time, setTime] = useState<Date | undefined>(
-    initialValue.current || defaultTime
-  );
+  const [time, setTime] = useState<Date | undefined>(inputValue || defaultTime);
   const [hours, setHours] = useState<number>(
-    initialValue.current?.getHours() || defaultTime.getHours()
+    inputValue?.getHours() || defaultTime.getHours()
   );
   const [minutes, setMinutes] = useState<number>(
-    initialValue.current?.getMinutes() || defaultTime.getMinutes()
+    inputValue?.getMinutes() || defaultTime.getMinutes()
   );
   const [seconds, setSeconds] = useState<number>(
-    initialValue.current?.getSeconds() || defaultTime.getSeconds()
+    inputValue?.getSeconds() || defaultTime.getSeconds()
   );
 
   const intervalIncrementRef = useRef<ReturnType<typeof setInterval> | null>(
@@ -138,7 +135,7 @@ export default function TimePickerDrawer({
 
   function confirmSelected() {
     let confirmable = false;
-    if (!nonNullable) {
+    if (!required) {
       confirmable = true;
     } else {
       if (time) {
@@ -189,7 +186,7 @@ export default function TimePickerDrawer({
         {...props}
       >
         {inputValue ? (
-          <Text>{formatTimeFromDate(inputValue, includeSeconds)}</Text>
+          <Text>{formatTimeFromDate(inputValue, withSeconds)}</Text>
         ) : (
           <Text opacity={0.6}>{placeholder || `Pilih Waktu`}</Text>
         )}
@@ -343,7 +340,7 @@ export default function TimePickerDrawer({
                 />
               </VStack>
 
-              {includeSeconds && (
+              {withSeconds && (
                 <>
                   <Text fontSize={50} opacity={0.2} mt={-10}>
                     :
@@ -437,7 +434,7 @@ export default function TimePickerDrawer({
               colorScheme="ap"
               className="btn-ap clicky"
               w={"100%"}
-              isDisabled={nonNullable ? (time ? false : true) : false}
+              isDisabled={required ? (time ? false : true) : false}
               onClick={confirmSelected}
             >
               Konfirmasi

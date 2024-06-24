@@ -124,7 +124,7 @@ export default function DateRangePickerDrawerShowcase() {
       ),
     },
     {
-      label: "nonNullable",
+      label: "required",
       type: "boolean",
       desc: (
         <Text>
@@ -144,7 +144,7 @@ export default function DateRangePickerDrawerShowcase() {
     }
   };
 
-  const [nonNullableInput, setNonNullableInput] = useState<{
+  const [requiredInput, setrequiredInput] = useState<{
     from: Date;
     to: Date;
   }>({
@@ -190,16 +190,15 @@ export default function DateRangePickerDrawerShowcase() {
         </RadioGroup>
 
         <FormControl>
-          <FormLabel>Non-nullable Date Input</FormLabel>
+          <FormLabel>Required Date Input</FormLabel>
           <DateRangePickerDrawer
-            id="nonNullableDateRangeInput_drawer"
-            name="nonNullable_date"
+            id="requiredDateRangeInput_drawer"
+            name="required_date"
             confirm={(inputValue) => {
-              setNonNullableInput(inputValue);
+              setrequiredInput(inputValue);
             }}
-            inputValue={nonNullableInput}
-            borderRadius={6}
-            nonNullable
+            inputValue={requiredInput}
+            required
             mb={2}
             placement={placement}
           />
@@ -214,7 +213,6 @@ export default function DateRangePickerDrawerShowcase() {
               setDate(inputValue);
             }}
             inputValue={date}
-            borderRadius={6}
             placement={placement}
           />
         </FormControl>

@@ -1,13 +1,17 @@
-import { Text, TextProps } from "@chakra-ui/react";
+import { HStack, Icon, StackProps, Text } from "@chakra-ui/react";
+import { RiPuzzle2Fill } from "@remixicon/react";
 
-interface Props extends TextProps {
+interface Props extends StackProps {
   children?: any;
 }
 
 export default function ComponentShowcaseTitle({ children, ...props }: Props) {
   return (
-    <Text fontSize={18} fontWeight={600} {...props}>
-      {children}
-    </Text>
+    <HStack color={"p.500"} {...props}>
+      <Icon as={RiPuzzle2Fill} fontSize={28} />
+      <Text fontSize={28} fontWeight={700}>
+        {children}
+      </Text>
+    </HStack>
   );
 }

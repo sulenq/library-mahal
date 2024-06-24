@@ -37,7 +37,7 @@ interface Props extends ButtonProps {
   inputValue: Date | undefined;
   dateFormatOptions?: PrefixOption | object;
   placeholder?: string;
-  nonNullable?: boolean;
+  required?: boolean;
   isError?: boolean;
 }
 
@@ -48,28 +48,27 @@ export default function DatePickerModal({
   inputValue,
   dateFormatOptions,
   placeholder,
-  nonNullable,
+  required,
   isError,
   ...props
 }: Props) {
-  const initialValue = useRef(inputValue);
   const initialRef = useRef(null);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  useBackOnClose(`${id}_${name}`, isOpen, onOpen, onClose);
+  useBackOnClose(`${id}-[${name}]`, isOpen, onOpen, onClose);
 
-  const [date, setDate] = useState<Date>(initialValue.current || new Date());
+  const [date, setDate] = useState<Date>(inputValue || new Date());
   const [bulan, setBulan] = useState<number>(
-    initialValue.current?.getMonth() || date.getMonth()
+    inputValue?.getMonth() || date.getMonth()
   );
   const [tahun, setTahun] = useState<number>(
-    initialValue.current?.getFullYear() || date.getFullYear()
+    inputValue?.getFullYear() || date.getFullYear()
   );
   const [selected, setSelected] = useState<any>(inputValue);
 
   function confirmSelected() {
     let confirmable = false;
-    if (!nonNullable) {
+    if (!required) {
       confirmable = true;
     } else {
       if (selected) {
@@ -259,7 +258,7 @@ export default function DatePickerModal({
                 colorScheme="ap"
                 className="btn-ap clicky"
                 w={"100%"}
-                isDisabled={nonNullable ? (selected ? false : true) : false}
+                isDisabled={required ? (selected ? false : true) : false}
                 onClick={confirmSelected}
               >
                 Konfirmasi

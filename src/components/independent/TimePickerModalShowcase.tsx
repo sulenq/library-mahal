@@ -36,7 +36,7 @@ export default function TimePickerModalShowcase() {
 
   const optionalProps = [
     {
-      label: "includeSeconds",
+      label: "withSeconds",
       type: "boolean",
       desc: <Text>default is false, add seconds to the time picker</Text>,
     },
@@ -56,7 +56,7 @@ export default function TimePickerModalShowcase() {
       ),
     },
     {
-      label: "nonNullable",
+      label: "required",
       type: "boolean",
       desc: (
         <Text>
@@ -70,7 +70,7 @@ export default function TimePickerModalShowcase() {
   const dummyTime = new Date();
   dummyTime.setHours(16, 0, 0, 0);
 
-  const [nonNullableInput, setNonNullableInput] = useState<Date | undefined>(
+  const [requiredInput, setrequiredInput] = useState<Date | undefined>(
     dummyTime
   );
   const [input, setInput] = useState<Date | undefined>();
@@ -91,16 +91,15 @@ export default function TimePickerModalShowcase() {
         </HStack>
 
         <FormControl mb={2}>
-          <FormLabel>Non-nullable Time Input</FormLabel>
+          <FormLabel>Required Time Input</FormLabel>
           <TimePickerModal
-            id="nonNullable_time_picker"
-            name="nonNullable_time"
+            id="required_time_picker"
+            name="required_time"
             confirm={(inputValue) => {
-              setNonNullableInput(inputValue);
+              setrequiredInput(inputValue);
             }}
-            inputValue={nonNullableInput}
-            borderRadius={6}
-            nonNullable
+            inputValue={requiredInput}
+            required
           />
         </FormControl>
 
@@ -113,8 +112,7 @@ export default function TimePickerModalShowcase() {
               setInput(inputValue);
             }}
             inputValue={input}
-            includeSeconds
-            borderRadius={6}
+            withSeconds
           />
         </FormControl>
       </ContentContainer>

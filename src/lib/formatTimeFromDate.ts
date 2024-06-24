@@ -1,6 +1,6 @@
 export default function formatTimeFromDate(
   dateRaw: Date | string,
-  includeSeconds?: boolean
+  withSeconds?: boolean
 ) {
   let date = new Date(dateRaw);
 
@@ -15,7 +15,7 @@ export default function formatTimeFromDate(
 
   // Gabungkan jam dan menit dalam format yang diinginkan
   let formattedTime = `${formattedHours}:${formattedMinutes}`;
-  let formattedTimeIncludeSeconds = `${formattedHours}:${formattedMinutes}:${formattedMSeconds}`;
+  let formattedTimewithSeconds = `${formattedHours}:${formattedMinutes}:${formattedMSeconds}`;
 
-  return includeSeconds ? formattedTimeIncludeSeconds : formattedTime;
+  return withSeconds ? formattedTimewithSeconds : formattedTime;
 }

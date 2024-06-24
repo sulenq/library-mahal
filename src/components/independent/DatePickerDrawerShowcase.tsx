@@ -124,7 +124,7 @@ export default function DatePickerDrawerShowcase() {
       ),
     },
     {
-      label: "nonNullable",
+      label: "required",
       type: "boolean",
       desc: (
         <Text>
@@ -143,7 +143,7 @@ export default function DatePickerDrawerShowcase() {
       setPlacement(nextValue as "top" | "bottom" | "left" | "right");
     }
   };
-  const [nonNullableInput, setNonNullableInput] = useState<Date | undefined>(
+  const [requiredInput, setrequiredInput] = useState<Date | undefined>(
     new Date()
   );
   const [date, setDate] = useState<Date | undefined>();
@@ -179,17 +179,16 @@ export default function DatePickerDrawerShowcase() {
         </RadioGroup>
 
         <FormControl>
-          <FormLabel>Non-nullable Date Input</FormLabel>
+          <FormLabel>Required Date Input</FormLabel>
           <DatePickerDrawer
-            id="nonNullableDateInput_drawer"
-            name="nonNullable_date"
+            id="requiredDateInput_drawer"
+            name="required_date"
             confirm={(inputValue) => {
-              setNonNullableInput(inputValue);
+              setrequiredInput(inputValue);
             }}
-            inputValue={nonNullableInput}
-            borderRadius={6}
+            inputValue={requiredInput}
             placement={placement}
-            nonNullable
+            required
             mb={2}
           />
         </FormControl>
@@ -203,7 +202,6 @@ export default function DatePickerDrawerShowcase() {
               setDate(inputValue);
             }}
             inputValue={date}
-            borderRadius={6}
             placement={placement}
           />
         </FormControl>

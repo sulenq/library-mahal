@@ -97,7 +97,7 @@ export default function DatePickerModalShowcase() {
       ),
     },
     {
-      label: "nonNullable",
+      label: "required",
       type: "boolean",
       desc: (
         <Text>
@@ -108,7 +108,7 @@ export default function DatePickerModalShowcase() {
     },
   ];
 
-  const [nonNullableInput, setNonNullableInput] = useState<Date | undefined>(
+  const [requiredInput, setrequiredInput] = useState<Date | undefined>(
     new Date()
   );
   const [date, setDate] = useState<Date | undefined>();
@@ -129,16 +129,15 @@ export default function DatePickerModalShowcase() {
         </HStack>
 
         <FormControl mb={2}>
-          <FormLabel>Non-nullable Date Input</FormLabel>
+          <FormLabel>Required Date Input</FormLabel>
           <DatePickerModal
-            id="nonNullableDateInput"
-            name="nonNullable_date"
+            id="requiredDateInput"
+            name="required_date"
             confirm={(inputValue) => {
-              setNonNullableInput(inputValue);
+              setrequiredInput(inputValue);
             }}
-            inputValue={nonNullableInput}
-            borderRadius={6}
-            nonNullable
+            inputValue={requiredInput}
+            required
           />
         </FormControl>
 
@@ -151,7 +150,6 @@ export default function DatePickerModalShowcase() {
               setDate(inputValue);
             }}
             inputValue={date}
-            borderRadius={6}
           />
         </FormControl>
       </ContentContainer>

@@ -43,7 +43,7 @@ interface Props extends ButtonProps {
   inputValue: { from: Date; to: Date } | undefined;
   dateFormatOptions?: PrefixOption | object;
   placeholder?: string;
-  nonNullable?: boolean;
+  required?: boolean;
   isError?: boolean;
 }
 
@@ -54,34 +54,29 @@ export default function DateRangePickerModal({
   inputValue,
   dateFormatOptions,
   placeholder,
-  nonNullable,
+  required,
   isError,
   ...props
 }: Props) {
-  const initialValue = useRef(inputValue);
   const initialRef = useRef(null);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  useBackOnClose(`${id}_${name}`, isOpen, onOpen, onClose);
+  useBackOnClose(`${id}-[${name}]`, isOpen, onOpen, onClose);
 
   const [date, setDate] = useState<Date>(
-    initialValue.current ? initialValue.current.from : new Date()
+    inputValue ? inputValue.from : new Date()
   );
   const [bulan, setBulan] = useState<number>(
-    initialValue.current
-      ? initialValue.current.from?.getMonth()
-      : date.getMonth()
+    inputValue ? inputValue.from?.getMonth() : date.getMonth()
   );
   const [tahun, setTahun] = useState<number>(
-    initialValue.current
-      ? initialValue.current.from?.getFullYear()
-      : date.getFullYear()
+    inputValue ? inputValue.from?.getFullYear() : date.getFullYear()
   );
   const [selected, setSelected] = useState<any>(inputValue);
 
   function confirmSelected() {
     let confirmable = false;
-    if (!nonNullable) {
+    if (!required) {
       confirmable = true;
     } else {
       if (selected) {
@@ -317,7 +312,7 @@ export default function DateRangePickerModal({
                 className="btn-ap clicky"
                 w={"100%"}
                 isDisabled={
-                  nonNullable
+                  required
                     ? selected && selected.from && selected.to
                       ? false
                       : true

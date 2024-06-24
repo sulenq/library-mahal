@@ -1,0 +1,5 @@
+export interface SelectOption {
+  value: any;
+  label: string;
+  subLabel?: string;
+}

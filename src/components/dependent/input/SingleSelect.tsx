@@ -1,0 +1,217 @@
+import {
+  Button,
+  HStack,
+  Icon,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useDisclosure,
+  VStack,
+  Wrap,
+} from "@chakra-ui/react";
+import { useErrorColor } from "../../../constant/colors";
+import useBackOnClose from "../../../hooks/useBackOnClose";
+import backOnClose from "../../../lib/backOnClose";
+import { useRef, useState } from "react";
+import { RiArrowDownSLine } from "@remixicon/react";
+import { SelectOption } from "../../../constant/interfaces";
+
+interface Props {
+  id: string;
+  name: string;
+  options: SelectOption[];
+  confirm: (inputValue: SelectOption | undefined) => void;
+  inputValue: SelectOption | undefined;
+  withSearch?: boolean;
+  optionsDisplay?: "list" | "chip";
+  isError?: boolean;
+  placeholder?: string;
+  required?: boolean;
+}
+
+export default function SingleSelect({
+  id,
+  name,
+  options,
+  confirm,
+  inputValue,
+  withSearch,
+  optionsDisplay = "list",
+  isError,
+  placeholder,
+  required,
+  ...props
+}: Props) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  useBackOnClose(`${id}-[${name}]`, isOpen, onOpen, onClose);
+  const initialRef = useRef(null);
+
+  const [selected, setSelected] = useState<SelectOption | undefined>(
+    inputValue
+  );
+  function confirmSelected() {
+    let confirmable = false;
+    if (!required) {
+      confirmable = true;
+    } else {
+      if (selected) {
+        confirmable = true;
+      }
+    }
+
+    if (confirmable) {
+      if (selected) {
+        confirm(selected);
+      } else {
+        confirm(undefined);
+      }
+      backOnClose();
+    }
+  }
+
+  // SX
+  const errorColor = useErrorColor();
+
+  return (
+    <>
+      <Button
+        className="btn-clear"
+        px={"16px !important"}
+        border={"1px solid var(--divider3)"}
+        boxShadow={isError ? errorColor : ""}
+        borderRadius={8}
+        gap={3}
+        _focus={{
+          border: "1px solid var(--p500)",
+          boxShadow: "none !important",
+        }}
+        cursor={"pointer"}
+        onClick={() => {
+          onOpen();
+          setSelected(inputValue);
+        }}
+        justifyContent={"space-between"}
+        w={"100%"}
+        role="group"
+        {...props}
+      >
+        <HStack>
+          <Text
+            opacity={inputValue ? 1 : 0.3}
+            fontWeight={400}
+            overflow={"hidden"}
+            whiteSpace={"nowrap"}
+            textOverflow={"ellipsis"}
+          >
+            {inputValue ? inputValue.label : placeholder || "Pilih Salah Satu"}
+          </Text>
+          fontWeight={400}
+          <Text opacity={0.4}>{inputValue && inputValue.subLabel}</Text>
+        </HStack>
+
+        <Icon as={RiArrowDownSLine} fontSize={18} />
+      </Button>
+
+      <Modal
+        isOpen={isOpen}
+        onClose={backOnClose}
+        initialFocusRef={initialRef}
+        isCentered
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalHeader ref={initialRef}>
+            <HStack justify={"space-between"}>
+              <Text fontSize={20} fontWeight={600}>
+                {placeholder || "Pilih Salah Satu"}
+              </Text>
+            </HStack>
+          </ModalHeader>
+          <ModalBody>
+            {optionsDisplay === "list" && (
+              <VStack align={"stretch"}>
+                {options.map((option, i) => (
+                  <Button
+                    key={i}
+                    justifyContent={"space-between"}
+                    className="btn-outline"
+                    onClick={() => {
+                      setSelected(option);
+                    }}
+                    borderColor={
+                      selected && selected.value === option.value ? "p.500" : ""
+                    }
+                    bg={
+                      selected && selected.value === option.value
+                        ? "var(--p500a3) !important"
+                        : ""
+                    }
+                  >
+                    <Text>{option.label}</Text>
+
+                    <Text opacity={0.4}>{option.subLabel}</Text>
+                  </Button>
+                ))}
+              </VStack>
+            )}
+
+            {optionsDisplay === "chip" && (
+              <Wrap>
+                {options.map((option, i) => (
+                  <Button
+                    key={i}
+                    justifyContent={"space-between"}
+                    className="btn-outline"
+                    onClick={() => {
+                      setSelected(option);
+                    }}
+                    borderColor={
+                      selected && selected.value === option.value ? "p.500" : ""
+                    }
+                    bg={
+                      selected && selected.value === option.value
+                        ? "var(--p500a3) !important"
+                        : ""
+                    }
+                    gap={2}
+                  >
+                    <Text>{option.label}</Text>
+
+                    <Text opacity={0.4}>{option.subLabel}</Text>
+                  </Button>
+                ))}
+              </Wrap>
+            )}
+          </ModalBody>
+          <ModalFooter gap={2}>
+            <Button
+              className="btn-outline clicky"
+              w={"100%"}
+              onClick={() => {
+                setSelected(undefined);
+              }}
+            >
+              Reset
+            </Button>
+
+            <Button
+              colorScheme="ap"
+              className="btn-ap clicky"
+              w={"100%"}
+              isDisabled={required ? (selected ? false : true) : false}
+              onClick={confirmSelected}
+            >
+              Konfirmasi
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
+  );
+}
