@@ -25,7 +25,7 @@ import BackOnCloseButton from "../../independent/BackOnCloseButton";
 interface Props extends ButtonProps {
   id: string;
   name: string;
-  confirm: (inputValue: Date | undefined) => void;
+  onConfirm: (inputValue: Date | undefined) => void;
   inputValue: Date | undefined;
   withSeconds?: boolean;
   placeholder?: string;
@@ -36,7 +36,7 @@ interface Props extends ButtonProps {
 export default function TimePickerModal({
   id,
   name,
-  confirm,
+  onConfirm,
   inputValue,
   withSeconds,
   placeholder,
@@ -146,9 +146,9 @@ export default function TimePickerModal({
         confirmedTime.setHours(hours);
         confirmedTime.setMinutes(minutes);
         confirmedTime.setSeconds(seconds);
-        confirm(confirmedTime);
+        onConfirm(confirmedTime);
       } else {
-        confirm(undefined);
+        onConfirm(undefined);
       }
       backOnClose();
     }

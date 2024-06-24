@@ -5,7 +5,7 @@ import SingleSelect from "../SingleSelect";
 interface Props extends ButtonProps {
   id: string;
   name: string;
-  confirm: (inputValue: SelectOption | undefined) => void;
+  onConfirm: (inputValue: SelectOption | undefined) => void;
   inputValue: SelectOption | undefined;
   withSearch?: boolean;
   optionsDisplay?: "list" | "chip";
@@ -17,7 +17,7 @@ interface Props extends ButtonProps {
 export default function ExampleDedicatedSelect({
   id,
   name,
-  confirm,
+  onConfirm,
   inputValue,
   withSearch,
   optionsDisplay,
@@ -49,7 +49,7 @@ export default function ExampleDedicatedSelect({
       id={id}
       name={name}
       options={options}
-      confirm={confirm}
+      onConfirm={onConfirm}
       inputValue={inputValue}
       withSearch={withSearch}
       optionsDisplay={optionsDisplay}

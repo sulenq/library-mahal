@@ -64,7 +64,7 @@ export default function DatePickerMonthYearInputDrawer({
     return tahun >= 100 && tahun <= 270000;
   };
 
-  function confirm() {
+  function onConfirm() {
     setBulan(bulanLocal);
     setTahun(tahunLocal);
     setDate(new Date(tahunLocal, bulanLocal));
@@ -190,7 +190,7 @@ export default function DatePickerMonthYearInputDrawer({
 
           <DrawerFooter pb={placement === "bottom" ? 8 : 6}>
             <Button
-              onClick={confirm}
+              onClick={onConfirm}
               w={"100%"}
               className="btn-ap clicky"
               isDisabled={!isTahunValid(tahunLocal)}

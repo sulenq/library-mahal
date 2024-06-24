@@ -39,7 +39,7 @@ type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 interface Props extends ButtonProps {
   id: string;
   name: string;
-  confirm: (inputValue: { from: Date; to: Date }) => void;
+  onConfirm: (inputValue: { from: Date; to: Date }) => void;
   inputValue: { from: Date; to: Date } | undefined;
   dateFormatOptions?: PrefixOption | object;
   placeholder?: string;
@@ -50,7 +50,7 @@ interface Props extends ButtonProps {
 export default function DateRangePickerModal({
   id,
   name,
-  confirm,
+  onConfirm,
   inputValue,
   dateFormatOptions,
   placeholder,
@@ -85,7 +85,7 @@ export default function DateRangePickerModal({
     }
 
     if (confirmable) {
-      confirm(selected);
+      onConfirm(selected);
       backOnClose();
     }
   }

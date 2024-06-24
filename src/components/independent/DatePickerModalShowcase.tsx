@@ -32,7 +32,7 @@ export default function DatePickerModalShowcase() {
       desc: <Text>name the input, of course it must have name</Text>,
     },
     {
-      label: "confirm",
+      label: "onConfirm",
       type: "(inputValue: Date | undefined) => void",
       desc: <Text>function to set controlled input</Text>,
     },
@@ -133,7 +133,7 @@ export default function DatePickerModalShowcase() {
           <DatePickerModal
             id="requiredDateInput"
             name="required_date"
-            confirm={(inputValue) => {
+            onConfirm={(inputValue) => {
               setrequiredInput(inputValue);
             }}
             inputValue={requiredInput}
@@ -146,7 +146,7 @@ export default function DatePickerModalShowcase() {
           <DatePickerModal
             id="DateInput"
             name="date"
-            confirm={(inputValue) => {
+            onConfirm={(inputValue) => {
               setDate(inputValue);
             }}
             inputValue={date}

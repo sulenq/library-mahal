@@ -35,7 +35,7 @@ export default function DatePickerDrawerShowcase() {
       desc: <Text>name the input, of course it must have name</Text>,
     },
     {
-      label: "confirm",
+      label: "onConfirm",
       type: "(inputValue: Date | undefined) => void",
       desc: <Text>function to set controlled input</Text>,
     },
@@ -183,7 +183,7 @@ export default function DatePickerDrawerShowcase() {
           <DatePickerDrawer
             id="requiredDateInput_drawer"
             name="required_date"
-            confirm={(inputValue) => {
+            onConfirm={(inputValue) => {
               setrequiredInput(inputValue);
             }}
             inputValue={requiredInput}
@@ -198,7 +198,7 @@ export default function DatePickerDrawerShowcase() {
           <DatePickerDrawer
             id="DateInput_drawer"
             name="date"
-            confirm={(inputValue) => {
+            onConfirm={(inputValue) => {
               setDate(inputValue);
             }}
             inputValue={date}

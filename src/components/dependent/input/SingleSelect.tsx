@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   HStack,
   Icon,
@@ -14,18 +15,19 @@ import {
   VStack,
   Wrap,
 } from "@chakra-ui/react";
+import { RiArrowDownSLine } from "@remixicon/react";
+import { useRef, useState } from "react";
 import { useErrorColor } from "../../../constant/colors";
+import { SelectOption } from "../../../constant/interfaces";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
-import { useRef, useState } from "react";
-import { RiArrowDownSLine } from "@remixicon/react";
-import { SelectOption } from "../../../constant/interfaces";
+import SearchComponent from "./SearchComponent";
 
 interface Props {
   id: string;
   name: string;
   options: SelectOption[];
-  confirm: (inputValue: SelectOption | undefined) => void;
+  onConfirm: (inputValue: SelectOption | undefined) => void;
   inputValue: SelectOption | undefined;
   withSearch?: boolean;
   optionsDisplay?: "list" | "chip";
@@ -38,7 +40,7 @@ export default function SingleSelect({
   id,
   name,
   options,
-  confirm,
+  onConfirm,
   inputValue,
   withSearch,
   optionsDisplay = "list",
@@ -51,9 +53,23 @@ export default function SingleSelect({
   useBackOnClose(`${id}-[${name}]`, isOpen, onOpen, onClose);
   const initialRef = useRef(null);
 
+  const [search, setSearch] = useState<string | undefined>("");
   const [selected, setSelected] = useState<SelectOption | undefined>(
     inputValue
   );
+  const fo = search
+    ? options.filter((option) => {
+        const searchTerm = search.toLowerCase();
+        return (
+          option.value.toString().toLowerCase().includes(searchTerm) ||
+          option.label.toString().toLowerCase().includes(searchTerm) ||
+          option.subLabel?.toString().toLowerCase().includes(searchTerm)
+        );
+      })
+    : options;
+
+  console.log(fo.length);
+
   function confirmSelected() {
     let confirmable = false;
     if (!required) {
@@ -66,9 +82,9 @@ export default function SingleSelect({
 
     if (confirmable) {
       if (selected) {
-        confirm(selected);
+        onConfirm(selected);
       } else {
-        confirm(undefined);
+        onConfirm(undefined);
       }
       backOnClose();
     }
@@ -134,9 +150,21 @@ export default function SingleSelect({
             </HStack>
           </ModalHeader>
           <ModalBody>
+            {withSearch && (
+              <Box mb={4}>
+                <SearchComponent
+                  name="search select options"
+                  inputValue={search}
+                  onChangeSetter={(inputValue) => {
+                    setSearch(inputValue);
+                  }}
+                />
+              </Box>
+            )}
+
             {optionsDisplay === "list" && (
               <VStack align={"stretch"}>
-                {options.map((option, i) => (
+                {fo.map((option, i) => (
                   <Button
                     key={i}
                     justifyContent={"space-between"}
@@ -163,7 +191,7 @@ export default function SingleSelect({
 
             {optionsDisplay === "chip" && (
               <Wrap>
-                {options.map((option, i) => (
+                {fo.map((option, i) => (
                   <Button
                     key={i}
                     justifyContent={"space-between"}
@@ -187,6 +215,14 @@ export default function SingleSelect({
                   </Button>
                 ))}
               </Wrap>
+            )}
+
+            {fo.length === 0 && (
+              <HStack justify={"center"} minH={"100px"} opacity={0.4}>
+                <Text textAlign={"center"} fontWeight={600}>
+                  Opsi tidak ditemukan
+                </Text>
+              </HStack>
             )}
           </ModalBody>
           <ModalFooter gap={2}>

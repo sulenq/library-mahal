@@ -35,7 +35,7 @@ export default function TimePickerDrawerShowcase() {
       desc: <Text>name the input, of course it must have name</Text>,
     },
     {
-      label: "confirm",
+      label: "onConfirm",
       type: "(inputValue: Date | undefined) => void",
       desc: <Text>function to set controlled input</Text>,
     },
@@ -155,7 +155,7 @@ export default function TimePickerDrawerShowcase() {
           <TimePickerDrawer
             id="required_time_picker_drawer"
             name="required_time"
-            confirm={(inputValue) => {
+            onConfirm={(inputValue) => {
               setrequiredInput(inputValue);
             }}
             inputValue={requiredInput}
@@ -169,7 +169,7 @@ export default function TimePickerDrawerShowcase() {
           <TimePickerDrawer
             id="time_picker_drawer"
             name="time"
-            confirm={(inputValue) => {
+            onConfirm={(inputValue) => {
               setInput(inputValue);
             }}
             inputValue={input}

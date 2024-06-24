@@ -32,7 +32,7 @@ export default function DateRangePickerModalShowcase() {
       desc: <Text>name the input, of course it must have name</Text>,
     },
     {
-      label: "confirm",
+      label: "onConfirm",
       type: "(inputValue: Date | undefined) => void",
       desc: <Text>function to set controlled input</Text>,
     },
@@ -143,7 +143,7 @@ export default function DateRangePickerModalShowcase() {
           <DateRangePickerModal
             id="requiredDateRangeInput_modal"
             name="required_date"
-            confirm={(inputValue) => {
+            onConfirm={(inputValue) => {
               setrequiredInput(inputValue);
             }}
             inputValue={requiredInput}
@@ -157,7 +157,7 @@ export default function DateRangePickerModalShowcase() {
           <DateRangePickerModal
             id="dateRangeInput_modal"
             name="date"
-            confirm={(inputValue) => {
+            onConfirm={(inputValue) => {
               setDate(inputValue);
             }}
             inputValue={date}

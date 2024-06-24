@@ -39,7 +39,7 @@ type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 interface Props extends ButtonProps {
   id: string;
   name: string;
-  confirm: (inputValue: { from: Date; to: Date }) => void;
+  onConfirm: (inputValue: { from: Date; to: Date }) => void;
   inputValue: { from: Date; to: Date } | undefined;
   dateFormatOptions?: PrefixOption | object;
   placement?: "top" | "bottom" | "left" | "right";
@@ -51,7 +51,7 @@ interface Props extends ButtonProps {
 export default function DateRangePickerDrawer({
   id,
   name,
-  confirm,
+  onConfirm,
   inputValue,
   dateFormatOptions,
   placement,
@@ -87,7 +87,7 @@ export default function DateRangePickerDrawer({
     }
 
     if (confirmable) {
-      confirm(selected);
+      onConfirm(selected);
       backOnClose();
     }
   }

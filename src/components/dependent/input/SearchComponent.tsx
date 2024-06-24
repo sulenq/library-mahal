@@ -30,6 +30,7 @@ export default function SearchComponent({
       <InputLeftElement>
         <Icon as={RiSearchLine} color={"p.500"} fontSize={iconSize} />
       </InputLeftElement>
+
       <Input
         placeholder={placeholder || "Pencarian"}
         flex={"1 1 0"}

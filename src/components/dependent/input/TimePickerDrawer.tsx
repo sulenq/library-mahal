@@ -25,7 +25,7 @@ import BackOnCloseButton from "../../independent/BackOnCloseButton";
 interface Props extends ButtonProps {
   id: string;
   name: string;
-  confirm: (inputValue: Date | undefined) => void;
+  onConfirm: (inputValue: Date | undefined) => void;
   inputValue: Date | undefined;
   withSeconds?: boolean;
   placement?: "top" | "bottom" | "left" | "right";
@@ -37,7 +37,7 @@ interface Props extends ButtonProps {
 export default function TimePickerDrawer({
   id,
   name,
-  confirm,
+  onConfirm,
   inputValue,
   withSeconds,
   placement,
@@ -149,9 +149,9 @@ export default function TimePickerDrawer({
         confirmedTime.setHours(hours);
         confirmedTime.setMinutes(minutes);
         confirmedTime.setSeconds(seconds);
-        confirm(confirmedTime);
+        onConfirm(confirmedTime);
       } else {
-        confirm(undefined);
+        onConfirm(undefined);
       }
       backOnClose();
     }

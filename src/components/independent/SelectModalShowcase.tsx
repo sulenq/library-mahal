@@ -44,7 +44,7 @@ export default function SelectModalShowcase() {
       ),
     },
     {
-      label: "confirm",
+      label: "onConfirm",
       type: "(inputValue: { value: any; label: string; label2?: string } | undefined) => void",
       desc: <Text>function to set controlled input</Text>,
     },
@@ -128,9 +128,7 @@ export default function SelectModalShowcase() {
         <Alert status="warning" mb={2} w={"100%"} maxW={"100%"}>
           <AlertDescription>
             You must create dedicated component for select, it contain options
-            variable(constant or async) and list of options, you create
-            dedicated render for select options, it bring flexibility for
-            selection
+            variable(constant or async) and list of options
           </AlertDescription>
         </Alert>
       </VStack>
@@ -152,26 +150,44 @@ export default function SelectModalShowcase() {
           <ExampleDedicatedSelect
             id="required_example_select"
             name="color"
-            confirm={(inputValue) => {
+            onConfirm={(inputValue) => {
               setrequiredInput(inputValue);
             }}
             inputValue={requiredInput}
             placeholder="Pilih Warna"
             required
+            withSearch
           />
         </FormControl>
 
-        <FormControl>
+        <FormControl mb={2}>
           <FormLabel>Single Select Input Chip Options Display</FormLabel>
           <ExampleDedicatedSelect
             id="example_select"
             name="color"
-            confirm={(inputValue) => {
+            onConfirm={(inputValue) => {
               setInput(inputValue);
             }}
             inputValue={input}
             placeholder="Pilih Warna"
             optionsDisplay="chip"
+          />
+        </FormControl>
+
+        <FormControl>
+          <FormLabel>
+            Single Select Input Chip Options Display with Search
+          </FormLabel>
+          <ExampleDedicatedSelect
+            id="example_select"
+            name="color"
+            onConfirm={(inputValue) => {
+              setInput(inputValue);
+            }}
+            inputValue={input}
+            placeholder="Pilih Warna"
+            optionsDisplay="chip"
+            withSearch
           />
         </FormControl>
       </ContentContainer>
