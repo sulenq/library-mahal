@@ -13,7 +13,7 @@ import {
 import { RiSlideshow2Fill } from "@remixicon/react";
 import { useState } from "react";
 import { SelectOption } from "../../constant/interfaces";
-import ExampleDedicatedSelect from "../dependent/input/dedicated/ExampleDedicatedSelect";
+import ExampleDedicatedSelect from "../dependent/input/_select/ExampleDedicatedSelect";
 import PropsAccordions from "../dependent/PropsAccordions";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
 import ContentContainer from "./wrapper/ContentContainer";
