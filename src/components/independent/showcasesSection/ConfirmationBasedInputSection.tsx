@@ -2,7 +2,8 @@ import DatePickerDrawerShowcase from "../DatePickerDrawerShowcase";
 import DatePickerModalShowcase from "../DatePickerModalShowcase";
 import DateRangePickerDrawerShowcase from "../DateRangePickerDrawerShowcase";
 import DateRangePickerModalShowcase from "../DateRangePickerModalShowcase";
-import SelectModalShowcase from "../SelectModalShowcase";
+import SingleSelectDrawerShowcase from "../SingleSelectDrawerShowcase";
+import SingleSelectModalShowcase from "../SingleSelectModalShowcase";
 import TimePickerDrawerShowcase from "../TimePickerDrawerShowcase";
 import TimePickerModalShowcase from "../TimePickerModalShowcase";
 import ComponentShowcaseMainContainer from "../wrapper/ComponentShowcaseMainContainer";
@@ -29,7 +30,9 @@ export default function ConfirmationBasedInputSection() {
 
         <TimePickerDrawerShowcase />
 
-        <SelectModalShowcase />
+        <SingleSelectModalShowcase />
+
+        <SingleSelectDrawerShowcase />
       </MasonryContainer>
     </ComponentShowcaseMainContainer>
   );

@@ -13,12 +13,12 @@ import {
 import { RiSlideshow2Fill } from "@remixicon/react";
 import { useState } from "react";
 import { SelectOption } from "../../constant/interfaces";
-import ExampleDedicatedSelect from "../dependent/input/_select/ExampleDedicatedSelect";
+import ExampleDedicatedSelectModal from "../dependent/input/_select/ExampleDedicatedSelectModal";
 import PropsAccordions from "../dependent/PropsAccordions";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
 import ContentContainer from "./wrapper/ContentContainer";
 
-export default function SelectModalShowcase() {
+export default function SingleSelectModalShowcase() {
   const requiredProps = [
     {
       label: "id",
@@ -123,7 +123,7 @@ export default function SelectModalShowcase() {
   const [input, setInput] = useState<SelectOption | undefined>();
 
   return (
-    <ComponentShowcaseContainer title="Select Modal">
+    <ComponentShowcaseContainer title="Single Select Modal">
       <VStack px={4} align={"stretch"}>
         <Alert status="warning" mb={2} w={"100%"} maxW={"100%"}>
           <AlertDescription>
@@ -146,8 +146,8 @@ export default function SelectModalShowcase() {
         </HStack>
 
         <FormControl mb={2}>
-          <FormLabel>Required Single Select Input with Search</FormLabel>
-          <ExampleDedicatedSelect
+          <FormLabel>Required Filled Single Select Input with Search</FormLabel>
+          <ExampleDedicatedSelectModal
             id="required_example_select"
             name="color"
             onConfirm={(inputValue) => {
@@ -162,7 +162,7 @@ export default function SelectModalShowcase() {
 
         <FormControl mb={2}>
           <FormLabel>Single Select Input Chip Options Display</FormLabel>
-          <ExampleDedicatedSelect
+          <ExampleDedicatedSelectModal
             id="example_select"
             name="color"
             onConfirm={(inputValue) => {
@@ -178,7 +178,7 @@ export default function SelectModalShowcase() {
           <FormLabel>
             Single Select Input Chip Options Display with Search
           </FormLabel>
-          <ExampleDedicatedSelect
+          <ExampleDedicatedSelectModal
             id="example_select"
             name="color"
             onConfirm={(inputValue) => {

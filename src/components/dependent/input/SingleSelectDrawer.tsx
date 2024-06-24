@@ -3,13 +3,13 @@ import {
   Button,
   HStack,
   Icon,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
   Text,
   useDisclosure,
   VStack,
@@ -32,11 +32,12 @@ interface Props {
   withSearch?: boolean;
   optionsDisplay?: "list" | "chip";
   isError?: boolean;
+  placement?: "top" | "bottom" | "left" | "right";
   placeholder?: string;
   required?: boolean;
 }
 
-export default function SingleSelectModal({
+export default function SingleSelectDrawer({
   id,
   name,
   options,
@@ -45,6 +46,7 @@ export default function SingleSelectModal({
   withSearch,
   optionsDisplay = "list",
   isError,
+  placement = "bottom",
   placeholder,
   required,
   ...props
@@ -131,16 +133,25 @@ export default function SingleSelectModal({
         <Icon as={RiArrowDownSLine} fontSize={18} />
       </Button>
 
-      <Modal
+      <Drawer
         isOpen={isOpen}
         onClose={backOnClose}
         initialFocusRef={initialRef}
-        isCentered
+        placement={placement}
       >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalCloseButton />
-          <ModalHeader ref={initialRef}>
+        <DrawerOverlay />
+        <DrawerContent
+          h={placement === "left" || placement === "right" ? "" : "500px"}
+          borderRadius={
+            placement === "left" || placement === "right"
+              ? ""
+              : placement === "top"
+              ? "0 0 12px 12px"
+              : "12px 12px 0 0"
+          }
+        >
+          <DrawerCloseButton />
+          <DrawerHeader ref={initialRef}>
             <HStack justify={"space-between"}>
               <Text fontSize={20} fontWeight={600}>
                 {placeholder || "Pilih Salah Satu"}
@@ -157,8 +168,8 @@ export default function SingleSelectModal({
                 />
               </Box>
             )}
-          </ModalHeader>
-          <ModalBody>
+          </DrawerHeader>
+          <DrawerBody>
             {optionsDisplay === "list" && (
               <VStack align={"stretch"}>
                 {fo.map((option, i) => (
@@ -221,8 +232,8 @@ export default function SingleSelectModal({
                 </Text>
               </HStack>
             )}
-          </ModalBody>
-          <ModalFooter gap={2}>
+          </DrawerBody>
+          <DrawerFooter gap={2} pb={placement === "bottom" ? 8 : 6}>
             <Button
               className="btn-outline clicky"
               w={"100%"}
@@ -242,9 +253,9 @@ export default function SingleSelectModal({
             >
               Konfirmasi
             </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </>
   );
 }

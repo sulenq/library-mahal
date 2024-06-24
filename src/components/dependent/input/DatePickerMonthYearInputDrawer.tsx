@@ -45,7 +45,7 @@ export default function DatePickerMonthYearInputDrawer({
   tahun,
   setTahun,
   setDate,
-  placement,
+  placement = "bottom",
   ...props
 }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -100,7 +100,7 @@ export default function DatePickerMonthYearInputDrawer({
           backOnClose();
         }}
         initialFocusRef={initialRef}
-        placement={placement || "bottom"}
+        placement={placement}
         size={placement === "left" || placement === "right" ? "sm" : ""}
       >
         <DrawerOverlay />

@@ -54,7 +54,7 @@ export default function DateRangePickerDrawer({
   onConfirm,
   inputValue,
   dateFormatOptions,
-  placement,
+  placement = "bottom",
   placeholder,
   required,
   isError,
@@ -188,7 +188,7 @@ export default function DateRangePickerDrawer({
         isOpen={isOpen}
         onClose={backOnClose}
         initialFocusRef={initialRef}
-        placement={placement || "bottom"}
+        placement={placement}
         size={placement === "left" || placement === "right" ? "sm" : ""}
       >
         <DrawerOverlay />

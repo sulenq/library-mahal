@@ -1,6 +1,6 @@
 import { ButtonProps } from "@chakra-ui/react";
 import { SelectOption } from "../../../../constant/interfaces";
-import SingleSelect from "../SingleSelectModal";
+import SingleSelectDrawer from "../SingleSelectDrawer";
 
 interface Props extends ButtonProps {
   id: string;
@@ -10,11 +10,12 @@ interface Props extends ButtonProps {
   withSearch?: boolean;
   optionsDisplay?: "list" | "chip";
   isError?: boolean;
+  placement?: "top" | "bottom" | "left" | "right";
   placeholder?: string;
   required?: boolean;
 }
 
-export default function ExampleDedicatedSelect({
+export default function ExampleDedicatedSelectDrawer({
   id,
   name,
   onConfirm,
@@ -22,6 +23,7 @@ export default function ExampleDedicatedSelect({
   withSearch,
   optionsDisplay,
   isError,
+  placement = "bottom",
   placeholder,
   required,
   ...props
@@ -42,10 +44,65 @@ export default function ExampleDedicatedSelect({
       label: "Blue",
       subLabel: "#0000FF",
     },
+    {
+      value: 4,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 5,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 6,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 7,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 8,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 9,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 10,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 11,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 12,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 13,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 14,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
   ];
 
   return (
-    <SingleSelect
+    <SingleSelectDrawer
       id={id}
       name={name}
       options={options}
@@ -54,6 +111,7 @@ export default function ExampleDedicatedSelect({
       withSearch={withSearch}
       optionsDisplay={optionsDisplay}
       isError={isError}
+      placement={placement}
       placeholder={placeholder}
       required={required}
       {...props}

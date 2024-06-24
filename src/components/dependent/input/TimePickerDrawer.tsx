@@ -40,7 +40,7 @@ export default function TimePickerDrawer({
   onConfirm,
   inputValue,
   withSeconds,
-  placement,
+  placement = "bottom",
   placeholder,
   required,
   isError,
@@ -198,7 +198,7 @@ export default function TimePickerDrawer({
         isOpen={isOpen}
         onClose={backOnClose}
         initialFocusRef={initialRef}
-        placement={placement || "bottom"}
+        placement={placement}
       >
         <DrawerOverlay />
         <DrawerContent
@@ -206,7 +206,7 @@ export default function TimePickerDrawer({
             placement === "left" || placement === "right"
               ? ""
               : placement === "top"
-              ? "0 0 12px 12px "
+              ? "0 0 12px 12px"
               : "12px 12px 0 0"
           }
         >
