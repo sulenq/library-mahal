@@ -37,7 +37,7 @@ export default function ModalBackOnClose4() {
         <ModalContent>
           <ModalCloseButton />
           <ModalHeader ref={initialRef}>Modal Nested Again</ModalHeader>
-          <ModalBody pb={6}>
+          <ModalBody className="scrollY" pb={6}>
             <VStack my={"auto"}>
               <Text>Try to back</Text>
             </VStack>

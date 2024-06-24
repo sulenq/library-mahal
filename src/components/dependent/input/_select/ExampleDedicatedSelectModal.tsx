@@ -42,6 +42,61 @@ export default function ExampleDedicatedSelectModal({
       label: "Blue",
       subLabel: "#0000FF",
     },
+    {
+      value: 4,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 5,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 6,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 7,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 8,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 9,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 10,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 11,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 12,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 13,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
+    {
+      value: 14,
+      label: "Dummy",
+      subLabel: "#000000",
+    },
   ];
 
   return (

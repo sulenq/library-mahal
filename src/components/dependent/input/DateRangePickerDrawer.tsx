@@ -211,7 +211,7 @@ export default function DateRangePickerDrawer({
             </HStack>
           </DrawerHeader>
 
-          <DrawerBody>
+          <DrawerBody className="scrollY">
             <VStack align={"stretch"}>
               <VStack gap={0} overflowX={"auto"} w={"100%"} align={"stretch"}>
                 <ButtonGroup w={"100%"} mb={3}>

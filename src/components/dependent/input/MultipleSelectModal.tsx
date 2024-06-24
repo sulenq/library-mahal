@@ -23,6 +23,7 @@ import { SelectOption } from "../../../constant/interfaces";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
 import SearchComponent from "./SearchComponent";
+import useScreenHeight from "../../../hooks/useScreenHeight";
 
 interface Props {
   id: string;
@@ -91,6 +92,7 @@ export default function MultipleSelectModal({
 
   // SX
   const errorColor = useErrorColor();
+  const sh = useScreenHeight();
 
   return (
     <>
@@ -151,6 +153,7 @@ export default function MultipleSelectModal({
         onClose={backOnClose}
         initialFocusRef={initialRef}
         isCentered
+        scrollBehavior={sh < 500 ? "outside" : "inside"}
       >
         <ModalOverlay />
         <ModalContent>
@@ -173,7 +176,7 @@ export default function MultipleSelectModal({
               </Box>
             )}
           </ModalHeader>
-          <ModalBody>
+          <ModalBody className="scrollY">
             {optionsDisplay === "list" && (
               <VStack align={"stretch"}>
                 {fo.map((option, i) => (

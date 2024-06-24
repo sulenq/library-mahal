@@ -38,7 +38,7 @@ export default function ModalBackOnClose3Showcase() {
         <ModalContent>
           <ModalCloseButton />
           <ModalHeader ref={initialRef}>Modal Nested</ModalHeader>
-          <ModalBody pb={6}>
+          <ModalBody className="scrollY" pb={6}>
             <VStack my={"auto"}>
               <Text>Try to back or open modal nested again</Text>
               <ModalBackOnClose4 />

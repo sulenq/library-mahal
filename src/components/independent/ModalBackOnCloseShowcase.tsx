@@ -36,7 +36,7 @@ export default function ModalBackOnCloseShowcase() {
         <ModalContent>
           <ModalCloseButton />
           <ModalHeader ref={initialRef}>Modal</ModalHeader>
-          <ModalBody pb={6}>
+          <ModalBody className="scrollY" pb={6}>
             <Text m={"auto"}>Try to back</Text>
           </ModalBody>
         </ModalContent>

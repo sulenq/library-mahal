@@ -49,7 +49,7 @@ export default function DrawerBackOnCloseShowcase() {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader ref={initialRef}>Drawer</DrawerHeader>
-          <DrawerBody>
+          <DrawerBody className="scrollY">
             <Text mb={2}>Placement</Text>
             <RadioGroup
               onChange={handlePlacementChange}

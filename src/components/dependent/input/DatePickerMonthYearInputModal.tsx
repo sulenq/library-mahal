@@ -111,7 +111,7 @@ export default function DatePickerMonthYearInputModal({
             </HStack>
           </ModalHeader>
 
-          <ModalBody>
+          <ModalBody className="scrollY">
             <FormControl mb={4}>
               <FormLabel>Bulan</FormLabel>
               <SimpleGrid columns={[2, 3]} gap={2}>

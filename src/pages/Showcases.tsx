@@ -45,7 +45,9 @@ export default function Showcases() {
             </HStack>
 
             <Text fontWeight={600}>Must have ChakraUI in your project</Text>
-            <Text>npm i @remixicon/react react-date-picker</Text>
+            <Text>
+              must install these package : @remixicon/react react-date-picker
+            </Text>
           </Box>
         </Alert>
 

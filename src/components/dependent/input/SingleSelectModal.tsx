@@ -20,6 +20,7 @@ import { useRef, useState } from "react";
 import { useErrorColor } from "../../../constant/colors";
 import { SelectOption } from "../../../constant/interfaces";
 import useBackOnClose from "../../../hooks/useBackOnClose";
+import useScreenHeight from "../../../hooks/useScreenHeight";
 import backOnClose from "../../../lib/backOnClose";
 import SearchComponent from "./SearchComponent";
 
@@ -90,6 +91,7 @@ export default function SingleSelectModal({
 
   // SX
   const errorColor = useErrorColor();
+  const sh = useScreenHeight();
 
   return (
     <>
@@ -138,6 +140,7 @@ export default function SingleSelectModal({
         onClose={backOnClose}
         initialFocusRef={initialRef}
         isCentered
+        scrollBehavior={sh < 500 ? "outside" : "inside"}
       >
         <ModalOverlay />
         <ModalContent>
@@ -160,7 +163,7 @@ export default function SingleSelectModal({
               </Box>
             )}
           </ModalHeader>
-          <ModalBody>
+          <ModalBody className="scrollY">
             {optionsDisplay === "list" && (
               <VStack align={"stretch"}>
                 {fo.map((option, i) => (

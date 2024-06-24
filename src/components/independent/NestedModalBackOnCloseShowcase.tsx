@@ -46,7 +46,7 @@ export default function NestedModalBackOnCloseShowcase() {
               <BackOnCloseButton aria-label="close-back-button" />
             </HStack>
           </ModalHeader>
-          <ModalBody pb={6}>
+          <ModalBody className="scrollY" pb={6}>
             <VStack my={"auto"}>
               <Text>Try to back or open modal nested</Text>
               <ModalBackOnClose3 />

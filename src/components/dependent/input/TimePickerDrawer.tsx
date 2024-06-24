@@ -220,7 +220,7 @@ export default function TimePickerDrawer({
             </HStack>
           </DrawerHeader>
 
-          <DrawerBody>
+          <DrawerBody className="scrollY">
             <HStack justify={"space-between"}>
               <VStack flex={"1 1 0"} align={"stretch"} gap={0}>
                 <IconButton

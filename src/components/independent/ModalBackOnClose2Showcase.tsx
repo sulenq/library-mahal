@@ -38,7 +38,7 @@ export default function ModalBackOnClose2Showcase() {
         <ModalContent>
           <ModalCloseButton />
           <ModalHeader ref={initialRef}>Modal Back On Close</ModalHeader>
-          <ModalBody></ModalBody>
+          <ModalBody className="scrollY"></ModalBody>
           <ModalFooter></ModalFooter>
         </ModalContent>
       </Modal>

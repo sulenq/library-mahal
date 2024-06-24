@@ -168,7 +168,7 @@ export default function DatePickerModal({
             </HStack>
           </ModalHeader>
 
-          <ModalBody>
+          <ModalBody className="scrollY">
             <VStack align={"stretch"}>
               <VStack gap={0} overflowX={"auto"} w={"100%"} align={"stretch"}>
                 <ButtonGroup w={"100%"} mb={3}>

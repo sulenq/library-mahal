@@ -171,7 +171,7 @@ export default function SingleSelectDrawer({
               </Box>
             )}
           </DrawerHeader>
-          <DrawerBody>
+          <DrawerBody className="scrollY">
             {optionsDisplay === "list" && (
               <VStack align={"stretch"}>
                 {fo.map((option, i) => (
