@@ -6,22 +6,19 @@ import {
   HStack,
   Icon,
   ListItem,
-  Radio,
-  RadioGroup,
   Text,
   UnorderedList,
   VStack,
-  Wrap,
 } from "@chakra-ui/react";
 import { RiSlideshow2Fill } from "@remixicon/react";
 import { useState } from "react";
 import { SelectOption } from "../../constant/interfaces";
-import ExampleDedicatedSelectDrawer from "../dependent/input/_select/ExampleDedicatedSelectDrawer";
+import ExampleDedicatedMultipleSelectModal from "../dependent/input/_select/ExampleDedicatedMultipleSelectModal";
 import PropsAccordions from "../dependent/PropsAccordions";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
 import ContentContainer from "./wrapper/ContentContainer";
 
-export default function SingleSelectDrawerShowcase() {
+export default function MultipleSelectModalShowcase() {
   const requiredProps = [
     {
       label: "id",
@@ -97,30 +94,6 @@ export default function SingleSelectDrawerShowcase() {
       desc: <Text>tell input if there is a validation error </Text>,
     },
     {
-      label: "placement",
-      type: "PrefixOption",
-      desc: (
-        <VStack gap={0} align={"stretch"}>
-          <Text>Prefix Options :</Text>
-          <UnorderedList>
-            <ListItem>
-              <Text>top</Text>
-            </ListItem>
-            <ListItem>
-              <Text>bottom</Text>
-            </ListItem>
-            <ListItem>
-              <Text>left</Text>
-            </ListItem>
-            <ListItem>
-              <Text>right</Text>
-            </ListItem>
-          </UnorderedList>
-          <Text>default is bottom</Text>
-        </VStack>
-      ),
-    },
-    {
       label: "placeholder",
       type: "string",
       desc: (
@@ -142,25 +115,20 @@ export default function SingleSelectDrawerShowcase() {
     },
   ];
 
-  const [placement, setPlacement] = useState<
-    "top" | "bottom" | "left" | "right"
-  >("bottom");
-  const handlePlacementChange = (nextValue: string) => {
-    if (["top", "bottom", "left", "right"].includes(nextValue)) {
-      setPlacement(nextValue as "top" | "bottom" | "left" | "right");
-    }
-  };
-
-  const [requiredInput, setrequiredInput] = useState<SelectOption | undefined>({
-    value: 1,
-    label: "Red",
-    subLabel: "#FF0000",
-  });
-  const [input, setInput] = useState<SelectOption | undefined>();
-  const [input2, setInput2] = useState<SelectOption | undefined>();
+  const [requiredInput, setrequiredInput] = useState<
+    SelectOption[] | undefined
+  >([
+    {
+      value: 1,
+      label: "Red",
+      subLabel: "#FF0000",
+    },
+  ]);
+  const [input, setInput] = useState<SelectOption[] | undefined>();
+  const [input2, setInput2] = useState<SelectOption[] | undefined>();
 
   return (
-    <ComponentShowcaseContainer title="Single Select Drawer">
+    <ComponentShowcaseContainer title="Multiple Select Modal">
       <VStack px={4} align={"stretch"}>
         <Alert status="warning" mb={2} w={"100%"} maxW={"100%"}>
           <AlertDescription>
@@ -183,32 +151,16 @@ export default function SingleSelectDrawerShowcase() {
           </Text>
         </HStack>
 
-        <Text mb={2}>Placement</Text>
-        <RadioGroup
-          onChange={handlePlacementChange}
-          colorScheme="ap"
-          value={placement}
-          mb={2}
-        >
-          <Wrap direction="row" spacing={4}>
-            <Radio value="top">Top</Radio>
-            <Radio value="bottom">Bottom</Radio>
-            <Radio value="left">Left</Radio>
-            <Radio value="right">Right</Radio>
-          </Wrap>
-        </RadioGroup>
-
         <FormControl mb={2}>
           <FormLabel>Required Filled Single Select Input with Search</FormLabel>
-          <ExampleDedicatedSelectDrawer
-            id="required_example_select_drawer"
+          <ExampleDedicatedMultipleSelectModal
+            id="required_example_multi_select_modal"
             name="color"
             onConfirm={(inputValue) => {
               setrequiredInput(inputValue);
             }}
             inputValue={requiredInput}
-            placeholder="Pilih Warna"
-            placement={placement}
+            placeholder="Multi Pilih Warna"
             required
             withSearch
           />
@@ -216,15 +168,14 @@ export default function SingleSelectDrawerShowcase() {
 
         <FormControl mb={2}>
           <FormLabel>Single Select Input Chip Options Display</FormLabel>
-          <ExampleDedicatedSelectDrawer
-            id="example_select_drawer"
+          <ExampleDedicatedMultipleSelectModal
+            id="example_multi_select_modal"
             name="color"
             onConfirm={(inputValue) => {
               setInput(inputValue);
             }}
             inputValue={input}
-            placeholder="Pilih Warna"
-            placement={placement}
+            placeholder="Multi Pilih Warna"
             optionsDisplay="chip"
           />
         </FormControl>
@@ -233,15 +184,14 @@ export default function SingleSelectDrawerShowcase() {
           <FormLabel>
             Single Select Input Chip Options Display with Search
           </FormLabel>
-          <ExampleDedicatedSelectDrawer
-            id="example_select_drawer"
+          <ExampleDedicatedMultipleSelectModal
+            id="example_multi_select_modal"
             name="color"
             onConfirm={(inputValue) => {
               setInput2(inputValue);
             }}
             inputValue={input2}
-            placeholder="Pilih Warna"
-            placement={placement}
+            placeholder="Multi Pilih Warna"
             optionsDisplay="chip"
             withSearch
           />

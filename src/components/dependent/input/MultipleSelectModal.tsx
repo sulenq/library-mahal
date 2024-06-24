@@ -1,15 +1,16 @@
 import {
+  Badge,
   Box,
   Button,
   HStack,
   Icon,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Text,
   useDisclosure,
   VStack,
@@ -27,17 +28,16 @@ interface Props {
   id: string;
   name: string;
   options: SelectOption[];
-  onConfirm: (inputValue: SelectOption | undefined) => void;
-  inputValue: SelectOption | undefined;
+  onConfirm: (inputValue: SelectOption[] | undefined) => void;
+  inputValue: SelectOption[] | undefined;
   withSearch?: boolean;
   optionsDisplay?: "list" | "chip";
   isError?: boolean;
-  placement?: "top" | "bottom" | "left" | "right";
   placeholder?: string;
   required?: boolean;
 }
 
-export default function SingleSelectDrawer({
+export default function MultipleSelectModal({
   id,
   name,
   options,
@@ -46,7 +46,6 @@ export default function SingleSelectDrawer({
   withSearch,
   optionsDisplay = "list",
   isError,
-  placement = "bottom",
   placeholder,
   required,
   ...props
@@ -56,7 +55,7 @@ export default function SingleSelectDrawer({
   const initialRef = useRef(null);
 
   const [search, setSearch] = useState<string | undefined>("");
-  const [selected, setSelected] = useState<SelectOption | undefined>(
+  const [selected, setSelected] = useState<SelectOption[] | undefined>(
     inputValue
   );
   const fo = search
@@ -97,7 +96,6 @@ export default function SingleSelectDrawer({
     <>
       <Button
         className="btn-clear"
-        px={"16px !important"}
         border={"1px solid var(--divider3)"}
         boxShadow={isError ? errorColor : ""}
         borderRadius={8}
@@ -114,49 +112,53 @@ export default function SingleSelectDrawer({
         justifyContent={"space-between"}
         w={"100%"}
         role="group"
+        px={inputValue ? "8px !important" : "16px !important"}
         {...props}
       >
-        <HStack>
-          <Text
-            opacity={inputValue ? 1 : 0.3}
-            fontWeight={400}
-            overflow={"hidden"}
-            whiteSpace={"nowrap"}
-            textOverflow={"ellipsis"}
-          >
-            {inputValue ? inputValue.label : placeholder || "Pilih Salah Satu"}
-          </Text>
+        <HStack w={"100%"}>
+          {inputValue
+            ? inputValue.map((value, i) => {
+                return (
+                  i < 2 && (
+                    <Badge
+                      key={i}
+                      borderRadius={6}
+                      bg={"var(--divider)"}
+                      textTransform={"none"}
+                      flex={"1 1 100px"}
+                    >
+                      {value.label}
+                    </Badge>
+                  )
+                );
+              })
+            : <Text opacity={0.3}>{placeholder}</Text> || (
+                <Text opacity={0.3}>Multi Pilih</Text>
+              )}
 
-          <Text fontWeight={400} opacity={0.4}>
-            {inputValue && inputValue.subLabel}
-          </Text>
+          {inputValue && inputValue.length - 2 > 0 && (
+            <Badge bg={"var(--divider)"}>
+              +{inputValue.length - 2 > 0 && inputValue.length - 2}
+            </Badge>
+          )}
         </HStack>
 
         <Icon as={RiArrowDownSLine} fontSize={18} />
       </Button>
 
-      <Drawer
+      <Modal
         isOpen={isOpen}
         onClose={backOnClose}
         initialFocusRef={initialRef}
-        placement={placement}
+        isCentered
       >
-        <DrawerOverlay />
-        <DrawerContent
-          h={placement === "left" || placement === "right" ? "" : "500px"}
-          borderRadius={
-            placement === "left" || placement === "right"
-              ? ""
-              : placement === "top"
-              ? "0 0 12px 12px"
-              : "12px 12px 0 0"
-          }
-        >
-          <DrawerCloseButton />
-          <DrawerHeader ref={initialRef}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalHeader ref={initialRef}>
             <HStack justify={"space-between"}>
               <Text fontSize={20} fontWeight={600}>
-                {placeholder || "Pilih Salah Satu"}
+                {placeholder || "Multi Pilih"}
               </Text>
             </HStack>
             {withSearch && (
@@ -170,8 +172,8 @@ export default function SingleSelectDrawer({
                 />
               </Box>
             )}
-          </DrawerHeader>
-          <DrawerBody>
+          </ModalHeader>
+          <ModalBody>
             {optionsDisplay === "list" && (
               <VStack align={"stretch"}>
                 {fo.map((option, i) => (
@@ -180,13 +182,32 @@ export default function SingleSelectDrawer({
                     justifyContent={"space-between"}
                     className="btn-outline"
                     onClick={() => {
-                      setSelected(option);
+                      const isSelected =
+                        selected &&
+                        selected.some((item) => item.value === option.value);
+                      let newSelected = selected || [];
+
+                      if (isSelected) {
+                        // Filter out the option if it's already selected
+                        newSelected = newSelected.filter(
+                          (item) => item.value !== option.value
+                        );
+                      } else {
+                        // Add the option to the selected array
+                        newSelected = [...newSelected, option];
+                      }
+
+                      setSelected(newSelected);
                     }}
                     borderColor={
-                      selected && selected.value === option.value ? "p.500" : ""
+                      selected &&
+                      selected.some((item) => item.value === option.value)
+                        ? "var(--p500a1)"
+                        : ""
                     }
                     bg={
-                      selected && selected.value === option.value
+                      selected &&
+                      selected.some((item) => item.value === option.value)
                         ? "var(--p500a3) !important"
                         : ""
                     }
@@ -207,20 +228,38 @@ export default function SingleSelectDrawer({
                     justifyContent={"space-between"}
                     className="btn-outline"
                     onClick={() => {
-                      setSelected(option);
+                      const isSelected =
+                        selected &&
+                        selected.some((item) => item.value === option.value);
+                      let newSelected = selected || [];
+
+                      if (isSelected) {
+                        // Filter out the option if it's already selected
+                        newSelected = newSelected.filter(
+                          (item) => item.value !== option.value
+                        );
+                      } else {
+                        // Add the option to the selected array
+                        newSelected = [...newSelected, option];
+                      }
+
+                      setSelected(newSelected);
                     }}
                     borderColor={
-                      selected && selected.value === option.value ? "p.500" : ""
+                      selected &&
+                      selected.some((item) => item.value === option.value)
+                        ? "var(--p500a1)"
+                        : ""
                     }
                     bg={
-                      selected && selected.value === option.value
+                      selected &&
+                      selected.some((item) => item.value === option.value)
                         ? "var(--p500a3) !important"
                         : ""
                     }
                     gap={2}
                   >
                     <Text>{option.label}</Text>
-
                     <Text opacity={0.4}>{option.subLabel}</Text>
                   </Button>
                 ))}
@@ -234,8 +273,8 @@ export default function SingleSelectDrawer({
                 </Text>
               </HStack>
             )}
-          </DrawerBody>
-          <DrawerFooter gap={2} pb={placement === "bottom" ? 8 : 6}>
+          </ModalBody>
+          <ModalFooter gap={2}>
             <Button
               className="btn-outline clicky"
               w={"100%"}
@@ -255,9 +294,9 @@ export default function SingleSelectDrawer({
             >
               Konfirmasi
             </Button>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }

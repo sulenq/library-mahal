@@ -124,8 +124,10 @@ export default function SingleSelectModal({
           >
             {inputValue ? inputValue.label : placeholder || "Pilih Salah Satu"}
           </Text>
-          fontWeight={400}
-          <Text opacity={0.4}>{inputValue && inputValue.subLabel}</Text>
+
+          <Text fontWeight={400} opacity={0.4}>
+            {inputValue && inputValue.subLabel}
+          </Text>
         </HStack>
 
         <Icon as={RiArrowDownSLine} fontSize={18} />

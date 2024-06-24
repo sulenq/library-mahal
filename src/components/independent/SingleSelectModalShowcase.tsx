@@ -121,14 +121,16 @@ export default function SingleSelectModalShowcase() {
     subLabel: "#FF0000",
   });
   const [input, setInput] = useState<SelectOption | undefined>();
+  const [input2, setInput2] = useState<SelectOption | undefined>();
 
   return (
     <ComponentShowcaseContainer title="Single Select Modal">
       <VStack px={4} align={"stretch"}>
         <Alert status="warning" mb={2} w={"100%"} maxW={"100%"}>
           <AlertDescription>
-            You must create dedicated component for select, it contain options
-            variable(constant or async) and list of options
+            {
+              "You must create dedicated component for select, it contain array options (constant or async), options type is {value:any, label:string, subLabel?:string}[]"
+            }
           </AlertDescription>
         </Alert>
       </VStack>
@@ -182,9 +184,9 @@ export default function SingleSelectModalShowcase() {
             id="example_select"
             name="color"
             onConfirm={(inputValue) => {
-              setInput(inputValue);
+              setInput2(inputValue);
             }}
-            inputValue={input}
+            inputValue={input2}
             placeholder="Pilih Warna"
             optionsDisplay="chip"
             withSearch
