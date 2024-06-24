@@ -2,6 +2,7 @@ import DatePickerDrawerShowcase from "../DatePickerDrawerShowcase";
 import DatePickerModalShowcase from "../DatePickerModalShowcase";
 import DateRangePickerDrawerShowcase from "../DateRangePickerDrawerShowcase";
 import DateRangePickerModalShowcase from "../DateRangePickerModalShowcase";
+import MultipleSelectDrawerShowcase from "../MultipleSelectDrawerShowcase";
 import MultipleSelectModalShowcase from "../MultipleSelectModalShowcase";
 import SingleSelectDrawerShowcase from "../SingleSelectDrawerShowcase";
 import SingleSelectModalShowcase from "../SingleSelectModalShowcase";
@@ -36,6 +37,8 @@ export default function ConfirmationBasedInputSection() {
         <SingleSelectDrawerShowcase />
 
         <MultipleSelectModalShowcase />
+
+        <MultipleSelectDrawerShowcase />
       </MasonryContainer>
     </ComponentShowcaseMainContainer>
   );
