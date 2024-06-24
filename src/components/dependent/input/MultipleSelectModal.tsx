@@ -260,7 +260,7 @@ export default function MultipleSelectModal({
                     gap={2}
                   >
                     <Text>{option.label}</Text>
-                    <Text opacity={0.4}>{option.subLabel}</Text>
+                    {/* <Text opacity={0.4}>{option.subLabel}</Text> */}
                   </Button>
                 ))}
               </Wrap>
