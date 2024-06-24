@@ -36,7 +36,7 @@ interface Props {
   required?: boolean;
 }
 
-export default function SingleSelect({
+export default function SingleSelectModal({
   id,
   name,
   options,
@@ -67,8 +67,6 @@ export default function SingleSelect({
         );
       })
     : options;
-
-  console.log(fo.length);
 
   function confirmSelected() {
     let confirmable = false;

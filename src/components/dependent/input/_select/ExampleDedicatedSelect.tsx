@@ -1,6 +1,6 @@
 import { ButtonProps } from "@chakra-ui/react";
 import { SelectOption } from "../../../../constant/interfaces";
-import SingleSelect from "../SingleSelect";
+import SingleSelect from "../SingleSelectModal";
 
 interface Props extends ButtonProps {
   id: string;
