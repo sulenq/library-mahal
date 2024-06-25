@@ -5,7 +5,9 @@ import {
   Heading,
   HStack,
   Image,
+  ListItem,
   Text,
+  UnorderedList,
   VStack,
   Wrap,
 } from "@chakra-ui/react";
@@ -14,6 +16,7 @@ import ConfirmationBasedInputSection from "../components/independent/showcasesSe
 import HooksSection from "../components/independent/showcasesSection/HooksSection";
 import { useContentBgColor, useWarningColor } from "../constant/colors";
 import InputSection from "../components/independent/showcasesSection/InputSection";
+import { Link } from "react-router-dom";
 
 export default function Showcases() {
   return (
@@ -45,9 +48,21 @@ export default function Showcases() {
             </HStack>
 
             <Text fontWeight={600}>Must have ChakraUI in your project</Text>
-            <Text>
-              must install these package : @remixicon/react react-date-picker
+            <Text
+              color={"p.500"}
+              as={Link}
+              to={"https://v2.chakra-ui.com/getting-started"}
+              target="_blank"
+              fontWeight={600}
+            >
+              Chakra UI Documentation
             </Text>
+
+            <Text mt={2}>and you must install these package :</Text>
+            <UnorderedList>
+              <ListItem>@remixicon/react</ListItem>
+              <ListItem>react-date-picker</ListItem>
+            </UnorderedList>
           </Box>
         </Alert>
 
