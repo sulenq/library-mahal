@@ -147,6 +147,7 @@ export default function MultipleSelectDrawer({
 
   // SX
   const errorColor = useErrorColor();
+  const lightDarkColor = useLightDarkColor();
 
   return (
     <>
@@ -218,48 +219,116 @@ export default function MultipleSelectDrawer({
                 ? "0 0 12px 12px"
                 : "12px 12px 0 0"
             }
-            bg={useLightDarkColor()}
             ref={drawerBodyRef}
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
             px={0}
-            pt={6}
-            pb={8}
           >
-            <Box mb={4} px={6}>
-              <HStack justify={"space-between"}>
-                <Text fontSize={20} fontWeight={600}>
-                  {placeholder || "Multi Pilih"}
-                </Text>
-                <BackOnCloseButton aria-label="back on close button" />
-              </HStack>
-              {withSearch && (
-                <Box mt={4}>
-                  <SearchComponent
-                    name="search select options"
-                    inputValue={search}
-                    onChangeSetter={(inputValue) => {
-                      setSearch(inputValue);
-                    }}
-                  />
-                </Box>
+            <VStack
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+            >
+              <Box
+                className="drawerIndicator"
+                w={"100px"}
+                h={"6px"}
+                bg={lightDarkColor}
+                borderRadius={6}
+                flexShrink={0}
+                mx={"auto"}
+                mb={2}
+              />
+            </VStack>
+
+            <VStack
+              pt={6}
+              pb={8}
+              h={"100%"}
+              bg={lightDarkColor}
+              align={"stretch"}
+              gap={0}
+            >
+              <Box mb={4} px={6}>
+                <HStack justify={"space-between"}>
+                  <Text fontSize={20} fontWeight={600}>
+                    {placeholder || "Multi Pilih"}
+                  </Text>
+                  <BackOnCloseButton aria-label="back on close button" />
+                </HStack>
+                {withSearch && (
+                  <Box mt={4}>
+                    <SearchComponent
+                      name="search select options"
+                      inputValue={search}
+                      onChangeSetter={(inputValue) => {
+                        setSearch(inputValue);
+                      }}
+                    />
+                  </Box>
+                )}
+              </Box>
+
+              {optionsDisplay === "list" && (
+                <VStack
+                  ref={listContainerRef}
+                  align={"stretch"}
+                  flex={1}
+                  overflowY={"auto"}
+                  px={6}
+                  className="scrollY"
+                >
+                  <VStack ref={listRef} align={"stretch"}>
+                    {fo.map((option, i) => (
+                      <Button
+                        key={i}
+                        flexShrink={0}
+                        justifyContent={"space-between"}
+                        className="btn-outline"
+                        onClick={() => {
+                          const isSelected =
+                            selected &&
+                            selected.some(
+                              (item) => item.value === option.value
+                            );
+                          let newSelected = selected || [];
+
+                          if (isSelected) {
+                            // Filter out the option if it's already selected
+                            newSelected = newSelected.filter(
+                              (item) => item.value !== option.value
+                            );
+                          } else {
+                            // Add the option to the selected array
+                            newSelected = [...newSelected, option];
+                          }
+
+                          setSelected(newSelected);
+                        }}
+                        borderColor={
+                          selected &&
+                          selected.some((item) => item.value === option.value)
+                            ? "var(--p500a1)"
+                            : ""
+                        }
+                        bg={
+                          selected &&
+                          selected.some((item) => item.value === option.value)
+                            ? "var(--p500a3) !important"
+                            : ""
+                        }
+                      >
+                        <Text>{option.label}</Text>
+
+                        <Text opacity={0.4}>{option.subLabel}</Text>
+                      </Button>
+                    ))}
+                  </VStack>
+                </VStack>
               )}
-            </Box>
-            {optionsDisplay === "list" && (
-              <VStack
-                ref={listContainerRef}
-                align={"stretch"}
-                flex={1}
-                overflowY={"auto"}
-                px={6}
-                className="scrollY"
-              >
-                <VStack ref={listRef} align={"stretch"}>
+              {optionsDisplay === "chip" && (
+                <Wrap px={6}>
                   {fo.map((option, i) => (
                     <Button
                       key={i}
-                      flexShrink={0}
                       justifyContent={"space-between"}
                       className="btn-outline"
                       onClick={() => {
@@ -292,88 +361,44 @@ export default function MultipleSelectDrawer({
                           ? "var(--p500a3) !important"
                           : ""
                       }
+                      gap={2}
                     >
                       <Text>{option.label}</Text>
-
-                      <Text opacity={0.4}>{option.subLabel}</Text>
+                      {/* <Text opacity={0.4}>{option.subLabel}</Text> */}
                     </Button>
                   ))}
-                </VStack>
-              </VStack>
-            )}
-            {optionsDisplay === "chip" && (
-              <Wrap px={6}>
-                {fo.map((option, i) => (
-                  <Button
-                    key={i}
-                    justifyContent={"space-between"}
-                    className="btn-outline"
-                    onClick={() => {
-                      const isSelected =
-                        selected &&
-                        selected.some((item) => item.value === option.value);
-                      let newSelected = selected || [];
+                </Wrap>
+              )}
+              {fo.length === 0 && (
+                <HStack justify={"center"} minH={"100px"} opacity={0.4}>
+                  <Text textAlign={"center"} fontWeight={600}>
+                    Opsi tidak ditemukan
+                  </Text>
+                </HStack>
+              )}
 
-                      if (isSelected) {
-                        // Filter out the option if it's already selected
-                        newSelected = newSelected.filter(
-                          (item) => item.value !== option.value
-                        );
-                      } else {
-                        // Add the option to the selected array
-                        newSelected = [...newSelected, option];
-                      }
+              <ButtonGroup px={6} w={"100%"} pt={4} mt={"auto"}>
+                <Button
+                  className="btn-outline clicky"
+                  w={"100%"}
+                  onClick={() => {
+                    setSelected(undefined);
+                  }}
+                >
+                  Reset
+                </Button>
 
-                      setSelected(newSelected);
-                    }}
-                    borderColor={
-                      selected &&
-                      selected.some((item) => item.value === option.value)
-                        ? "var(--p500a1)"
-                        : ""
-                    }
-                    bg={
-                      selected &&
-                      selected.some((item) => item.value === option.value)
-                        ? "var(--p500a3) !important"
-                        : ""
-                    }
-                    gap={2}
-                  >
-                    <Text>{option.label}</Text>
-                    {/* <Text opacity={0.4}>{option.subLabel}</Text> */}
-                  </Button>
-                ))}
-              </Wrap>
-            )}
-            {fo.length === 0 && (
-              <HStack justify={"center"} minH={"100px"} opacity={0.4}>
-                <Text textAlign={"center"} fontWeight={600}>
-                  Opsi tidak ditemukan
-                </Text>
-              </HStack>
-            )}
-            <ButtonGroup px={6} w={"100%"} pt={4} mt={"auto"}>
-              <Button
-                className="btn-outline clicky"
-                w={"100%"}
-                onClick={() => {
-                  setSelected(undefined);
-                }}
-              >
-                Reset
-              </Button>
-
-              <Button
-                colorScheme="ap"
-                className="btn-ap clicky"
-                w={"100%"}
-                isDisabled={required ? (selected ? false : true) : false}
-                onClick={confirmSelected}
-              >
-                Konfirmasi
-              </Button>
-            </ButtonGroup>
+                <Button
+                  colorScheme="ap"
+                  className="btn-ap clicky"
+                  w={"100%"}
+                  isDisabled={required ? (selected ? false : true) : false}
+                  onClick={confirmSelected}
+                >
+                  Konfirmasi
+                </Button>
+              </ButtonGroup>
+            </VStack>
           </DrawerBody>
         </DrawerContent>
       </Drawer>
