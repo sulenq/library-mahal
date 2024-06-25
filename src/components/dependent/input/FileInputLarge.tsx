@@ -238,7 +238,7 @@ export default function FileInputLarge({
       </VStack>
 
       {inputValue && url && (
-        <Wrap>
+        <Wrap spacingX={0}>
           <Button
             mt={2}
             leftIcon={<Icon as={RiEyeFill} />}
