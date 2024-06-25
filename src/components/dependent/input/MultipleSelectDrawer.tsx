@@ -90,11 +90,11 @@ export default function MultipleSelectDrawer({
     if (drawerBodyRef.current !== null) {
       const comparison = isSideDrawer
         ? isLeftOrTopDrawer
-          ? (drawerBodyRef.current.offsetWidth / 5) * -1
-          : drawerBodyRef.current.offsetWidth / 5
+          ? (drawerBodyRef.current.offsetWidth / 6) * -1
+          : drawerBodyRef.current.offsetWidth / 6
         : isLeftOrTopDrawer
-        ? (drawerBodyRef.current.offsetHeight / 5) * -1
-        : drawerBodyRef.current.offsetHeight / 5;
+        ? (drawerBodyRef.current.offsetHeight / 6) * -1
+        : drawerBodyRef.current.offsetHeight / 6;
       if (isLeftOrTopDrawer ? translate < comparison : translate > comparison) {
         onClose();
       } else {
