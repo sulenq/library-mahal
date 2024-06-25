@@ -27,7 +27,7 @@ import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
-import DatePickerMonthYearInputDrawer from "./DatePickerMonthYearInputDrawer";
+import MonthYearInputDrawer from "./MonthYearInputDrawer";
 type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
 interface Props extends ButtonProps {
@@ -193,7 +193,7 @@ export default function DatePickerDrawer({
                     maxW={"50px"}
                   ></Button>
 
-                  <DatePickerMonthYearInputDrawer
+                  <MonthYearInputDrawer
                     id={"date_picker_input_month_year_drawer"}
                     bulan={bulan}
                     tahun={tahun}

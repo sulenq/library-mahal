@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  ButtonGroup,
   ButtonProps,
   Drawer,
   DrawerBody,
@@ -62,13 +61,11 @@ export default function TimePickerDrawer({
   const drawerBodyRef = useRef<HTMLDivElement>(null);
   const isSideDrawer = placement === "left" || placement === "right";
   const isLeftOrTopDrawer = placement === "left" || placement === "top";
-
   const onTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
     setStartPos(
       isSideDrawer ? event.touches[0].clientX : event.touches[0].clientY
     );
   };
-
   const onTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
     const currentPos = isSideDrawer
       ? event.touches[0].clientX
@@ -85,7 +82,6 @@ export default function TimePickerDrawer({
       }
     }
   };
-
   const onTouchEnd = () => {
     if (drawerBodyRef.current !== null) {
       const comparison = isSideDrawer
@@ -491,15 +487,27 @@ export default function TimePickerDrawer({
                 )}
               </HStack>
 
-              <ButtonGroup px={6} w={"100%"} pt={4} mt={"auto"}>
+              <VStack align={"stretch"} px={6} mt={5}>
                 <Button
                   className="btn-outline clicky"
                   w={"100%"}
                   onClick={() => {
-                    setTime(undefined);
+                    if (time && hours === 0 && minutes === 0 && seconds === 0) {
+                      setTime(undefined);
+                      setHours(0);
+                      setMinutes(0);
+                      setSeconds(0);
+                    } else {
+                      setTime(defaultTime);
+                      setHours(0);
+                      setMinutes(0);
+                      setSeconds(0);
+                    }
                   }}
                 >
-                  Reset
+                  {time && hours === 0 && minutes === 0 && seconds === 0
+                    ? "Clear"
+                    : "Reset"}
                 </Button>
 
                 <Button
@@ -511,7 +519,7 @@ export default function TimePickerDrawer({
                 >
                   Konfirmasi
                 </Button>
-              </ButtonGroup>
+              </VStack>
             </VStack>
 
             {!isSideDrawer && placement === "top" && (

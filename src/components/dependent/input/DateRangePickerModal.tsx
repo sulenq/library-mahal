@@ -12,13 +12,11 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Stack,
   Text,
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import {
-  RiArrowDownLine,
   RiArrowLeftSLine,
   RiArrowRightLine,
   RiArrowRightSLine,
@@ -29,11 +27,11 @@ import { useRef, useState } from "react";
 import { DayPicker } from "react-day-picker";
 import { useErrorColor } from "../../../constant/colors";
 import useBackOnClose from "../../../hooks/useBackOnClose";
+import useScreenWidth from "../../../hooks/useScreenWidth";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
-import useScreenWidth from "../../../hooks/useScreenWidth";
-import DatePickerMonthYearInputModal from "./DatePickerMonthYearInputModal";
+import MonthYearInputModal from "./MonthYearInputModal";
 type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
 interface Props extends ButtonProps {
@@ -214,7 +212,7 @@ export default function DateRangePickerModal({
                     maxW={"50px"}
                   ></Button>
 
-                  <DatePickerMonthYearInputModal
+                  <MonthYearInputModal
                     id={"date_range_picker_input_month_year_modal"}
                     bulan={bulan}
                     tahun={tahun}
@@ -271,41 +269,41 @@ export default function DateRangePickerModal({
 
           <ModalFooter pt={"16px !important"}>
             <VStack align={"stretch"} w={"100%"}>
-              <Stack flexDir={["column", "row"]}>
-                <Box flex={[null, "1 1 180px"]}>
+              <HStack w={"100%"}>
+                <Box flex={1}>
                   <VStack borderRadius={8} bg={"var(--divider)"} p={2} gap={1}>
                     <Text opacity={selected?.from ? 1 : 0.6}>
                       {selected?.from
-                        ? `${formatDate(selected.from, {
-                            weekday: "short",
-                            day: "numeric",
-                            month: "short",
-                            year: "numeric",
-                          })}`
+                        ? `${formatDate(
+                            selected.from,
+                            sw < 350 ? "short" : "longShort"
+                          )}`
                         : "Pilih tanggal awal"}
                     </Text>
                   </VStack>
                 </Box>
 
-                <Center>
-                  <Icon as={sw < 480 ? RiArrowDownLine : RiArrowRightLine} />
+                <Center
+                  position={"absolute"}
+                  left={"50%"}
+                  transform={"translateX(-50%)"}
+                >
+                  <Icon as={RiArrowRightLine} fontSize={20} />
                 </Center>
 
-                <Box flex={[null, "1 1 180px"]}>
+                <Box flex={1}>
                   <VStack borderRadius={8} bg={"var(--divider)"} p={2} gap={1}>
                     <Text opacity={selected?.to ? 1 : 0.6}>
                       {selected?.to
-                        ? `${formatDate(selected.to, {
-                            weekday: "short",
-                            day: "numeric",
-                            month: "short",
-                            year: "numeric",
-                          })}`
+                        ? `${formatDate(
+                            selected.to,
+                            sw < 350 ? "short" : "longShort"
+                          )}`
                         : "Pilih tanggal akhir"}
                     </Text>
                   </VStack>
                 </Box>
-              </Stack>
+              </HStack>
 
               <Button
                 colorScheme="ap"

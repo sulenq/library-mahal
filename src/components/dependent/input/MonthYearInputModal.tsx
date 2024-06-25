@@ -1,12 +1,5 @@
 import {
   Button,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -14,12 +7,19 @@ import {
   Icon,
   IconButton,
   Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   SimpleGrid,
   StackProps,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { RiAddLine, RiSubtractLine } from "@remixicon/react";
+import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
 import { Dispatch, useRef, useState } from "react";
 import months from "../../../constant/months";
 import { iconSize } from "../../../constant/sizes";
@@ -35,17 +35,15 @@ interface Props extends StackProps {
   tahun: number;
   setTahun: Dispatch<number>;
   setDate: Dispatch<Date>;
-  placement?: "top" | "bottom" | "left" | "right";
 }
 
-export default function DatePickerMonthYearInputDrawer({
+export default function MonthYearInputModal({
   id,
   bulan,
   setBulan,
   tahun,
   setTahun,
   setDate,
-  placement = "bottom",
   ...props
 }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -63,6 +61,61 @@ export default function DatePickerMonthYearInputDrawer({
   const isTahunValid = (tahun: number) => {
     return tahun >= 100 && tahun <= 270000;
   };
+
+  const intervalIncrementRef = useRef<ReturnType<typeof setInterval> | null>(
+    null
+  );
+  const timeoutIncrementRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
+
+  const intervalDecrementRef = useRef<ReturnType<typeof setInterval> | null>(
+    null
+  );
+  const timeoutDecrementRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
+
+  function handleMouseDownIncrement() {
+    if (timeoutIncrementRef.current || intervalIncrementRef.current) return;
+
+    timeoutIncrementRef.current = setTimeout(() => {
+      intervalIncrementRef.current = setInterval(() => {
+        setTahunLocal((ps) => ps + 1);
+      }, 100);
+    }, 300);
+  }
+  function handleMouseUpIncrement() {
+    if (timeoutIncrementRef.current) {
+      clearTimeout(timeoutIncrementRef.current);
+      timeoutIncrementRef.current = null;
+    }
+    if (intervalIncrementRef.current) {
+      clearInterval(intervalIncrementRef.current);
+      intervalIncrementRef.current = null;
+    }
+  }
+  function handleMouseDownDecrement() {
+    if (timeoutDecrementRef.current || intervalDecrementRef.current) return;
+
+    timeoutDecrementRef.current = setTimeout(() => {
+      intervalDecrementRef.current = setInterval(() => {
+        if (tahunLocal > 0) {
+          setTahunLocal((ps) => ps - 1);
+        }
+      }, 100);
+    }, 300);
+  }
+  function handleMouseUpDecrement() {
+    if (timeoutDecrementRef.current) {
+      clearTimeout(timeoutDecrementRef.current);
+      timeoutDecrementRef.current = null;
+    }
+    if (intervalDecrementRef.current) {
+      clearInterval(intervalDecrementRef.current);
+      intervalDecrementRef.current = null;
+    }
+  }
 
   function onConfirm() {
     setBulan(bulanLocal);
@@ -94,41 +147,33 @@ export default function DatePickerMonthYearInputDrawer({
         </Text>
       </HStack>
 
-      <Drawer
+      <Modal
         isOpen={isOpen}
         onClose={() => {
           backOnClose();
         }}
         initialFocusRef={initialRef}
-        placement={placement}
-        size={placement === "left" || placement === "right" ? "sm" : ""}
+        isCentered
       >
-        <DrawerOverlay />
-        <DrawerContent
-          borderRadius={
-            placement === "left" || placement === "right"
-              ? ""
-              : placement === "top"
-              ? "0 0 12px 12px "
-              : "12px 12px 0 0"
-          }
-        >
-          <DrawerCloseButton />
-          <DrawerHeader ref={initialRef}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalCloseButton />
+          <ModalHeader ref={initialRef}>
             <HStack align={"start"} justify={"space-between"}>
               <Text fontSize={20} fontWeight={600}>
                 Set Bulan & Tahun
               </Text>
             </HStack>
-          </DrawerHeader>
+          </ModalHeader>
 
-          <DrawerBody className="scrollY">
+          <ModalBody className="scrollY">
             <FormControl mb={4}>
               <FormLabel>Bulan</FormLabel>
               <SimpleGrid columns={[2, 3]} gap={2}>
                 {months.map((month, i) => (
                   <Button
                     key={i}
+                    flex={"1 1 100px"}
                     borderColor={i === bulanLocal ? "p.500" : ""}
                     bg={i === bulanLocal ? "var(--p500a3) !important" : ""}
                     className="btn-outline"
@@ -147,7 +192,7 @@ export default function DatePickerMonthYearInputDrawer({
               <HStack>
                 <IconButton
                   aria-label="year min button"
-                  icon={<Icon as={RiSubtractLine} fontSize={iconSize} />}
+                  icon={<Icon as={RiArrowLeftSLine} fontSize={iconSize} />}
                   className="btn-outline clicky"
                   isDisabled={tahunLocal <= 0}
                   onClick={() => {
@@ -155,6 +200,15 @@ export default function DatePickerMonthYearInputDrawer({
                       setTahunLocal(tahunLocal - 1);
                     }
                   }}
+                  onMouseDown={() => {
+                    handleMouseDownDecrement();
+                  }}
+                  onMouseUp={handleMouseUpDecrement}
+                  onMouseLeave={handleMouseUpDecrement}
+                  onTouchStart={() => {
+                    handleMouseDownDecrement();
+                  }}
+                  onTouchEnd={handleMouseUpDecrement}
                 />
                 <Input
                   name="tahun"
@@ -172,12 +226,21 @@ export default function DatePickerMonthYearInputDrawer({
                 />
                 <IconButton
                   aria-label="year plus button"
-                  icon={<Icon as={RiAddLine} fontSize={iconSize} />}
+                  icon={<Icon as={RiArrowRightSLine} fontSize={iconSize} />}
                   className="btn-outline clicky"
                   isDisabled={tahunLocal <= 0}
                   onClick={() => {
                     setTahunLocal(tahunLocal + 1);
                   }}
+                  onMouseDown={() => {
+                    handleMouseDownIncrement();
+                  }}
+                  onMouseUp={handleMouseUpIncrement}
+                  onMouseLeave={handleMouseUpIncrement}
+                  onTouchStart={() => {
+                    handleMouseDownIncrement();
+                  }}
+                  onTouchEnd={handleMouseUpIncrement}
                 />
               </HStack>
               <FormErrorMessage>
@@ -186,9 +249,9 @@ export default function DatePickerMonthYearInputDrawer({
                 </Text>
               </FormErrorMessage>
             </FormControl>
-          </DrawerBody>
+          </ModalBody>
 
-          <DrawerFooter pb={placement === "bottom" ? 8 : 6}>
+          <ModalFooter>
             <Button
               onClick={onConfirm}
               w={"100%"}
@@ -198,9 +261,9 @@ export default function DatePickerMonthYearInputDrawer({
             >
               Terapkan
             </Button>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }

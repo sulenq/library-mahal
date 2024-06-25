@@ -29,7 +29,7 @@ import useScreenWidth from "../../../hooks/useScreenWidth";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
-import DatePickerMonthYearInputDrawer from "./DatePickerMonthYearInputDrawer";
+import MonthYearInputDrawer from "./MonthYearInputDrawer";
 type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
 interface Props extends ButtonProps {
@@ -66,13 +66,11 @@ export default function DateRangePickerDrawer({
   const drawerBodyRef = useRef<HTMLDivElement>(null);
   const isSideDrawer = placement === "left" || placement === "right";
   const isLeftOrTopDrawer = placement === "left" || placement === "top";
-
   const onTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
     setStartPos(
       isSideDrawer ? event.touches[0].clientX : event.touches[0].clientY
     );
   };
-
   const onTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
     const currentPos = isSideDrawer
       ? event.touches[0].clientX
@@ -89,7 +87,6 @@ export default function DateRangePickerDrawer({
       }
     }
   };
-
   const onTouchEnd = () => {
     if (drawerBodyRef.current !== null) {
       const comparison = isSideDrawer
@@ -256,7 +253,7 @@ export default function DateRangePickerDrawer({
       >
         <DrawerOverlay />
         <DrawerContent bg={"transparent"}>
-          <DrawerBody px={0} className="scrollY">
+          <DrawerBody ref={drawerBodyRef} px={0}>
             {!isSideDrawer && placement === "bottom" && (
               <VStack
                 className="drawerIndicator"
@@ -317,7 +314,7 @@ export default function DateRangePickerDrawer({
                     maxW={"50px"}
                   ></Button>
 
-                  <DatePickerMonthYearInputDrawer
+                  <MonthYearInputDrawer
                     id={"date_range_picker_input_month_year_drawer"}
                     bulan={bulan}
                     tahun={tahun}
@@ -369,8 +366,8 @@ export default function DateRangePickerDrawer({
                 </Button>
               </ButtonGroup>
 
-              <VStack mt={2} px={6} align={"stretch"} w={"100%"}>
-                <HStack w={"100%"} gap={1}>
+              <VStack gap={0} mt={2} px={6} align={"stretch"} w={"100%"}>
+                <HStack w={"100%"}>
                   <Box flex={1}>
                     <VStack
                       borderRadius={8}
@@ -389,8 +386,12 @@ export default function DateRangePickerDrawer({
                     </VStack>
                   </Box>
 
-                  <Center>
-                    <Icon as={RiArrowRightLine} />
+                  <Center
+                    position={"absolute"}
+                    left={"50%"}
+                    transform={"translateX(-50%)"}
+                  >
+                    <Icon as={RiArrowRightLine} fontSize={20} />
                   </Center>
 
                   <Box flex={1}>
@@ -412,35 +413,36 @@ export default function DateRangePickerDrawer({
                   </Box>
                 </HStack>
 
-                <ButtonGroup>
-                  <Button
-                    w={"100%"}
-                    className="btn-outline clicky"
-                    onClick={() => {
-                      setSelected(undefined);
-                    }}
-                  >
-                    Reset
-                  </Button>
-                  <Button
-                    colorScheme="ap"
-                    className="btn-ap clicky"
-                    w={"100%"}
-                    isDisabled={
-                      required
-                        ? selected && selected.from && selected.to
-                          ? false
-                          : true
-                        : (selected && selected.from && selected.to) ||
-                          selected === undefined
+                <Button
+                  mt={5}
+                  w={"100%"}
+                  className="btn-outline clicky"
+                  onClick={() => {
+                    setSelected(undefined);
+                  }}
+                >
+                  Reset
+                </Button>
+
+                <Button
+                  mt={2}
+                  colorScheme="ap"
+                  className="btn-ap clicky"
+                  w={"100%"}
+                  isDisabled={
+                    required
+                      ? selected && selected.from && selected.to
                         ? false
                         : true
-                    }
-                    onClick={confirmSelected}
-                  >
-                    Konfirmasi
-                  </Button>
-                </ButtonGroup>
+                      : (selected && selected.from && selected.to) ||
+                        selected === undefined
+                      ? false
+                      : true
+                  }
+                  onClick={confirmSelected}
+                >
+                  Konfirmasi
+                </Button>
               </VStack>
             </VStack>
 

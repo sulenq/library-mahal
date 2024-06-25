@@ -60,13 +60,11 @@ export default function MultipleSelectDrawer({
   const drawerBodyRef = useRef<HTMLDivElement>(null);
   const isSideDrawer = placement === "left" || placement === "right";
   const isLeftOrTopDrawer = placement === "left" || placement === "top";
-
   const onTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
     setStartPos(
       isSideDrawer ? event.touches[0].clientX : event.touches[0].clientY
     );
   };
-
   const onTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
     const currentPos = isSideDrawer
       ? event.touches[0].clientX
@@ -83,7 +81,6 @@ export default function MultipleSelectDrawer({
       }
     }
   };
-
   const onTouchEnd = () => {
     if (drawerBodyRef.current !== null) {
       const comparison = isSideDrawer
@@ -374,7 +371,7 @@ export default function MultipleSelectDrawer({
                 </HStack>
               )}
 
-              <ButtonGroup px={6} w={"100%"} pt={4} mt={"auto"}>
+              <ButtonGroup px={6} w={"100%"} pt={5} mt={"auto"}>
                 <Button
                   className="btn-outline clicky"
                   w={"100%"}
