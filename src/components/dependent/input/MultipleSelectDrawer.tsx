@@ -210,29 +210,37 @@ export default function MultipleSelectDrawer({
         placement={placement}
       >
         <DrawerOverlay />
-        <DrawerContent bg={"transparent"} h={isSideDrawer ? "" : "500px"}>
-          <DrawerBody ref={drawerBodyRef} px={0}>
-            <VStack
-              onTouchStart={onTouchStart}
-              onTouchMove={onTouchMove}
-              onTouchEnd={onTouchEnd}
-            >
-              <Box
+        <DrawerContent bg={"transparent"} h={isSideDrawer ? "" : "600px"}>
+          <DrawerBody
+            ref={drawerBodyRef}
+            onTouchStart={isSideDrawer ? onTouchStart : undefined}
+            onTouchMove={isSideDrawer ? onTouchMove : undefined}
+            onTouchEnd={isSideDrawer ? onTouchEnd : undefined}
+            px={0}
+          >
+            {!isSideDrawer && placement === "bottom" && (
+              <VStack
                 className="drawerIndicator"
-                w={"100px"}
-                h={"6px"}
-                bg={lightDarkColor}
-                borderRadius={6}
-                flexShrink={0}
-                mx={"auto"}
-                mb={2}
-              />
-            </VStack>
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
+              >
+                <Box
+                  w={"100px"}
+                  h={"6px"}
+                  bg={lightDarkColor}
+                  borderRadius={6}
+                  flexShrink={0}
+                  mx={"auto"}
+                  mb={2}
+                />
+              </VStack>
+            )}
 
             <VStack
               pt={6}
-              pb={8}
-              h={"100%"}
+              pb={placement === "bottom" ? 8 : 6}
+              h={"calc(100% - 14px)"}
               bg={lightDarkColor}
               align={"stretch"}
               gap={0}
@@ -396,6 +404,25 @@ export default function MultipleSelectDrawer({
                 </Button>
               </ButtonGroup>
             </VStack>
+
+            {!isSideDrawer && placement === "top" && (
+              <VStack
+                className="drawerIndicator"
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
+              >
+                <Box
+                  w={"100px"}
+                  h={"6px"}
+                  bg={lightDarkColor}
+                  borderRadius={6}
+                  flexShrink={0}
+                  mx={"auto"}
+                  mt={2}
+                />
+              </VStack>
+            )}
           </DrawerBody>
         </DrawerContent>
       </Drawer>
