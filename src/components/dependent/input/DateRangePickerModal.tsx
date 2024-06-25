@@ -108,6 +108,18 @@ export default function DateRangePickerModal({
     setBulan(today.getMonth());
     setTahun(today.getFullYear());
   }
+  function setSelectedToThisMonth() {
+    const today = new Date();
+
+    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+    const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+    setDate(today);
+    setSelected({ from: startOfMonth, to: endOfMonth });
+    setBulan(today.getMonth());
+    setTahun(today.getFullYear());
+  }
   function nextMonth() {
     const currentMonth = date.getMonth();
     const currentyear = date.getFullYear();
@@ -250,11 +262,9 @@ export default function DateRangePickerModal({
                 <Button
                   flex={1}
                   className="btn-outline clicky"
-                  onClick={() => {
-                    setSelected(undefined);
-                  }}
+                  onClick={setSelectedToThisMonth}
                 >
-                  Reset
+                  Bulan Ini
                 </Button>
                 <Button
                   flex={1}
@@ -264,11 +274,7 @@ export default function DateRangePickerModal({
                   Minggu Ini
                 </Button>
               </ButtonGroup>
-            </VStack>
-          </ModalBody>
 
-          <ModalFooter pt={"16px !important"}>
-            <VStack align={"stretch"} w={"100%"}>
               <HStack w={"100%"}>
                 <Box flex={1}>
                   <VStack borderRadius={8} bg={"var(--divider)"} p={2} gap={1}>
@@ -304,8 +310,23 @@ export default function DateRangePickerModal({
                   </VStack>
                 </Box>
               </HStack>
+            </VStack>
+          </ModalBody>
+
+          <ModalFooter pt={5}>
+            <VStack align={"stretch"} gap={0} w={"100%"}>
+              <Button
+                w={"100%"}
+                className="btn-outline clicky"
+                onClick={() => {
+                  setSelected(undefined);
+                }}
+              >
+                Reset
+              </Button>
 
               <Button
+                mt={2}
                 colorScheme="ap"
                 className="btn-ap clicky"
                 w={"100%"}
