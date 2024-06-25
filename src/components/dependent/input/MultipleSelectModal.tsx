@@ -153,7 +153,7 @@ export default function MultipleSelectModal({
         onClose={backOnClose}
         initialFocusRef={initialRef}
         isCentered
-        scrollBehavior={sh < 500 ? "outside" : "inside"}
+        scrollBehavior={sh < 720 ? "outside" : "inside"}
       >
         <ModalOverlay />
         <ModalContent>
@@ -176,7 +176,12 @@ export default function MultipleSelectModal({
               </Box>
             )}
           </ModalHeader>
-          <ModalBody className="scrollY">
+          <ModalBody
+            className="scrollY"
+            minH={withSearch ? "360px" : ""}
+            maxH={withSearch ? "360px" : ""}
+            overflowY={"auto"}
+          >
             {optionsDisplay === "list" && (
               <VStack align={"stretch"}>
                 {fo.map((option, i) => (
@@ -270,7 +275,7 @@ export default function MultipleSelectModal({
             )}
 
             {fo.length === 0 && (
-              <HStack justify={"center"} minH={"100px"} opacity={0.4}>
+              <HStack justify={"center"} opacity={0.4} my={"auto"}>
                 <Text textAlign={"center"} fontWeight={600}>
                   Opsi tidak ditemukan
                 </Text>

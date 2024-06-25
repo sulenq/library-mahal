@@ -64,8 +64,12 @@ export default function Showcases() {
 
             <Text mt={2}>and you must install these package :</Text>
             <UnorderedList>
-              <ListItem>@remixicon/react</ListItem>
-              <ListItem>react-date-picker</ListItem>
+              <ListItem>
+                <Text>@remixicon/react</Text>
+              </ListItem>
+              <ListItem>
+                <Text>react-date-picker</Text>
+              </ListItem>
             </UnorderedList>
           </Box>
         </Alert>
