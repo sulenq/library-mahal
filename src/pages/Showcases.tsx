@@ -38,6 +38,10 @@ export default function Showcases() {
           <ColorModeSwitcher borderRadius={"full"} />
         </HStack>
 
+        <Text fontWeight={600} mb={4} opacity={0.6}>
+          This library wil keep updating
+        </Text>
+
         <Alert status="warning" mb={8} w={"100%"} maxW={"100%"}>
           <Box>
             <HStack gap={0} mb={2}>

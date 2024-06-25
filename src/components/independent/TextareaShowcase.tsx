@@ -44,7 +44,7 @@ export default function TextareaShowcase() {
   ];
 
   const [filledInput, setFilledInput] = useState<string | undefined>(
-    "This text area is auto resize when you continue write this, just see the magic"
+    "This text area is auto resize when you continue write in this textarea, just see the magic"
   );
   const [input, setInput] = useState<string | undefined>(undefined);
 
