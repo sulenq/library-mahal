@@ -9,7 +9,7 @@ const usePrimaryAlphaColor = () => {
 };
 
 const useLightDarkColor = () => {
-  return useColorModeValue("white", "dark");
+  return useColorModeValue("white !important", "dark");
 };
 
 const useDarkLightColor = () => {

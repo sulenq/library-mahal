@@ -234,7 +234,7 @@ export default function SingleSelectDrawerShowcase() {
             Single Select Input Chip Options Display with Search
           </FormLabel>
           <ExampleDedicatedSelectDrawer
-            id="example_select_drawer"
+            id="example_select_drawer2"
             name="color"
             onConfirm={(inputValue) => {
               setInput2(inputValue);

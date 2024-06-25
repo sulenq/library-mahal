@@ -203,9 +203,9 @@ export default function MultipleSelectDrawerShowcase() {
         </RadioGroup>
 
         <FormControl mb={2}>
-          <FormLabel>Required Filled Single Select Input with Search</FormLabel>
+          <FormLabel>Required Filled Multi Select Input with Search</FormLabel>
           <ExampleDedicatedMultipleSelectDrawer
-            id="required_example_multi_select_modal"
+            id="required_example_multi_select_drawer"
             name="color"
             onConfirm={(inputValue) => {
               setrequiredInput(inputValue);
@@ -219,9 +219,9 @@ export default function MultipleSelectDrawerShowcase() {
         </FormControl>
 
         <FormControl mb={2}>
-          <FormLabel>Single Select Input Chip Options Display</FormLabel>
+          <FormLabel>Multi Select Input Chip Options Display</FormLabel>
           <ExampleDedicatedMultipleSelectDrawer
-            id="example_multi_select_modal"
+            id="example_multi_select_drawer"
             name="color"
             onConfirm={(inputValue) => {
               setInput(inputValue);
@@ -235,10 +235,10 @@ export default function MultipleSelectDrawerShowcase() {
 
         <FormControl>
           <FormLabel>
-            Single Select Input Chip Options Display with Search
+            Multi Select Input Chip Options Display with Search
           </FormLabel>
           <ExampleDedicatedMultipleSelectDrawer
-            id="example_multi_select_modal"
+            id="example_multi_select_drawer2"
             name="color"
             onConfirm={(inputValue) => {
               setInput2(inputValue);

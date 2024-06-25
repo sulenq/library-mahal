@@ -6,7 +6,6 @@ import {
   Icon,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
@@ -21,9 +20,10 @@ import { useRef, useState } from "react";
 import { useErrorColor } from "../../../constant/colors";
 import { SelectOption } from "../../../constant/interfaces";
 import useBackOnClose from "../../../hooks/useBackOnClose";
-import backOnClose from "../../../lib/backOnClose";
-import SearchComponent from "./SearchComponent";
 import useScreenHeight from "../../../hooks/useScreenHeight";
+import backOnClose from "../../../lib/backOnClose";
+import BackOnCloseButton from "../../independent/BackOnCloseButton";
+import SearchComponent from "./SearchComponent";
 
 interface Props {
   id: string;
@@ -157,12 +157,12 @@ export default function MultipleSelectModal({
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalCloseButton />
           <ModalHeader ref={initialRef}>
             <HStack justify={"space-between"}>
               <Text fontSize={20} fontWeight={600}>
                 {placeholder || "Multi Pilih"}
               </Text>
+              <BackOnCloseButton aria-label="back on close button" />
             </HStack>
             {withSearch && (
               <Box mt={4}>

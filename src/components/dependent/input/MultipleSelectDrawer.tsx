@@ -2,15 +2,13 @@ import {
   Badge,
   Box,
   Button,
-  HStack,
-  Icon,
+  ButtonGroup,
   Drawer,
   DrawerBody,
-  DrawerCloseButton,
   DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
   DrawerOverlay,
+  HStack,
+  Icon,
   Text,
   useDisclosure,
   VStack,
@@ -18,10 +16,11 @@ import {
 } from "@chakra-ui/react";
 import { RiArrowDownSLine } from "@remixicon/react";
 import { useRef, useState } from "react";
-import { useErrorColor } from "../../../constant/colors";
+import { useErrorColor, useLightDarkColor } from "../../../constant/colors";
 import { SelectOption } from "../../../constant/interfaces";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
+import BackOnCloseButton from "../../independent/BackOnCloseButton";
 import SearchComponent from "./SearchComponent";
 
 interface Props {
@@ -55,6 +54,61 @@ export default function MultipleSelectDrawer({
   const { isOpen, onOpen, onClose } = useDisclosure();
   useBackOnClose(`${id}-[${name}]`, isOpen, onOpen, onClose);
   const initialRef = useRef(null);
+
+  const [startPos, setStartPos] = useState(0);
+  const [translate, setTranslate] = useState(0);
+  const drawerBodyRef = useRef<HTMLDivElement>(null);
+  const listContainerRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+  const isSideDrawer = placement === "left" || placement === "right";
+  const isLeftOrTopDrawer = placement === "left" || placement === "top";
+
+  const onTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    setStartPos(
+      isSideDrawer ? event.touches[0].clientX : event.touches[0].clientY
+    );
+  };
+
+  const onTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+    const currentPos = isSideDrawer
+      ? event.touches[0].clientX
+      : event.touches[0].clientY;
+    const diffPos = currentPos - startPos;
+    if (isLeftOrTopDrawer ? diffPos < 0 : diffPos > 0) {
+      // Swipe
+      setTranslate(diffPos);
+      if (drawerBodyRef.current) {
+        drawerBodyRef.current.style.transition = "0ms";
+        drawerBodyRef.current.style.transform = isSideDrawer
+          ? `translateX(${diffPos}px)`
+          : `translateY(${diffPos}px)`;
+      }
+    }
+  };
+
+  const onTouchEnd = () => {
+    if (drawerBodyRef.current !== null) {
+      const comparison = isSideDrawer
+        ? isLeftOrTopDrawer
+          ? (drawerBodyRef.current.offsetWidth / 5) * -1
+          : drawerBodyRef.current.offsetWidth / 5
+        : isLeftOrTopDrawer
+        ? (drawerBodyRef.current.offsetHeight / 5) * -1
+        : drawerBodyRef.current.offsetHeight / 5;
+      if (isLeftOrTopDrawer ? translate < comparison : translate > comparison) {
+        onClose();
+      } else {
+        if (drawerBodyRef.current) {
+          drawerBodyRef.current.style.transition = "200ms";
+          drawerBodyRef.current.style.transform = isSideDrawer
+            ? `translateX(0px)`
+            : `translateY(0px)`;
+        }
+      }
+    }
+
+    setTranslate(0);
+  };
 
   const [search, setSearch] = useState<string | undefined>("");
   const [selected, setSelected] = useState<SelectOption[] | undefined>(
@@ -155,84 +209,100 @@ export default function MultipleSelectDrawer({
         placement={placement}
       >
         <DrawerOverlay />
-        <DrawerContent
-          h={placement === "left" || placement === "right" ? "" : "500px"}
-          borderRadius={
-            placement === "left" || placement === "right"
-              ? ""
-              : placement === "top"
-              ? "0 0 12px 12px"
-              : "12px 12px 0 0"
-          }
-        >
-          <DrawerCloseButton />
-          <DrawerHeader ref={initialRef}>
-            <HStack justify={"space-between"}>
-              <Text fontSize={20} fontWeight={600}>
-                {placeholder || "Multi Pilih"}
-              </Text>
-            </HStack>
-            {withSearch && (
-              <Box mt={4}>
-                <SearchComponent
-                  name="search select options"
-                  inputValue={search}
-                  onChangeSetter={(inputValue) => {
-                    setSearch(inputValue);
-                  }}
-                />
-              </Box>
-            )}
-          </DrawerHeader>
-          <DrawerBody className="scrollY">
-            {optionsDisplay === "list" && (
-              <VStack align={"stretch"}>
-                {fo.map((option, i) => (
-                  <Button
-                    key={i}
-                    justifyContent={"space-between"}
-                    className="btn-outline"
-                    onClick={() => {
-                      const isSelected =
-                        selected &&
-                        selected.some((item) => item.value === option.value);
-                      let newSelected = selected || [];
-
-                      if (isSelected) {
-                        // Filter out the option if it's already selected
-                        newSelected = newSelected.filter(
-                          (item) => item.value !== option.value
-                        );
-                      } else {
-                        // Add the option to the selected array
-                        newSelected = [...newSelected, option];
-                      }
-
-                      setSelected(newSelected);
+        <DrawerContent bg={"transparent"} h={isSideDrawer ? "" : "500px"}>
+          <DrawerBody
+            borderRadius={
+              isSideDrawer
+                ? ""
+                : placement === "top"
+                ? "0 0 12px 12px"
+                : "12px 12px 0 0"
+            }
+            bg={useLightDarkColor()}
+            ref={drawerBodyRef}
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+            px={0}
+            pt={6}
+            pb={8}
+          >
+            <Box mb={4} px={6}>
+              <HStack justify={"space-between"}>
+                <Text fontSize={20} fontWeight={600}>
+                  {placeholder || "Multi Pilih"}
+                </Text>
+                <BackOnCloseButton aria-label="back on close button" />
+              </HStack>
+              {withSearch && (
+                <Box mt={4}>
+                  <SearchComponent
+                    name="search select options"
+                    inputValue={search}
+                    onChangeSetter={(inputValue) => {
+                      setSearch(inputValue);
                     }}
-                    borderColor={
-                      selected &&
-                      selected.some((item) => item.value === option.value)
-                        ? "var(--p500a1)"
-                        : ""
-                    }
-                    bg={
-                      selected &&
-                      selected.some((item) => item.value === option.value)
-                        ? "var(--p500a3) !important"
-                        : ""
-                    }
-                  >
-                    <Text>{option.label}</Text>
+                  />
+                </Box>
+              )}
+            </Box>
+            {optionsDisplay === "list" && (
+              <VStack
+                ref={listContainerRef}
+                align={"stretch"}
+                flex={1}
+                overflowY={"auto"}
+                px={6}
+                className="scrollY"
+              >
+                <VStack ref={listRef} align={"stretch"}>
+                  {fo.map((option, i) => (
+                    <Button
+                      key={i}
+                      flexShrink={0}
+                      justifyContent={"space-between"}
+                      className="btn-outline"
+                      onClick={() => {
+                        const isSelected =
+                          selected &&
+                          selected.some((item) => item.value === option.value);
+                        let newSelected = selected || [];
 
-                    <Text opacity={0.4}>{option.subLabel}</Text>
-                  </Button>
-                ))}
+                        if (isSelected) {
+                          // Filter out the option if it's already selected
+                          newSelected = newSelected.filter(
+                            (item) => item.value !== option.value
+                          );
+                        } else {
+                          // Add the option to the selected array
+                          newSelected = [...newSelected, option];
+                        }
+
+                        setSelected(newSelected);
+                      }}
+                      borderColor={
+                        selected &&
+                        selected.some((item) => item.value === option.value)
+                          ? "var(--p500a1)"
+                          : ""
+                      }
+                      bg={
+                        selected &&
+                        selected.some((item) => item.value === option.value)
+                          ? "var(--p500a3) !important"
+                          : ""
+                      }
+                    >
+                      <Text>{option.label}</Text>
+
+                      <Text opacity={0.4}>{option.subLabel}</Text>
+                    </Button>
+                  ))}
+                </VStack>
               </VStack>
             )}
-
             {optionsDisplay === "chip" && (
-              <Wrap>
+              <Wrap px={6}>
                 {fo.map((option, i) => (
                   <Button
                     key={i}
@@ -276,7 +346,6 @@ export default function MultipleSelectDrawer({
                 ))}
               </Wrap>
             )}
-
             {fo.length === 0 && (
               <HStack justify={"center"} minH={"100px"} opacity={0.4}>
                 <Text textAlign={"center"} fontWeight={600}>
@@ -284,28 +353,28 @@ export default function MultipleSelectDrawer({
                 </Text>
               </HStack>
             )}
-          </DrawerBody>
-          <DrawerFooter gap={2} pb={placement === "bottom" ? 8 : 6}>
-            <Button
-              className="btn-outline clicky"
-              w={"100%"}
-              onClick={() => {
-                setSelected(undefined);
-              }}
-            >
-              Reset
-            </Button>
+            <ButtonGroup px={6} w={"100%"} pt={4} mt={"auto"}>
+              <Button
+                className="btn-outline clicky"
+                w={"100%"}
+                onClick={() => {
+                  setSelected(undefined);
+                }}
+              >
+                Reset
+              </Button>
 
-            <Button
-              colorScheme="ap"
-              className="btn-ap clicky"
-              w={"100%"}
-              isDisabled={required ? (selected ? false : true) : false}
-              onClick={confirmSelected}
-            >
-              Konfirmasi
-            </Button>
-          </DrawerFooter>
+              <Button
+                colorScheme="ap"
+                className="btn-ap clicky"
+                w={"100%"}
+                isDisabled={required ? (selected ? false : true) : false}
+                onClick={confirmSelected}
+              >
+                Konfirmasi
+              </Button>
+            </ButtonGroup>
+          </DrawerBody>
         </DrawerContent>
       </Drawer>
     </>

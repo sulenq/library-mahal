@@ -185,7 +185,7 @@ export default function MultipleSelectModalShowcase() {
             Single Select Input Chip Options Display with Search
           </FormLabel>
           <ExampleDedicatedMultipleSelectModal
-            id="example_multi_select_modal"
+            id="example_multi_select_modal2"
             name="color"
             onConfirm={(inputValue) => {
               setInput2(inputValue);
