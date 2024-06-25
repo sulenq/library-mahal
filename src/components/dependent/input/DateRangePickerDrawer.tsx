@@ -270,6 +270,7 @@ export default function DateRangePickerDrawer({
                   w={"100px"}
                   h={"6px"}
                   bg={darkLightColor}
+                  opacity={0.2}
                   borderRadius={6}
                   flexShrink={0}
                   mx={"auto"}
@@ -462,6 +463,7 @@ export default function DateRangePickerDrawer({
                   w={"100px"}
                   h={"6px"}
                   bg={darkLightColor}
+                  opacity={0.2}
                   borderRadius={6}
                   flexShrink={0}
                   mx={"auto"}
