@@ -211,28 +211,30 @@ export default function MonthYearInputDrawer({
         }}
         initialFocusRef={initialRef}
         placement={placement}
-        size={placement === "left" || placement === "right" ? "sm" : ""}
+        size={isSideDrawer ? "sm" : ""}
       >
         <DrawerOverlay />
         <DrawerContent bg={"transparent"}>
           <DrawerBody ref={drawerBodyRef} px={0}>
             {!isSideDrawer && placement === "bottom" && (
-              <VStack
-                className="drawerIndicator"
-                onTouchStart={onTouchStart}
-                onTouchMove={onTouchMove}
-                onTouchEnd={onTouchEnd}
-              >
-                <Box
-                  w={"100px"}
-                  h={"6px"}
-                  bg={darkLightColor}
-                  opacity={0.2}
-                  borderRadius={6}
-                  flexShrink={0}
-                  mx={"auto"}
-                  mb={2}
-                />
+              <VStack align={"center"} onClick={backOnClose}>
+                <VStack
+                  className="drawerIndicator"
+                  onTouchStart={onTouchStart}
+                  onTouchMove={onTouchMove}
+                  onTouchEnd={onTouchEnd}
+                >
+                  <Box
+                    w={"100px"}
+                    h={"6px"}
+                    bg={darkLightColor}
+                    opacity={0.2}
+                    borderRadius={6}
+                    flexShrink={0}
+                    mx={"auto"}
+                    mb={2}
+                  />
+                </VStack>
               </VStack>
             )}
 
@@ -363,22 +365,24 @@ export default function MonthYearInputDrawer({
             </VStack>
 
             {!isSideDrawer && placement === "top" && (
-              <VStack
-                className="drawerIndicator"
-                onTouchStart={onTouchStart}
-                onTouchMove={onTouchMove}
-                onTouchEnd={onTouchEnd}
-              >
-                <Box
-                  w={"100px"}
-                  h={"6px"}
-                  bg={darkLightColor}
-                  opacity={0.2}
-                  borderRadius={6}
-                  flexShrink={0}
-                  mx={"auto"}
-                  mt={2}
-                />
+              <VStack align={"center"} onClick={backOnClose}>
+                <VStack
+                  className="drawerIndicator"
+                  onTouchStart={onTouchStart}
+                  onTouchMove={onTouchMove}
+                  onTouchEnd={onTouchEnd}
+                >
+                  <Box
+                    w={"100px"}
+                    h={"6px"}
+                    bg={darkLightColor}
+                    opacity={0.2}
+                    borderRadius={6}
+                    flexShrink={0}
+                    mx={"auto"}
+                    mt={2}
+                  />
+                </VStack>
               </VStack>
             )}
           </DrawerBody>

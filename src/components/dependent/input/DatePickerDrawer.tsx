@@ -212,28 +212,30 @@ export default function DatePickerDrawer({
         onClose={backOnClose}
         initialFocusRef={initialRef}
         placement={placement}
-        size={placement === "left" || placement === "right" ? "sm" : ""}
+        size={isSideDrawer ? "sm" : ""}
       >
         <DrawerOverlay />
         <DrawerContent bg={"transparent"}>
           <DrawerBody ref={drawerBodyRef} px={0}>
             {!isSideDrawer && placement === "bottom" && (
-              <VStack
-                className="drawerIndicator"
-                onTouchStart={onTouchStart}
-                onTouchMove={onTouchMove}
-                onTouchEnd={onTouchEnd}
-              >
-                <Box
-                  w={"100px"}
-                  h={"6px"}
-                  bg={darkLightColor}
-                  opacity={0.2}
-                  borderRadius={6}
-                  flexShrink={0}
-                  mx={"auto"}
-                  mb={2}
-                />
+              <VStack align={"center"} onClick={backOnClose}>
+                <VStack
+                  className="drawerIndicator"
+                  onTouchStart={onTouchStart}
+                  onTouchMove={onTouchMove}
+                  onTouchEnd={onTouchEnd}
+                >
+                  <Box
+                    w={"100px"}
+                    h={"6px"}
+                    bg={darkLightColor}
+                    opacity={0.2}
+                    borderRadius={6}
+                    flexShrink={0}
+                    mx={"auto"}
+                    mb={2}
+                  />
+                </VStack>
               </VStack>
             )}
 
@@ -254,7 +256,7 @@ export default function DatePickerDrawer({
               <Box pt={"18px"} pr={5} pb={5} pl={6}>
                 <HStack justify={"space-between"}>
                   <Text fontSize={20} fontWeight={600}>
-                    {placeholder || "Pilih Rentang Tanggal"}
+                    {placeholder || "Pilih Tanggal"}
                   </Text>
                   <BackOnCloseButton aria-label="back on close button" />
                 </HStack>
@@ -364,22 +366,24 @@ export default function DatePickerDrawer({
             </VStack>
 
             {!isSideDrawer && placement === "top" && (
-              <VStack
-                className="drawerIndicator"
-                onTouchStart={onTouchStart}
-                onTouchMove={onTouchMove}
-                onTouchEnd={onTouchEnd}
-              >
-                <Box
-                  w={"100px"}
-                  h={"6px"}
-                  bg={darkLightColor}
-                  opacity={0.2}
-                  borderRadius={6}
-                  flexShrink={0}
-                  mx={"auto"}
-                  mt={2}
-                />
+              <VStack align={"center"} onClick={backOnClose}>
+                <VStack
+                  className="drawerIndicator"
+                  onTouchStart={onTouchStart}
+                  onTouchMove={onTouchMove}
+                  onTouchEnd={onTouchEnd}
+                >
+                  <Box
+                    w={"100px"}
+                    h={"6px"}
+                    bg={darkLightColor}
+                    opacity={0.2}
+                    borderRadius={6}
+                    flexShrink={0}
+                    mx={"auto"}
+                    mt={2}
+                  />
+                </VStack>
               </VStack>
             )}
           </DrawerBody>
