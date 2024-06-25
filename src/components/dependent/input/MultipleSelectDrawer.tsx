@@ -16,7 +16,11 @@ import {
 } from "@chakra-ui/react";
 import { RiArrowDownSLine } from "@remixicon/react";
 import { useRef, useState } from "react";
-import { useErrorColor, useLightDarkColor } from "../../../constant/colors";
+import {
+  useDarkLightColor,
+  useErrorColor,
+  useLightDarkColor,
+} from "../../../constant/colors";
 import { SelectOption } from "../../../constant/interfaces";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
@@ -143,6 +147,7 @@ export default function MultipleSelectDrawer({
   // SX
   const errorColor = useErrorColor();
   const lightDarkColor = useLightDarkColor();
+  const darkLightColor = useDarkLightColor();
 
   return (
     <>
@@ -223,7 +228,7 @@ export default function MultipleSelectDrawer({
                 <Box
                   w={"100px"}
                   h={"6px"}
-                  bg={lightDarkColor}
+                  bg={darkLightColor}
                   borderRadius={6}
                   flexShrink={0}
                   mx={"auto"}
@@ -404,7 +409,7 @@ export default function MultipleSelectDrawer({
                 <Box
                   w={"100px"}
                   h={"6px"}
-                  bg={lightDarkColor}
+                  bg={darkLightColor}
                   borderRadius={6}
                   flexShrink={0}
                   mx={"auto"}

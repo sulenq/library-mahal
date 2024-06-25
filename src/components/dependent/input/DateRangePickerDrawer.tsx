@@ -23,7 +23,11 @@ import {
 import { id as ind } from "date-fns/locale";
 import { useRef, useState } from "react";
 import { DayPicker } from "react-day-picker";
-import { useErrorColor, useLightDarkColor } from "../../../constant/colors";
+import {
+  useDarkLightColor,
+  useErrorColor,
+  useLightDarkColor,
+} from "../../../constant/colors";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import useScreenWidth from "../../../hooks/useScreenWidth";
 import backOnClose from "../../../lib/backOnClose";
@@ -199,6 +203,7 @@ export default function DateRangePickerDrawer({
   // SX
   const errorColor = useErrorColor();
   const lightDarkColor = useLightDarkColor();
+  const darkLightColor = useDarkLightColor();
   const sw = useScreenWidth();
 
   return (
@@ -264,7 +269,7 @@ export default function DateRangePickerDrawer({
                 <Box
                   w={"100px"}
                   h={"6px"}
-                  bg={lightDarkColor}
+                  bg={darkLightColor}
                   borderRadius={6}
                   flexShrink={0}
                   mx={"auto"}
@@ -456,7 +461,7 @@ export default function DateRangePickerDrawer({
                 <Box
                   w={"100px"}
                   h={"6px"}
-                  bg={lightDarkColor}
+                  bg={darkLightColor}
                   borderRadius={6}
                   flexShrink={0}
                   mx={"auto"}

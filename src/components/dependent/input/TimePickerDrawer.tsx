@@ -15,7 +15,11 @@ import {
 } from "@chakra-ui/react";
 import { RiArrowDownSLine, RiArrowUpSLine, RiTimeLine } from "@remixicon/react";
 import { useRef, useState } from "react";
-import { useErrorColor, useLightDarkColor } from "../../../constant/colors";
+import {
+  useDarkLightColor,
+  useErrorColor,
+  useLightDarkColor,
+} from "../../../constant/colors";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
 import formatTimeFromDate from "../../../lib/formatTimeFromDate";
@@ -209,6 +213,7 @@ export default function TimePickerDrawer({
   // SX
   const errorColor = useErrorColor();
   const lightDarkColor = useLightDarkColor();
+  const darkLightColor = useDarkLightColor();
 
   return (
     <>
@@ -270,7 +275,7 @@ export default function TimePickerDrawer({
                 <Box
                   w={"100px"}
                   h={"6px"}
-                  bg={lightDarkColor}
+                  bg={darkLightColor}
                   borderRadius={6}
                   flexShrink={0}
                   mx={"auto"}
@@ -532,7 +537,7 @@ export default function TimePickerDrawer({
                 <Box
                   w={"100px"}
                   h={"6px"}
-                  bg={lightDarkColor}
+                  bg={darkLightColor}
                   borderRadius={6}
                   flexShrink={0}
                   mx={"auto"}

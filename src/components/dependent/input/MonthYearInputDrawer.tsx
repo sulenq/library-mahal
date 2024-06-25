@@ -20,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 import { RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
 import { Dispatch, useRef, useState } from "react";
-import { useLightDarkColor } from "../../../constant/colors";
+import { useDarkLightColor, useLightDarkColor } from "../../../constant/colors";
 import months from "../../../constant/months";
 import { iconSize } from "../../../constant/sizes";
 import useBackOnClose from "../../../hooks/useBackOnClose";
@@ -179,6 +179,7 @@ export default function MonthYearInputDrawer({
 
   // SX
   const lightDarkColor = useLightDarkColor();
+  const darkLightColor = useDarkLightColor();
 
   return (
     <>
@@ -225,7 +226,7 @@ export default function MonthYearInputDrawer({
                 <Box
                   w={"100px"}
                   h={"6px"}
-                  bg={lightDarkColor}
+                  bg={darkLightColor}
                   borderRadius={6}
                   flexShrink={0}
                   mx={"auto"}
@@ -370,7 +371,7 @@ export default function MonthYearInputDrawer({
                 <Box
                   w={"100px"}
                   h={"6px"}
-                  bg={lightDarkColor}
+                  bg={darkLightColor}
                   borderRadius={6}
                   flexShrink={0}
                   mx={"auto"}
