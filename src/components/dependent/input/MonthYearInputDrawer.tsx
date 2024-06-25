@@ -115,6 +115,61 @@ export default function MonthYearInputDrawer({
     return tahun >= 100 && tahun <= 270000;
   };
 
+  const intervalIncrementRef = useRef<ReturnType<typeof setInterval> | null>(
+    null
+  );
+  const timeoutIncrementRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
+
+  const intervalDecrementRef = useRef<ReturnType<typeof setInterval> | null>(
+    null
+  );
+  const timeoutDecrementRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
+
+  function handleMouseDownIncrement() {
+    if (timeoutIncrementRef.current || intervalIncrementRef.current) return;
+
+    timeoutIncrementRef.current = setTimeout(() => {
+      intervalIncrementRef.current = setInterval(() => {
+        setTahunLocal((ps) => ps + 1);
+      }, 100);
+    }, 300);
+  }
+  function handleMouseUpIncrement() {
+    if (timeoutIncrementRef.current) {
+      clearTimeout(timeoutIncrementRef.current);
+      timeoutIncrementRef.current = null;
+    }
+    if (intervalIncrementRef.current) {
+      clearInterval(intervalIncrementRef.current);
+      intervalIncrementRef.current = null;
+    }
+  }
+  function handleMouseDownDecrement() {
+    if (timeoutDecrementRef.current || intervalDecrementRef.current) return;
+
+    timeoutDecrementRef.current = setTimeout(() => {
+      intervalDecrementRef.current = setInterval(() => {
+        if (tahunLocal > 0) {
+          setTahunLocal((ps) => ps - 1);
+        }
+      }, 100);
+    }, 300);
+  }
+  function handleMouseUpDecrement() {
+    if (timeoutDecrementRef.current) {
+      clearTimeout(timeoutDecrementRef.current);
+      timeoutDecrementRef.current = null;
+    }
+    if (intervalDecrementRef.current) {
+      clearInterval(intervalDecrementRef.current);
+      intervalDecrementRef.current = null;
+    }
+  }
+
   function onConfirm() {
     setBulan(bulanLocal);
     setTahun(tahunLocal);
@@ -241,6 +296,15 @@ export default function MonthYearInputDrawer({
                           setTahunLocal(tahunLocal - 1);
                         }
                       }}
+                      onMouseDown={() => {
+                        handleMouseDownDecrement();
+                      }}
+                      onMouseUp={handleMouseUpDecrement}
+                      onMouseLeave={handleMouseUpDecrement}
+                      onTouchStart={() => {
+                        handleMouseDownDecrement();
+                      }}
+                      onTouchEnd={handleMouseUpDecrement}
                     />
                     <Input
                       name="tahun"
@@ -264,6 +328,15 @@ export default function MonthYearInputDrawer({
                       onClick={() => {
                         setTahunLocal(tahunLocal + 1);
                       }}
+                      onMouseDown={() => {
+                        handleMouseDownIncrement();
+                      }}
+                      onMouseUp={handleMouseUpIncrement}
+                      onMouseLeave={handleMouseUpIncrement}
+                      onTouchStart={() => {
+                        handleMouseDownIncrement();
+                      }}
+                      onTouchEnd={handleMouseUpIncrement}
                     />
                   </HStack>
                   <FormErrorMessage>
