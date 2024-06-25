@@ -211,17 +211,7 @@ export default function MultipleSelectDrawer({
       >
         <DrawerOverlay />
         <DrawerContent bg={"transparent"} h={isSideDrawer ? "" : "500px"}>
-          <DrawerBody
-            borderRadius={
-              isSideDrawer
-                ? ""
-                : placement === "top"
-                ? "0 0 12px 12px"
-                : "12px 12px 0 0"
-            }
-            ref={drawerBodyRef}
-            px={0}
-          >
+          <DrawerBody ref={drawerBodyRef} px={0}>
             <VStack
               onTouchStart={onTouchStart}
               onTouchMove={onTouchMove}
@@ -246,6 +236,13 @@ export default function MultipleSelectDrawer({
               bg={lightDarkColor}
               align={"stretch"}
               gap={0}
+              borderRadius={
+                isSideDrawer
+                  ? ""
+                  : placement === "top"
+                  ? "0 0 12px 12px"
+                  : "12px 12px 0 0"
+              }
             >
               <Box mb={4} px={6}>
                 <HStack justify={"space-between"}>
