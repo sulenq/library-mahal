@@ -26,7 +26,6 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useErrorColor } from "../../../constant/colors";
-import { iconSize } from "../../../constant/sizes";
 import formatBytes from "../../../lib/formatBytes";
 
 interface Props {
@@ -242,7 +241,7 @@ export default function FileInputLarge({
         <Wrap>
           <Button
             mt={2}
-            leftIcon={<Icon as={RiEyeFill} fontSize={iconSize} />}
+            leftIcon={<Icon as={RiEyeFill} />}
             variant={"ghost"}
             colorScheme="ap"
             size={"xs"}
@@ -250,18 +249,12 @@ export default function FileInputLarge({
             to={url}
             target="_blank"
           >
-            Lihat file
+            <Text fontSize={12}>Lihat file</Text>
           </Button>
 
           <Button
             mt={2}
-            leftIcon={
-              <Icon
-                as={RiCloseCircleFill}
-                strokeWidth={4}
-                fontSize={iconSize}
-              />
-            }
+            leftIcon={<Icon as={RiCloseCircleFill} strokeWidth={4} />}
             variant={"ghost"}
             colorScheme="red"
             size={"xs"}
@@ -270,7 +263,7 @@ export default function FileInputLarge({
               setFileName("");
             }}
           >
-            Clear
+            <Text fontSize={12}>Clear</Text>
           </Button>
         </Wrap>
       )}

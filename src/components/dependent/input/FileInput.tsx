@@ -6,6 +6,7 @@ import {
   Input,
   Text,
   Tooltip,
+  Wrap,
 } from "@chakra-ui/react";
 import {
   RiCloseCircleFill,
@@ -212,10 +213,10 @@ export default function FileInput({
       </Button>
 
       {inputValue && url && (
-        <HStack>
+        <Wrap>
           <Button
             mt={2}
-            leftIcon={<Icon as={RiEyeFill} fontSize={iconSize} />}
+            leftIcon={<Icon as={RiEyeFill} />}
             variant={"ghost"}
             colorScheme="ap"
             size={"xs"}
@@ -223,18 +224,12 @@ export default function FileInput({
             to={url}
             target="_blank"
           >
-            Lihat file
+            <Text fontSize={12}>Lihat file</Text>
           </Button>
 
           <Button
             mt={2}
-            leftIcon={
-              <Icon
-                as={RiCloseCircleFill}
-                strokeWidth={4}
-                fontSize={iconSize}
-              />
-            }
+            leftIcon={<Icon as={RiCloseCircleFill} strokeWidth={4} />}
             variant={"ghost"}
             colorScheme="red"
             size={"xs"}
@@ -243,9 +238,9 @@ export default function FileInput({
               setFileName("");
             }}
           >
-            Clear
+            <Text fontSize={12}>Clear</Text>
           </Button>
-        </HStack>
+        </Wrap>
       )}
     </>
   );
