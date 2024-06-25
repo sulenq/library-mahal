@@ -58,8 +58,6 @@ export default function MultipleSelectDrawer({
   const [startPos, setStartPos] = useState(0);
   const [translate, setTranslate] = useState(0);
   const drawerBodyRef = useRef<HTMLDivElement>(null);
-  const listContainerRef = useRef<HTMLDivElement>(null);
-  const listRef = useRef<HTMLDivElement>(null);
   const isSideDrawer = placement === "left" || placement === "right";
   const isLeftOrTopDrawer = placement === "left" || placement === "top";
 
@@ -274,65 +272,60 @@ export default function MultipleSelectDrawer({
 
               {optionsDisplay === "list" && (
                 <VStack
-                  ref={listContainerRef}
                   align={"stretch"}
-                  flex={1}
                   overflowY={"auto"}
                   px={6}
                   className="scrollY"
                 >
-                  <VStack ref={listRef} align={"stretch"}>
-                    {fo.map((option, i) => (
-                      <Button
-                        key={i}
-                        flexShrink={0}
-                        justifyContent={"space-between"}
-                        className="btn-outline"
-                        onClick={() => {
-                          const isSelected =
-                            selected &&
-                            selected.some(
-                              (item) => item.value === option.value
-                            );
-                          let newSelected = selected || [];
-
-                          if (isSelected) {
-                            // Filter out the option if it's already selected
-                            newSelected = newSelected.filter(
-                              (item) => item.value !== option.value
-                            );
-                          } else {
-                            // Add the option to the selected array
-                            newSelected = [...newSelected, option];
-                          }
-
-                          setSelected(newSelected);
-                        }}
-                        borderColor={
+                  {fo.map((option, i) => (
+                    <Button
+                      key={i}
+                      flexShrink={0}
+                      justifyContent={"space-between"}
+                      className="btn-outline"
+                      onClick={() => {
+                        const isSelected =
                           selected &&
-                          selected.some((item) => item.value === option.value)
-                            ? "var(--p500a1)"
-                            : ""
-                        }
-                        bg={
-                          selected &&
-                          selected.some((item) => item.value === option.value)
-                            ? "var(--p500a3) !important"
-                            : ""
-                        }
-                      >
-                        <Text>{option.label}</Text>
+                          selected.some((item) => item.value === option.value);
+                        let newSelected = selected || [];
 
-                        <Text opacity={0.4}>{option.subLabel}</Text>
-                      </Button>
-                    ))}
-                  </VStack>
+                        if (isSelected) {
+                          // Filter out the option if it's already selected
+                          newSelected = newSelected.filter(
+                            (item) => item.value !== option.value
+                          );
+                        } else {
+                          // Add the option to the selected array
+                          newSelected = [...newSelected, option];
+                        }
+
+                        setSelected(newSelected);
+                      }}
+                      borderColor={
+                        selected &&
+                        selected.some((item) => item.value === option.value)
+                          ? "var(--p500a1)"
+                          : ""
+                      }
+                      bg={
+                        selected &&
+                        selected.some((item) => item.value === option.value)
+                          ? "var(--p500a3) !important"
+                          : ""
+                      }
+                    >
+                      <Text>{option.label}</Text>
+
+                      <Text opacity={0.4}>{option.subLabel}</Text>
+                    </Button>
+                  ))}
                 </VStack>
               )}
               {optionsDisplay === "chip" && (
-                <Wrap px={6}>
+                <Wrap px={6} overflowY={"auto"}>
                   {fo.map((option, i) => (
                     <Button
+                      flexShrink={0}
                       key={i}
                       justifyContent={"space-between"}
                       className="btn-outline"
