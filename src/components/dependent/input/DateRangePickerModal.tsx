@@ -211,53 +211,53 @@ export default function DateRangePickerModal({
           </ModalHeader>
 
           <ModalBody className="scrollY">
-            <VStack align={"stretch"}>
-              <VStack gap={0} overflowX={"auto"} w={"100%"} align={"stretch"}>
-                <ButtonGroup w={"100%"} mb={3}>
-                  <Button
-                    aria-label="Previous Month"
-                    leftIcon={<Icon as={RiArrowLeftSLine} fontSize={20} />}
-                    pr={"10px"}
-                    className="btn-outline clicky"
-                    onClick={prevMonth}
-                    w={"100%"}
-                    maxW={"50px"}
-                  ></Button>
+            <VStack gap={0} overflowX={"auto"} w={"100%"} align={"stretch"}>
+              <ButtonGroup w={"100%"} mb={3}>
+                <Button
+                  aria-label="Previous Month"
+                  leftIcon={<Icon as={RiArrowLeftSLine} fontSize={20} />}
+                  pr={"10px"}
+                  className="btn-outline clicky"
+                  onClick={prevMonth}
+                  w={"100%"}
+                  maxW={"50px"}
+                ></Button>
 
-                  <MonthYearInputModal
-                    id={"date_range_picker_input_month_year_modal"}
-                    bulan={bulan}
-                    tahun={tahun}
-                    setBulan={setBulan}
-                    setTahun={setTahun}
-                    setDate={setDate}
-                  />
-
-                  <Button
-                    aria-label="Next Month"
-                    rightIcon={<Icon as={RiArrowRightSLine} fontSize={20} />}
-                    pl={"10px"}
-                    className="btn-outline clicky"
-                    onClick={nextMonth}
-                    w={"100%"}
-                    maxW={"50px"}
-                  ></Button>
-                </ButtonGroup>
-
-                <DayPicker
-                  mode="range"
-                  selected={selected}
-                  onSelect={(date) => {
-                    setSelected(date);
-                  }}
-                  locale={ind}
-                  month={date}
-                  showOutsideDays
-                  fixedWeeks
-                  disableNavigation
+                <MonthYearInputModal
+                  id={"date_range_picker_input_month_year_modal"}
+                  bulan={bulan}
+                  tahun={tahun}
+                  setBulan={setBulan}
+                  setTahun={setTahun}
+                  setDate={setDate}
                 />
-              </VStack>
 
+                <Button
+                  aria-label="Next Month"
+                  rightIcon={<Icon as={RiArrowRightSLine} fontSize={20} />}
+                  pl={"10px"}
+                  className="btn-outline clicky"
+                  onClick={nextMonth}
+                  w={"100%"}
+                  maxW={"50px"}
+                ></Button>
+              </ButtonGroup>
+
+              <DayPicker
+                mode="range"
+                selected={selected}
+                onSelect={(date) => {
+                  setSelected(date);
+                }}
+                locale={ind}
+                month={date}
+                showOutsideDays
+                fixedWeeks
+                disableNavigation
+              />
+            </VStack>
+
+            <VStack align={"stretch"} mt={3} w={"100%"}>
               <ButtonGroup w={"100%"}>
                 <Button
                   flex={1}

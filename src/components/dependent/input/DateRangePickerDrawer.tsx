@@ -355,7 +355,7 @@ export default function DateRangePickerDrawer({
                 />
               </VStack>
 
-              <ButtonGroup px={6} w={"100%"}>
+              <ButtonGroup mt={3} px={6} w={"100%"}>
                 <Button
                   flex={1}
                   className="btn-outline clicky"
