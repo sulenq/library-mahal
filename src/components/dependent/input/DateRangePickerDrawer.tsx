@@ -7,18 +7,14 @@ import {
   Drawer,
   DrawerBody,
   DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
   DrawerOverlay,
   HStack,
   Icon,
-  Stack,
   Text,
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import {
-  RiArrowDownLine,
   RiArrowLeftSLine,
   RiArrowRightLine,
   RiArrowRightSLine,
