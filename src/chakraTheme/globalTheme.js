@@ -210,10 +210,10 @@ export const globalTheme = extendTheme({
           backdropFilter: "blur(5px)",
         },
         header: {
-          py: "20px",
           pt: "18px",
-          px: "24px",
           pr: "20px",
+          pb: "20px",
+          pl: "24px",
         },
         body: {
           px: "24px",

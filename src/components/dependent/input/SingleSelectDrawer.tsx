@@ -223,7 +223,6 @@ export default function SingleSelectDrawer({
             )}
 
             <VStack
-              pt={6}
               pb={placement === "bottom" ? 8 : 6}
               h={"calc(100% - 14px)"}
               bg={lightDarkColor}
@@ -237,7 +236,7 @@ export default function SingleSelectDrawer({
                   : "12px 12px 0 0"
               }
             >
-              <Box mb={4} px={6}>
+              <Box pt={"18px"} pr={5} pb={5} pl={6}>
                 <HStack justify={"space-between"}>
                   <Text fontSize={20} fontWeight={600}>
                     {placeholder || "Multi Pilih"}

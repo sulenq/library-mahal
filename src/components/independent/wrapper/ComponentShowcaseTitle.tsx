@@ -7,9 +7,9 @@ interface Props extends StackProps {
 
 export default function ComponentShowcaseTitle({ children, ...props }: Props) {
   return (
-    <HStack color={"p.500"} {...props}>
-      <Icon as={RiPuzzle2Fill} fontSize={28} />
-      <Text fontSize={28} fontWeight={700}>
+    <HStack color={"p.500"} align={"start"} {...props}>
+      <Icon as={RiPuzzle2Fill} fontSize={28} mt={1} />
+      <Text fontSize={28} fontWeight={700} lineHeight={1.2}>
         {children}
       </Text>
     </HStack>
