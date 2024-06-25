@@ -50,11 +50,7 @@ export default function FileInput({
 }: Props) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const [fileName, setFileName] = useState(
-    inputValue
-      ? inputValue.name
-      : placeholder || "Seret & letakkan atau klik untuk telusuri"
-  );
+  const [fileName, setFileName] = useState(inputValue ? inputValue.name : "");
   const [url, setUrl] = useState<string | undefined>(initialFilepath);
   const urlRef = useRef(url);
   useEffect(() => {
@@ -204,7 +200,9 @@ export default function FileInput({
                   textAlign={"left"}
                   fontSize={[12, null, 14]}
                 >
-                  {fileName}
+                  {fileName ||
+                    placeholder ||
+                    "Seret & letakkan atau klik untuk telusuri"}
                 </Text>
               </HStack>
             </Tooltip>
