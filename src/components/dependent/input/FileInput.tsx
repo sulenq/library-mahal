@@ -8,6 +8,7 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import {
+  RiCloseCircleFill,
   RiEyeFill,
   RiFileCodeLine,
   RiFileExcel2Line,
@@ -211,18 +212,40 @@ export default function FileInput({
       </Button>
 
       {inputValue && url && (
-        <Button
-          mt={2}
-          leftIcon={<Icon as={RiEyeFill} fontSize={iconSize} />}
-          variant={"ghost"}
-          colorScheme="ap"
-          size={"xs"}
-          as={Link}
-          to={url}
-          target="_blank"
-        >
-          Lihat file
-        </Button>
+        <HStack>
+          <Button
+            mt={2}
+            leftIcon={<Icon as={RiEyeFill} fontSize={iconSize} />}
+            variant={"ghost"}
+            colorScheme="ap"
+            size={"xs"}
+            as={Link}
+            to={url}
+            target="_blank"
+          >
+            Lihat file
+          </Button>
+
+          <Button
+            mt={2}
+            leftIcon={
+              <Icon
+                as={RiCloseCircleFill}
+                strokeWidth={4}
+                fontSize={iconSize}
+              />
+            }
+            variant={"ghost"}
+            colorScheme="red"
+            size={"xs"}
+            onClick={() => {
+              onChangeSetter(undefined);
+              setFileName("");
+            }}
+          >
+            Clear
+          </Button>
+        </HStack>
       )}
     </>
   );
