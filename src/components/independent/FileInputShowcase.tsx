@@ -104,14 +104,13 @@ export default function FileInputShowcase() {
         </FormControl>
 
         <FormControl>
-          <FormLabel>File Input Accept PDF</FormLabel>
+          <FormLabel>File Input </FormLabel>
           <FileInput
             name="fileInput"
             onChangeSetter={(inputValue) => {
               setFileInput(inputValue);
             }}
             inputValue={fileInput}
-            accept=".pdf"
           />
         </FormControl>
       </ContentContainer>

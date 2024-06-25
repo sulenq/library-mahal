@@ -1,5 +1,14 @@
-import { Button, Icon, Input, Text, Tooltip, VStack } from "@chakra-ui/react";
 import {
+  Button,
+  Icon,
+  Input,
+  Text,
+  Tooltip,
+  VStack,
+  Wrap,
+} from "@chakra-ui/react";
+import {
+  RiCloseCircleFill,
   RiEyeFill,
   RiFileCodeLine,
   RiFileExcel2Line,
@@ -14,7 +23,7 @@ import {
   RiFileZipLine,
   RiUploadCloud2Line,
 } from "@remixicon/react";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useErrorColor } from "../../../constant/colors";
 import { iconSize } from "../../../constant/sizes";
@@ -42,6 +51,23 @@ export default function FileInputLarge({
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const [fileName, setFileName] = useState(inputValue ? inputValue.name : "");
+  const [url, setUrl] = useState<string | undefined>(initialFilepath);
+  const urlRef = useRef(url);
+  useEffect(() => {
+    const currentUrl = urlRef.current;
+    if (inputValue) {
+      setUrl(URL.createObjectURL(inputValue));
+    } else {
+      setUrl(undefined);
+    }
+
+    return () => {
+      if (currentUrl) {
+        URL.revokeObjectURL(currentUrl);
+      }
+    };
+  }, [inputValue]);
+
   const [isDraggingOver, setIsDraggingOver] = useState(false);
 
   const handleDragOver = (e: any) => {
@@ -86,6 +112,7 @@ export default function FileInputLarge({
           return RiFileCodeLine;
         } else if (
           type === "zip" ||
+          type === "x-zip-compressed" ||
           type === "x-rar-compressed" ||
           type === "x-7z-compressed"
         ) {
@@ -211,19 +238,41 @@ export default function FileInputLarge({
         )}
       </VStack>
 
-      {inputValue && initialFilepath && (
-        <Button
-          mt={2}
-          leftIcon={<Icon as={RiEyeFill} fontSize={iconSize} />}
-          variant={"ghost"}
-          colorScheme="ap"
-          size={"xs"}
-          as={Link}
-          to={initialFilepath}
-          target="_blank"
-        >
-          Lihat file
-        </Button>
+      {inputValue && url && (
+        <Wrap>
+          <Button
+            mt={2}
+            leftIcon={<Icon as={RiEyeFill} fontSize={iconSize} />}
+            variant={"ghost"}
+            colorScheme="ap"
+            size={"xs"}
+            as={Link}
+            to={url}
+            target="_blank"
+          >
+            Lihat file
+          </Button>
+
+          <Button
+            mt={2}
+            leftIcon={
+              <Icon
+                as={RiCloseCircleFill}
+                strokeWidth={4}
+                fontSize={iconSize}
+              />
+            }
+            variant={"ghost"}
+            colorScheme="red"
+            size={"xs"}
+            onClick={() => {
+              onChangeSetter(undefined);
+              setFileName("");
+            }}
+          >
+            Clear
+          </Button>
+        </Wrap>
       )}
     </>
   );

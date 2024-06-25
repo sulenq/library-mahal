@@ -22,7 +22,7 @@ import {
   RiFileZipLine,
   RiUploadCloud2Line,
 } from "@remixicon/react";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useErrorColor } from "../../../constant/colors";
 import { iconSize } from "../../../constant/sizes";
@@ -53,31 +53,44 @@ export default function FileInput({
       ? inputValue.name
       : placeholder || "Seret & letakkan atau klik untuk telusuri"
   );
+  const [url, setUrl] = useState<string | undefined>(initialFilepath);
+  const urlRef = useRef(url);
+  useEffect(() => {
+    const currentUrl = urlRef.current;
+    if (inputValue) {
+      setUrl(URL.createObjectURL(inputValue));
+    } else {
+      setUrl(undefined);
+    }
+
+    return () => {
+      if (currentUrl) {
+        URL.revokeObjectURL(currentUrl);
+      }
+    };
+  }, [inputValue]);
+
   const [isDraggingOver, setIsDraggingOver] = useState(false);
 
   const handleDragOver = (e: any) => {
     e.preventDefault();
-    setIsDraggingOver(true); // Set state untuk menandakan sedang ada operasi seret-menyeret
+    setIsDraggingOver(true);
   };
 
   const handleDragLeave = (e: any) => {
-    setIsDraggingOver(false); // Set state untuk menandakan tidak ada operasi seret-menyeret lagi
+    setIsDraggingOver(false);
   };
 
   const handleDrop = (e: any) => {
     e.preventDefault();
-    setIsDraggingOver(false); // Set state untuk menandakan tidak ada operasi seret-menyeret lagi
+    setIsDraggingOver(false);
     const file = e.dataTransfer.files[0];
     if (file) {
-      // console.log(file);
       setFileName(file.name);
       onChangeSetter(file);
     }
   };
 
-  // console.log(inputValue);
-
-  // SX
   const errorColor = useErrorColor();
   const fileIcons = (fileType: string) => {
     const basicType = fileType.split("/")[0];
@@ -97,6 +110,7 @@ export default function FileInput({
           return RiFileCodeLine;
         } else if (
           type === "zip" ||
+          type === "x-zip-compressed" ||
           type === "x-rar-compressed" ||
           type === "x-7z-compressed"
         ) {
@@ -196,7 +210,7 @@ export default function FileInput({
         </HStack>
       </Button>
 
-      {inputValue && initialFilepath && (
+      {inputValue && url && (
         <Button
           mt={2}
           leftIcon={<Icon as={RiEyeFill} fontSize={iconSize} />}
@@ -204,7 +218,7 @@ export default function FileInput({
           colorScheme="ap"
           size={"xs"}
           as={Link}
-          to={initialFilepath}
+          to={url}
           target="_blank"
         >
           Lihat file

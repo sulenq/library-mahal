@@ -104,14 +104,13 @@ export default function FileInputLargeShowcase() {
         </FormControl>
 
         <FormControl>
-          <FormLabel>File Input Large Accept PDF</FormLabel>
+          <FormLabel>File Input Large </FormLabel>
           <FileInputLarge
             name="fileInputLarge"
             onChangeSetter={(inputValue) => {
               setFileInput(inputValue);
             }}
             inputValue={fileInput}
-            accept=".pdf"
             placeholder="Mendukung PDF"
           />
         </FormControl>
