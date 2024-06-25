@@ -313,10 +313,9 @@ export default function DatePickerDrawer({
                 />
               </VStack>
 
-              <HStack mt={3} px={6} w={"100%"}>
+              <VStack align={"stretch"} mt={3} px={6} w={"100%"}>
                 <Button
-                  w={"50%"}
-                  flex={1}
+                  flexShrink={0}
                   className="btn-outline clicky"
                   onClick={setSelectedToToday}
                 >
@@ -325,7 +324,6 @@ export default function DatePickerDrawer({
 
                 <HStack
                   borderRadius={8}
-                  w={"50%"}
                   bg={"var(--divider)"}
                   p={2}
                   gap={1}
@@ -338,7 +336,7 @@ export default function DatePickerDrawer({
                       : "Pilih tanggal"}
                   </Text>
                 </HStack>
-              </HStack>
+              </VStack>
 
               <VStack gap={0} px={6} align={"stretch"} w={"100%"}>
                 <Button
