@@ -303,7 +303,7 @@ export const globalTheme = extendTheme({
     Tooltip: {
       baseStyle: {
         bg: "dark",
-        color: "w",
+        color: "white !important",
         "--popper-arrow-bg": "#0097e8",
         borderRadius: 8,
         px: 4,

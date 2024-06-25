@@ -1,4 +1,4 @@
-import { Button, Icon, Input, Text, VStack } from "@chakra-ui/react";
+import { Button, Icon, Input, Text, Tooltip, VStack } from "@chakra-ui/react";
 import {
   RiEyeFill,
   RiFileCodeLine,
@@ -139,6 +139,7 @@ export default function FileInputLarge({
         as={Button}
         w={"100%"}
         justify={"center"}
+        overflow={"clip"}
         p={6}
         h={"300px"}
         className="btn"
@@ -189,9 +190,20 @@ export default function FileInputLarge({
             </Text>
           </>
         )}
+
         {inputValue && fileName && (
           <>
-            <Text fontSize={18}>{fileName}</Text>
+            <Tooltip label={fileName}>
+              <Text
+                w={"100%"}
+                fontSize={18}
+                overflow={"hidden"}
+                textOverflow={"ellipsis"}
+                whiteSpace={"nowrap"}
+              >
+                {fileName}
+              </Text>
+            </Tooltip>
             <Text opacity={0.6} fontSize={14}>
               {formatBytes(inputValue.size)}
             </Text>

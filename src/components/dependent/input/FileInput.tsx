@@ -182,9 +182,11 @@ export default function FileInput({
                   fontSize={iconSize}
                 />
                 <Text
-                  noOfLines={1}
+                  overflow={"hidden"}
+                  textOverflow={"ellipsis"}
+                  whiteSpace={"nowrap"}
+                  textAlign={"left"}
                   fontSize={[12, null, 14]}
-                  whiteSpace={"normal"}
                 >
                   {fileName}
                 </Text>
