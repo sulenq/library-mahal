@@ -212,7 +212,7 @@ export default function MultipleSelectDrawer({
         <DrawerOverlay />
         <DrawerContent
           bg={"transparent"}
-          h={withSearch && isSideDrawer ? "600px" : ""}
+          h={withSearch && !isSideDrawer ? "600px" : ""}
         >
           <DrawerBody
             ref={drawerBodyRef}
@@ -382,7 +382,7 @@ export default function MultipleSelectDrawer({
                 </HStack>
               )}
 
-              <ButtonGroup px={6} w={"100%"} pt={5} mt={"auto"}>
+              <VStack px={6} w={"100%"} pt={6} mt={"auto"}>
                 <Button
                   className="btn-outline clicky"
                   w={"100%"}
@@ -402,7 +402,7 @@ export default function MultipleSelectDrawer({
                 >
                   Konfirmasi
                 </Button>
-              </ButtonGroup>
+              </VStack>
             </VStack>
 
             {!isSideDrawer && placement === "top" && (

@@ -199,7 +199,7 @@ export default function SingleSelectDrawer({
         <DrawerOverlay />
         <DrawerContent
           bg={"transparent"}
-          h={withSearch && isSideDrawer ? "600px" : ""}
+          h={withSearch && !isSideDrawer ? "600px" : ""}
         >
           <DrawerBody
             ref={drawerBodyRef}
@@ -232,7 +232,7 @@ export default function SingleSelectDrawer({
 
             <VStack
               pb={placement === "bottom" ? 8 : 6}
-              // h={"calc(100% - 14px)"}
+              h={"calc(100% - 14px)"}
               bg={lightDarkColor}
               align={"stretch"}
               gap={0}
@@ -337,7 +337,7 @@ export default function SingleSelectDrawer({
                 </HStack>
               )}
 
-              <ButtonGroup px={6} w={"100%"} pt={5} mt={"auto"}>
+              <VStack px={6} w={"100%"} pt={6} mt={"auto"}>
                 <Button
                   className="btn-outline clicky"
                   w={"100%"}
@@ -357,7 +357,7 @@ export default function SingleSelectDrawer({
                 >
                   Konfirmasi
                 </Button>
-              </ButtonGroup>
+              </VStack>
             </VStack>
 
             {!isSideDrawer && placement === "top" && (
