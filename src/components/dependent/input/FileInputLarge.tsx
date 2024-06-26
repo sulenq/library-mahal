@@ -166,10 +166,12 @@ export default function FileInputLarge({
       <VStack
         as={Button}
         w={"100%"}
+        h={"100%"}
         justify={"center"}
         overflow={"clip"}
         p={6}
-        h={"300px"}
+        // h={"300px"}
+        aspectRatio={1}
         className="btn"
         border={`2px dashed ${
           isDraggingOver ? "var(--p500) !important" : "var(--divider3)"
