@@ -215,7 +215,13 @@ export default function DateRangePickerModal({
               <ButtonGroup w={"100%"} mb={3}>
                 <Button
                   aria-label="Previous Month"
-                  leftIcon={<Icon as={RiArrowLeftSLine} fontSize={20} />}
+                  leftIcon={
+                    <Icon
+                      className="iconButton"
+                      as={RiArrowLeftSLine}
+                      fontSize={20}
+                    />
+                  }
                   pr={"10px"}
                   className="btn-outline clicky"
                   onClick={prevMonth}

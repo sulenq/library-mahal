@@ -2,6 +2,7 @@ import {
   Button,
   Icon,
   Input,
+  StackProps,
   Text,
   Tooltip,
   VStack,
@@ -28,7 +29,7 @@ import { Link } from "react-router-dom";
 import { useErrorColor } from "../../../constant/colors";
 import formatBytes from "../../../lib/formatBytes";
 
-interface Props {
+interface Props extends StackProps {
   name: string;
   onChangeSetter: (inputValue: File | undefined) => void;
   inputValue: File | undefined;
@@ -46,6 +47,7 @@ export default function FileInputLarge({
   isError,
   placeholder,
   initialFilepath,
+  ...props
 }: Props) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -186,6 +188,7 @@ export default function FileInputLarge({
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave} // Tambahkan event handler untuk menangani event drag leave
         onDrop={handleDrop}
+        {...props}
       >
         <Icon
           as={inputValue ? fileIcons(inputValue.type) : RiUploadCloud2Line}
@@ -241,7 +244,7 @@ export default function FileInputLarge({
         <Wrap spacingX={0}>
           <Button
             mt={2}
-            leftIcon={<Icon as={RiEyeFill} />}
+            leftIcon={<Icon className="iconButton" as={RiEyeFill} />}
             variant={"ghost"}
             colorScheme="ap"
             size={"xs"}
@@ -254,7 +257,13 @@ export default function FileInputLarge({
 
           <Button
             mt={2}
-            leftIcon={<Icon as={RiCloseCircleFill} strokeWidth={4} />}
+            leftIcon={
+              <Icon
+                className="iconButton"
+                as={RiCloseCircleFill}
+                strokeWidth={4}
+              />
+            }
             variant={"ghost"}
             colorScheme="red"
             size={"xs"}

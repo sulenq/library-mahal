@@ -98,6 +98,10 @@ button:focus-visible {
   box-shadow: none !important;
 }
 
+.iconButton {
+  margin-bottom: 1.4px;
+}
+
 .btn-solid {
   background: var(--divider) !important;
 }

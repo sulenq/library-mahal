@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  ButtonProps,
   HStack,
   Icon,
   Input,
@@ -29,7 +30,7 @@ import { Link } from "react-router-dom";
 import { useErrorColor } from "../../../constant/colors";
 import { iconSize } from "../../../constant/sizes";
 
-interface Props {
+interface Props extends ButtonProps {
   name: string;
   onChangeSetter: (inputValue: File | undefined) => void;
   inputValue: File | undefined;
@@ -47,6 +48,7 @@ export default function FileInput({
   isError,
   placeholder,
   initialFilepath,
+  ...props
 }: Props) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -182,6 +184,7 @@ export default function FileInput({
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
+        {...props}
       >
         <HStack gap={0} w={"100%"}>
           <Box px={4} py={2} w={"100%"}>
@@ -214,7 +217,7 @@ export default function FileInput({
         <Wrap spacingX={0}>
           <Button
             mt={2}
-            leftIcon={<Icon as={RiEyeFill} />}
+            leftIcon={<Icon className="iconButton" as={RiEyeFill} />}
             variant={"ghost"}
             colorScheme="ap"
             size={"xs"}
@@ -227,7 +230,13 @@ export default function FileInput({
 
           <Button
             mt={2}
-            leftIcon={<Icon as={RiCloseCircleFill} strokeWidth={4} />}
+            leftIcon={
+              <Icon
+                className="iconButton"
+                as={RiCloseCircleFill}
+                strokeWidth={4}
+              />
+            }
             variant={"ghost"}
             colorScheme="red"
             size={"xs"}
