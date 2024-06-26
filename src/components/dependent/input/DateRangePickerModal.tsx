@@ -37,7 +37,7 @@ type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 interface Props extends ButtonProps {
   id: string;
   name: string;
-  onConfirm: (inputValue: { from: Date; to: Date }) => void;
+  onConfirm: (inputValue: { from: Date; to: Date } | undefined) => void;
   inputValue: { from: Date; to: Date } | undefined;
   dateFormatOptions?: PrefixOption | object;
   placeholder?: string;

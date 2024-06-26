@@ -33,12 +33,12 @@ export default function DateRangePickerModalShowcase() {
     },
     {
       label: "onConfirm",
-      type: "(inputValue: Date | undefined) => void",
+      type: "(inputValue:  {from: Date, to: Date} | undefined) => void",
       desc: <Text>function to set controlled input</Text>,
     },
     {
       label: "inputValue",
-      type: "Date | undefined",
+      type: " {from: Date, to: Date} | undefined",
       desc: <Text>value for the input field</Text>,
     },
   ];
@@ -108,10 +108,13 @@ export default function DateRangePickerModalShowcase() {
     },
   ];
 
-  const [requiredInput, setrequiredInput] = useState<{
-    from: Date;
-    to: Date;
-  }>({
+  const [requiredInput, setrequiredInput] = useState<
+    | {
+        from: Date;
+        to: Date;
+      }
+    | undefined
+  >({
     from: new Date(),
     to: new Date(),
   });
