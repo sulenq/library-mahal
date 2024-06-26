@@ -249,7 +249,7 @@ export default function FileInputLarge({
             to={url}
             target="_blank"
           >
-            <Text fontSize={12}>Lihat file</Text>
+            <Text fontSize={12}>Lihat</Text>
           </Button>
 
           <Button

@@ -222,7 +222,7 @@ export default function FileInput({
             to={url}
             target="_blank"
           >
-            <Text fontSize={12}>Lihat file</Text>
+            <Text fontSize={12}>Lihat</Text>
           </Button>
 
           <Button
