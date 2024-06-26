@@ -197,7 +197,10 @@ export default function SingleSelectDrawer({
         placement={placement}
       >
         <DrawerOverlay />
-        <DrawerContent bg={"transparent"} h={isSideDrawer ? "" : "600px"}>
+        <DrawerContent
+          bg={"transparent"}
+          h={withSearch && isSideDrawer ? "600px" : ""}
+        >
           <DrawerBody
             ref={drawerBodyRef}
             onTouchStart={isSideDrawer ? onTouchStart : undefined}
@@ -229,7 +232,7 @@ export default function SingleSelectDrawer({
 
             <VStack
               pb={placement === "bottom" ? 8 : 6}
-              h={"calc(100% - 14px)"}
+              // h={"calc(100% - 14px)"}
               bg={lightDarkColor}
               align={"stretch"}
               gap={0}

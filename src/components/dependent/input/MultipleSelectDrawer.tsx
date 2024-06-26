@@ -210,7 +210,10 @@ export default function MultipleSelectDrawer({
         placement={placement}
       >
         <DrawerOverlay />
-        <DrawerContent bg={"transparent"} h={isSideDrawer ? "" : "600px"}>
+        <DrawerContent
+          bg={"transparent"}
+          h={withSearch && isSideDrawer ? "600px" : ""}
+        >
           <DrawerBody
             ref={drawerBodyRef}
             onTouchStart={isSideDrawer ? onTouchStart : undefined}
