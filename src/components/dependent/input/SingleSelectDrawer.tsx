@@ -153,7 +153,7 @@ export default function SingleSelectDrawer({
       <Button
         className="btn-clear"
         border={"1px solid var(--divider3)"}
-        boxShadow={isError ? errorColor : ""}
+        borderColor={isError ? errorColor : ""}
         borderRadius={8}
         gap={3}
         _focus={{
