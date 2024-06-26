@@ -224,7 +224,7 @@ export default function SingleSelectModal({
             )}
 
             {fo.length === 0 && (
-              <HStack justify={"center"} opacity={0.4} my={"auto"}>
+              <HStack justify={"center"} opacity={0.4} minH={"100px"}>
                 <Text textAlign={"center"} fontWeight={600}>
                   Opsi tidak ditemukan
                 </Text>

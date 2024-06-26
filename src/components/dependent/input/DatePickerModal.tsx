@@ -88,6 +88,15 @@ export default function DatePickerModal({
     setBulan(today.getMonth());
     setTahun(today.getFullYear());
   }
+  function setSelectedToTomorrow() {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    setDate(tomorrow);
+    setSelected(tomorrow);
+    setBulan(tomorrow.getMonth());
+    setTahun(tomorrow.getFullYear());
+  }
   function nextMonth() {
     const currentMonth = date.getMonth();
     const currentyear = date.getFullYear();
@@ -216,13 +225,25 @@ export default function DatePickerModal({
             </VStack>
 
             <VStack align={"stretch"} mt={3} w={"100%"}>
-              <Button
-                flexShrink={0}
-                className="btn-outline clicky"
-                onClick={setSelectedToToday}
-              >
-                Hari Ini
-              </Button>
+              <ButtonGroup>
+                <Button
+                  w={"50%"}
+                  flexShrink={0}
+                  className="btn-outline clicky"
+                  onClick={setSelectedToToday}
+                >
+                  Hari Ini
+                </Button>
+
+                <Button
+                  w={"50%"}
+                  flexShrink={0}
+                  className="btn-outline clicky"
+                  onClick={setSelectedToTomorrow}
+                >
+                  Besok
+                </Button>
+              </ButtonGroup>
 
               <HStack
                 borderRadius={8}
