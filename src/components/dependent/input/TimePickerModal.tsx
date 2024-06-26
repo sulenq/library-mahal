@@ -235,7 +235,7 @@ export default function TimePickerModal({
 
                 <VStack my={4}>
                   <Text
-                    fontSize={52}
+                    fontSize={72}
                     fontWeight={600}
                     textAlign={"center"}
                     lineHeight={1}
@@ -296,7 +296,7 @@ export default function TimePickerModal({
 
                 <VStack my={4}>
                   <Text
-                    fontSize={52}
+                    fontSize={72}
                     fontWeight={600}
                     textAlign={"center"}
                     lineHeight={1}
@@ -359,7 +359,7 @@ export default function TimePickerModal({
 
                     <VStack my={4}>
                       <Text
-                        fontSize={52}
+                        fontSize={72}
                         fontWeight={600}
                         textAlign={"center"}
                         lineHeight={1}
