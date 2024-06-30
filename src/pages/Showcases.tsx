@@ -5,18 +5,16 @@ import {
   Heading,
   HStack,
   Image,
-  ListItem,
   Text,
-  UnorderedList,
   VStack,
   Wrap,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { ColorModeSwitcher } from "../ColorModeSwitcher";
 import ConfirmationBasedInputSection from "../components/independent/showcasesSection/ConfirmationBasedInputSection";
 import HooksSection from "../components/independent/showcasesSection/HooksSection";
-import { useContentBgColor, useWarningColor } from "../constant/colors";
 import InputSection from "../components/independent/showcasesSection/InputSection";
-import { Link } from "react-router-dom";
+import { useContentBgColor, useWarningColor } from "../constant/colors";
 
 export default function Showcases() {
   return (
@@ -63,14 +61,18 @@ export default function Showcases() {
             </Text>
 
             <Text mt={2}>and you must install these package :</Text>
-            <UnorderedList>
+            <Text>
+              npm install @remixicon/react axios chart.js formik react-chartjs-2
+              react-day-picker react-router-dom typescript-cookie yup zustand
+            </Text>
+            {/* <UnorderedList>
               <ListItem>
                 <Text>@remixicon/react</Text>
               </ListItem>
               <ListItem>
                 <Text>react-date-picker</Text>
               </ListItem>
-            </UnorderedList>
+            </UnorderedList> */}
           </Box>
         </Alert>
 
