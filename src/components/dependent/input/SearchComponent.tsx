@@ -16,9 +16,11 @@ interface Props extends InputGroupProps {
   inputValue: string | undefined;
   onChangeSetter: Dispatch<string | undefined>;
   placeholder?: string;
+  inputRef?: any;
 }
 
 export default function SearchComponent({
+  inputRef,
   name,
   inputValue,
   onChangeSetter,
@@ -28,10 +30,11 @@ export default function SearchComponent({
   return (
     <InputGroup flex={"1 1 165px"} minW={"165px"} {...props}>
       <InputLeftElement>
-        <Icon as={RiSearchLine} color={"p.500"} fontSize={iconSize} />
+        <Icon as={RiSearchLine} opacity={0.3} fontSize={iconSize} />
       </InputLeftElement>
 
       <Input
+        ref={inputRef ? inputRef : null}
         placeholder={placeholder || "Pencarian"}
         flex={"1 1 0"}
         pr={"36px"}
@@ -51,14 +54,13 @@ export default function SearchComponent({
         >
           <IconButton
             aria-label="Reset Search"
-            icon={
-              <Icon as={RiCloseLine} color={"red.400"} fontSize={iconSize} />
-            }
+            icon={<Icon as={RiCloseLine} fontSize={iconSize} />}
             onClick={() => {
               onChangeSetter("");
             }}
+            colorScheme="error"
+            variant={"ghost"}
             borderRadius={"full"}
-            className="btn"
             size={"xs"}
           />
         </Center>

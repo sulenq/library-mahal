@@ -30,6 +30,18 @@ export const globalTheme = extendTheme({
       800: "#0693ff",
       900: "#0693ff",
     },
+    error: {
+      50: "#FFF5F5",
+      100: "#FED7D7",
+      200: "#FC8181",
+      300: "#FC8181",
+      400: "#F56565",
+      500: "#E53E3E",
+      600: "#C53030",
+      700: "#9B2C2C",
+      800: "#822727",
+      900: "#63171B",
+    },
     bnw: {
       200: "white",
       300: "white",
@@ -87,8 +99,9 @@ export const globalTheme = extendTheme({
 
     Badge: {
       baseStyle: (props) => ({
-        p: "4px 16px",
-        borderRadius: 8,
+        p: "4px 10px",
+        borderRadius: 6,
+        fontSize: [10, null, 12],
         // textTransform: "none",
       }),
     },
@@ -194,16 +207,16 @@ export const globalTheme = extendTheme({
     Modal: {
       baseStyle: (props) => ({
         dialogContainer: {
-          p: 4,
+          // p: 4,
         },
         dialog: {
           bg: props.colorMode === "dark" ? "dark" : "white",
           color: props.colorMode === "dark" ? "wt" : "bt",
           boxShadow: "none",
           borderRadius: 12,
-          // m: 4,
+          m: 4,
+          border: "1px solid var(--divider2)",
           // maxH: "100%",
-          // border: "1px solid var(--divider)",
         },
         overlay: {
           bg: "#00000011",
