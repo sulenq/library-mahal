@@ -11,7 +11,7 @@ interface Props extends ButtonProps {
   optionsDisplay?: "list" | "chip";
   isError?: boolean;
   placeholder?: string;
-  required?: boolean;
+  nonNullable?: boolean;
 }
 
 export default function ExampleDedicatedMultipleSelectModal({
@@ -23,7 +23,7 @@ export default function ExampleDedicatedMultipleSelectModal({
   optionsDisplay,
   isError,
   placeholder,
-  required,
+  nonNullable,
   ...props
 }: Props) {
   const options = [
@@ -110,7 +110,7 @@ export default function ExampleDedicatedMultipleSelectModal({
       optionsDisplay={optionsDisplay}
       isError={isError}
       placeholder={placeholder}
-      required={required}
+      nonNullable={nonNullable}
       {...props}
     />
   );

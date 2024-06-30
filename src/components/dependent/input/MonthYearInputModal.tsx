@@ -30,6 +30,7 @@ import parseNumber from "../../../lib/parseNumber";
 
 interface Props extends StackProps {
   id: string;
+  name: string;
   bulan: number;
   setBulan: Dispatch<number>;
   tahun: number;
@@ -39,6 +40,7 @@ interface Props extends StackProps {
 
 export default function MonthYearInputModal({
   id,
+  name,
   bulan,
   setBulan,
   tahun,
@@ -49,7 +51,7 @@ export default function MonthYearInputModal({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = useRef(null);
   useBackOnClose(
-    id || "datepicker_month_year_input_modal",
+    `${id}-${name}` || "datepicker_month_year_input_modal",
     isOpen,
     onOpen,
     onClose

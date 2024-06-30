@@ -104,7 +104,7 @@ export default function SingleSelectModalShowcase() {
       ),
     },
     {
-      label: "required",
+      label: "nonNullable",
       type: "boolean",
       desc: (
         <Text>
@@ -157,7 +157,7 @@ export default function SingleSelectModalShowcase() {
             }}
             inputValue={requiredInput}
             placeholder="Pilih Warna"
-            required
+            nonNullable
             withSearch
           />
         </FormControl>

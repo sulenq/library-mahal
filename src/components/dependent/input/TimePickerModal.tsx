@@ -29,7 +29,7 @@ interface Props extends ButtonProps {
   inputValue: Date | undefined;
   withSeconds?: boolean;
   placeholder?: string;
-  required?: boolean;
+  nonNullable?: boolean;
   isError?: boolean;
 }
 
@@ -40,7 +40,7 @@ export default function TimePickerModal({
   inputValue,
   withSeconds,
   placeholder,
-  required,
+  nonNullable,
   isError,
   ...props
 }: Props) {
@@ -53,7 +53,7 @@ export default function TimePickerModal({
   defaultTime.setHours(0, 0, 0, 0);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  useBackOnClose(`${id}-[${name}]`, isOpen, onOpen, onClose);
+  useBackOnClose(`${id}-${name}`, isOpen, onOpen, onClose);
 
   const [time, setTime] = useState<Date | undefined>(inputValue || defaultTime);
   const [hours, setHours] = useState<number>(
@@ -132,7 +132,7 @@ export default function TimePickerModal({
 
   function confirmSelected() {
     let confirmable = false;
-    if (!required) {
+    if (!nonNullable) {
       confirmable = true;
     } else {
       if (time) {
@@ -423,7 +423,7 @@ export default function TimePickerModal({
               colorScheme="ap"
               className="btn-ap clicky"
               w={"100%"}
-              isDisabled={required ? (time ? false : true) : false}
+              isDisabled={nonNullable ? (time ? false : true) : false}
               onClick={confirmSelected}
             >
               Konfirmasi

@@ -34,7 +34,7 @@ interface Props {
   optionsDisplay?: "list" | "chip";
   isError?: boolean;
   placeholder?: string;
-  required?: boolean;
+  nonNullable?: boolean;
 }
 
 export default function SingleSelectModal({
@@ -47,11 +47,11 @@ export default function SingleSelectModal({
   optionsDisplay = "list",
   isError,
   placeholder,
-  required,
+  nonNullable,
   ...props
 }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  useBackOnClose(`${id}-[${name}]`, isOpen, onOpen, onClose);
+  useBackOnClose(`${id}-${name}`, isOpen, onOpen, onClose);
   const initialRef = useRef(null);
 
   const [search, setSearch] = useState<string | undefined>("");
@@ -71,7 +71,7 @@ export default function SingleSelectModal({
 
   function confirmSelected() {
     let confirmable = false;
-    if (!required) {
+    if (!nonNullable) {
       confirmable = true;
     } else {
       if (selected) {
@@ -246,7 +246,7 @@ export default function SingleSelectModal({
               colorScheme="ap"
               className="btn-ap clicky"
               w={"100%"}
-              isDisabled={required ? (selected ? false : true) : false}
+              isDisabled={nonNullable ? (selected ? false : true) : false}
               onClick={confirmSelected}
             >
               Konfirmasi

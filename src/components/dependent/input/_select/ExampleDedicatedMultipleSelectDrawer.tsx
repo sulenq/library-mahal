@@ -12,7 +12,7 @@ interface Props extends ButtonProps {
   isError?: boolean;
   placement?: "top" | "bottom" | "left" | "right";
   placeholder?: string;
-  required?: boolean;
+  nonNullable?: boolean;
 }
 
 export default function ExampleDedicatedMultipleSelectDrawer({
@@ -25,7 +25,7 @@ export default function ExampleDedicatedMultipleSelectDrawer({
   isError,
   placement,
   placeholder,
-  required,
+  nonNullable,
   ...props
 }: Props) {
   const options = [
@@ -112,7 +112,7 @@ export default function ExampleDedicatedMultipleSelectDrawer({
       optionsDisplay={optionsDisplay}
       isError={isError}
       placeholder={placeholder}
-      required={required}
+      nonNullable={nonNullable}
       placement={placement}
       {...props}
     />

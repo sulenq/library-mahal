@@ -131,7 +131,7 @@ export default function SingleSelectDrawerShowcase() {
       ),
     },
     {
-      label: "required",
+      label: "nonNullable",
       type: "boolean",
       desc: (
         <Text>
@@ -209,7 +209,7 @@ export default function SingleSelectDrawerShowcase() {
             inputValue={requiredInput}
             placeholder="Pilih Warna"
             placement={placement}
-            required
+            nonNullable
             withSearch
           />
         </FormControl>

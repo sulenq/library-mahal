@@ -2,7 +2,6 @@ import {
   Badge,
   Box,
   Button,
-  ButtonGroup,
   Drawer,
   DrawerBody,
   DrawerContent,
@@ -38,7 +37,7 @@ interface Props {
   isError?: boolean;
   placement?: "top" | "bottom" | "left" | "right";
   placeholder?: string;
-  required?: boolean;
+  nonNullable?: boolean;
 }
 
 export default function MultipleSelectDrawer({
@@ -52,11 +51,11 @@ export default function MultipleSelectDrawer({
   isError,
   placement = "bottom",
   placeholder,
-  required,
+  nonNullable,
   ...props
 }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  useBackOnClose(`${id}-[${name}]`, isOpen, onOpen, onClose);
+  useBackOnClose(`${id}-${name}`, isOpen, onOpen, onClose);
   const initialRef = useRef(null);
 
   const [startPos, setStartPos] = useState(0);
@@ -95,7 +94,7 @@ export default function MultipleSelectDrawer({
         ? (drawerBodyRef.current.offsetHeight / 6) * -1
         : drawerBodyRef.current.offsetHeight / 6;
       if (isLeftOrTopDrawer ? translate < comparison : translate > comparison) {
-        onClose();
+        backOnClose();
       } else {
         if (drawerBodyRef.current) {
           drawerBodyRef.current.style.transition = "200ms";
@@ -126,7 +125,7 @@ export default function MultipleSelectDrawer({
 
   function confirmSelected() {
     let confirmable = false;
-    if (!required) {
+    if (!nonNullable) {
       confirmable = true;
     } else {
       if (selected) {
@@ -210,10 +209,7 @@ export default function MultipleSelectDrawer({
         placement={placement}
       >
         <DrawerOverlay />
-        <DrawerContent
-          bg={"transparent"}
-          h={withSearch && !isSideDrawer ? "600px" : ""}
-        >
+        <DrawerContent maxH={!isSideDrawer ? "600px" : ""} bg={"transparent"}>
           <DrawerBody
             ref={drawerBodyRef}
             onTouchStart={isSideDrawer ? onTouchStart : undefined}
@@ -249,6 +245,7 @@ export default function MultipleSelectDrawer({
               bg={lightDarkColor}
               align={"stretch"}
               gap={0}
+              overflowY="auto"
               borderRadius={
                 isSideDrawer
                   ? ""
@@ -397,7 +394,7 @@ export default function MultipleSelectDrawer({
                   colorScheme="ap"
                   className="btn-ap clicky"
                   w={"100%"}
-                  isDisabled={required ? (selected ? false : true) : false}
+                  isDisabled={nonNullable ? (selected ? false : true) : false}
                   onClick={confirmSelected}
                 >
                   Konfirmasi

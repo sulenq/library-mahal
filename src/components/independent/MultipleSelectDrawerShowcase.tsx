@@ -131,7 +131,7 @@ export default function MultipleSelectDrawerShowcase() {
       ),
     },
     {
-      label: "required",
+      label: "nonNullable",
       type: "boolean",
       desc: (
         <Text>
@@ -213,7 +213,7 @@ export default function MultipleSelectDrawerShowcase() {
             inputValue={requiredInput}
             placeholder="Multi Pilih Warna"
             placement={placement}
-            required
+            nonNullable
             withSearch
           />
         </FormControl>

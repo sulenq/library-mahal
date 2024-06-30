@@ -1,7 +1,7 @@
 import { useColorModeValue } from "@chakra-ui/react";
 
 const useContentBgColor = () => {
-  return useColorModeValue("#f9f9f9", "#161616");
+  return useColorModeValue("#f6f6f6", "#151515");
 };
 
 const usePrimaryAlphaColor = () => {
@@ -9,7 +9,7 @@ const usePrimaryAlphaColor = () => {
 };
 
 const useLightDarkColor = () => {
-  return useColorModeValue("white !important", "dark");
+  return useColorModeValue("white", "#191919");
 };
 
 const useDarkLightColor = () => {

@@ -56,7 +56,7 @@ export default function TimePickerModalShowcase() {
       ),
     },
     {
-      label: "required",
+      label: "nonNullable",
       type: "boolean",
       desc: (
         <Text>
@@ -99,7 +99,7 @@ export default function TimePickerModalShowcase() {
               setrequiredInput(inputValue);
             }}
             inputValue={requiredInput}
-            required
+            nonNullable
           />
         </FormControl>
 

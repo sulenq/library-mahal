@@ -51,6 +51,11 @@ export default function DateRangePickerModalShowcase() {
   };
   const optionalProps = [
     {
+      label: "maxRange",
+      type: "number",
+      desc: <Text>max date range allowed</Text>,
+    },
+    {
       label: "isError",
       type: "boolean",
       desc: <Text>tell input if there is a validation error </Text>,
@@ -97,7 +102,7 @@ export default function DateRangePickerModalShowcase() {
       ),
     },
     {
-      label: "required",
+      label: "nonNullable",
       type: "boolean",
       desc: (
         <Text>
@@ -150,7 +155,7 @@ export default function DateRangePickerModalShowcase() {
               setrequiredInput(inputValue);
             }}
             inputValue={requiredInput}
-            required
+            nonNullable
             mb={2}
           />
         </FormControl>

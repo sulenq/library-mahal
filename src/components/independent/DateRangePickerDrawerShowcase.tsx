@@ -54,6 +54,11 @@ export default function DateRangePickerDrawerShowcase() {
   };
   const optionalProps = [
     {
+      label: "maxRange",
+      type: "number",
+      desc: <Text>max date range allowed</Text>,
+    },
+    {
       label: "isError",
       type: "boolean",
       desc: <Text>tell input if there is a validation error </Text>,
@@ -124,7 +129,7 @@ export default function DateRangePickerDrawerShowcase() {
       ),
     },
     {
-      label: "required",
+      label: "nonNullable",
       type: "boolean",
       desc: (
         <Text>
@@ -201,7 +206,7 @@ export default function DateRangePickerDrawerShowcase() {
               setrequiredInput(inputValue);
             }}
             inputValue={requiredInput}
-            required
+            nonNullable
             mb={2}
             placement={placement}
           />

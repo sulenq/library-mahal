@@ -33,7 +33,7 @@ interface Props extends ButtonProps {
   withSeconds?: boolean;
   placement?: "top" | "bottom" | "left" | "right";
   placeholder?: string;
-  required?: boolean;
+  nonNullable?: boolean;
   isError?: boolean;
 }
 
@@ -45,7 +45,7 @@ export default function TimePickerDrawer({
   withSeconds,
   placement = "bottom",
   placeholder,
-  required,
+  nonNullable,
   isError,
   ...props
 }: Props) {
@@ -58,7 +58,7 @@ export default function TimePickerDrawer({
   defaultTime.setHours(0, 0, 0, 0);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-  useBackOnClose(`${id}-[${name}]`, isOpen, onOpen, onClose);
+  useBackOnClose(`${id}-${name}`, isOpen, onOpen, onClose);
 
   const [startPos, setStartPos] = useState(0);
   const [translate, setTranslate] = useState(0);
@@ -96,7 +96,7 @@ export default function TimePickerDrawer({
         ? (drawerBodyRef.current.offsetHeight / 6) * -1
         : drawerBodyRef.current.offsetHeight / 6;
       if (isLeftOrTopDrawer ? translate < comparison : translate > comparison) {
-        onClose();
+        backOnClose();
       } else {
         if (drawerBodyRef.current) {
           drawerBodyRef.current.style.transition = "200ms";
@@ -188,7 +188,7 @@ export default function TimePickerDrawer({
 
   function confirmSelected() {
     let confirmable = false;
-    if (!required) {
+    if (!nonNullable) {
       confirmable = true;
     } else {
       if (time) {
@@ -256,7 +256,7 @@ export default function TimePickerDrawer({
         placement={placement}
       >
         <DrawerOverlay />
-        <DrawerContent bg={"transparent"}>
+        <DrawerContent maxH={!isSideDrawer ? "600px" : ""} bg={"transparent"}>
           <DrawerBody
             px={0}
             className="scrollY"
@@ -293,6 +293,7 @@ export default function TimePickerDrawer({
               bg={lightDarkColor}
               align={"stretch"}
               gap={0}
+              overflowY="auto"
               borderRadius={
                 isSideDrawer
                   ? ""
@@ -522,7 +523,7 @@ export default function TimePickerDrawer({
                   colorScheme="ap"
                   className="btn-ap clicky"
                   w={"100%"}
-                  isDisabled={required ? (time ? false : true) : false}
+                  isDisabled={nonNullable ? (time ? false : true) : false}
                   onClick={confirmSelected}
                 >
                   Konfirmasi

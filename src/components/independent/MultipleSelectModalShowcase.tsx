@@ -104,7 +104,7 @@ export default function MultipleSelectModalShowcase() {
       ),
     },
     {
-      label: "required",
+      label: "nonNullable",
       type: "boolean",
       desc: (
         <Text>
@@ -161,7 +161,7 @@ export default function MultipleSelectModalShowcase() {
             }}
             inputValue={requiredInput}
             placeholder="Multi Pilih Warna"
-            required
+            nonNullable
             withSearch
           />
         </FormControl>

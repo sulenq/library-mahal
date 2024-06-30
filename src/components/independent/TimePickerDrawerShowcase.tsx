@@ -92,7 +92,7 @@ export default function TimePickerDrawerShowcase() {
       ),
     },
     {
-      label: "required",
+      label: "nonNullable",
       type: "boolean",
       desc: (
         <Text>
@@ -159,7 +159,7 @@ export default function TimePickerDrawerShowcase() {
               setrequiredInput(inputValue);
             }}
             inputValue={requiredInput}
-            required
+            nonNullable
             placement={placement}
           />
         </FormControl>

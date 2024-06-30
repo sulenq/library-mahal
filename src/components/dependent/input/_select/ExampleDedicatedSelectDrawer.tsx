@@ -12,7 +12,7 @@ interface Props extends ButtonProps {
   isError?: boolean;
   placement?: "top" | "bottom" | "left" | "right";
   placeholder?: string;
-  required?: boolean;
+  nonNullable?: boolean;
 }
 
 export default function ExampleDedicatedSelectDrawer({
@@ -25,7 +25,7 @@ export default function ExampleDedicatedSelectDrawer({
   isError,
   placement = "bottom",
   placeholder,
-  required,
+  nonNullable,
   ...props
 }: Props) {
   const options = [
@@ -113,7 +113,7 @@ export default function ExampleDedicatedSelectDrawer({
       isError={isError}
       placement={placement}
       placeholder={placeholder}
-      required={required}
+      nonNullable={nonNullable}
       {...props}
     />
   );

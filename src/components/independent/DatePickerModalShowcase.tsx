@@ -97,7 +97,7 @@ export default function DatePickerModalShowcase() {
       ),
     },
     {
-      label: "required",
+      label: "nonNullable",
       type: "boolean",
       desc: (
         <Text>
@@ -137,7 +137,7 @@ export default function DatePickerModalShowcase() {
               setrequiredInput(inputValue);
             }}
             inputValue={requiredInput}
-            required
+            nonNullable
           />
         </FormControl>
 

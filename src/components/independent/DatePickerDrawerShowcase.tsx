@@ -124,7 +124,7 @@ export default function DatePickerDrawerShowcase() {
       ),
     },
     {
-      label: "required",
+      label: "nonNullable",
       type: "boolean",
       desc: (
         <Text>
@@ -188,7 +188,7 @@ export default function DatePickerDrawerShowcase() {
             }}
             inputValue={requiredInput}
             placement={placement}
-            required
+            nonNullable
             mb={2}
           />
         </FormControl>
