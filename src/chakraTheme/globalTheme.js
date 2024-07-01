@@ -236,7 +236,9 @@ export const globalTheme = extendTheme({
           // minH: window.innerWidth < 500 ? "300px" : "fit-content",
         },
         footer: {
-          p: "24px",
+          px: "24px",
+          pt: "20px",
+          pb: "24px",
         },
         closeButton: {
           borderRadius: "full",

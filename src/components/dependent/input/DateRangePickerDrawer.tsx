@@ -242,7 +242,7 @@ export default function DateRangePickerDrawer({
             w={"100%"}
             px={6}
             pb={placement === "bottom" ? 8 : 6}
-            mt={6}
+            mt={5}
           >
             <Button
               w={"100%"}

@@ -39,7 +39,7 @@ export default function PropsAccordions({
             </HStack>
           }
           border={"none"}
-          bg={"var(--p500a3)"}
+          bg={"var(--p500a4)"}
         >
           <Accordion allowMultiple>
             {requiredProps.map((props: any, i: number) => (

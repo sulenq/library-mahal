@@ -22,10 +22,11 @@
   --p1000: #061d36;
   --p1100: #02101d;
 
-  --p500a1: rgba(6, 147, 255, 0.6);
-  --p500a2: rgba(6, 147, 255, 0.2);
-  --p500a3: rgba(6, 147, 255, 0.1);
-  --p500a4: rgba(6, 147, 255, 0.05);
+  --p500a1: rgba(6, 147, 255, 0.8);
+  --p500a2: rgba(6, 147, 255, 0.6);
+  --p500a3: rgba(6, 147, 255, 0.4);
+  --p500a4: rgba(6, 147, 255, 0.2);
+  --p500a5: rgba(6, 147, 255, 0.1);
   --p600a: #2ea4ff94;
   --p900a: #016cd7d0;
 
@@ -532,15 +533,7 @@ button[aria-label="Close"] {
   background-color: transparent !important;
   border: none !important;
 }
-.rdp-button:hover {
-  background-color: var(--p500a2) !important;
-  opacity: 1 !important;
-}
-.rdp-day_selected:hover,
-.rdp-day_range_start:hover,
-.rdp-day_range_end:hover {
-  background-color: var(--p500a2) !important;
-}
+
 .rdp-day_today:hover {
   color: var(--p600);
 }
@@ -555,6 +548,16 @@ button[aria-label="Close"] {
   color: white !important;
   /* border: 2px solid var(--p500); */
   opacity: 1 !important;
+}
+
+.rdp-button:hover {
+  /* background-color: var(--p500a2) !important; */
+  border: 1px solid var(--p500) !important;
+  opacity: 1 !important;
+}
+
+.rdp-day_selected:not(.rdp-day_range_middle):hover {
+  background: var(--p500a2) !important;
 }
 
 .rdp-day_range_middle {
