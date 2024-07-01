@@ -169,7 +169,7 @@ export default function MultipleSelectDrawerShowcase() {
         <Alert status="warning" mb={2} w={"100%"} maxW={"100%"}>
           <AlertDescription>
             {
-              "You must create dedicated component for select, it contain array options (constant or async), options type is {value:any, label:string, subLabel?:string}[]"
+              "You must create dedicated component for select, it contain array options (constant or async), options type is {value:any, label:string, subLabel?:string}[] and useDisclosure"
             }
           </AlertDescription>
         </Alert>

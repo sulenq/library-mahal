@@ -131,7 +131,7 @@ export default function SingleSelectModalShowcase() {
         <Alert status="warning" mb={2} w={"100%"} maxW={"100%"}>
           <AlertDescription>
             {
-              "You must pass an array options constant options, for async options pass the api url"
+              "You must create dedicated component for select, it contain array options (constant or async), options type is {value:any, label:string, subLabel?:string}[] and useDisclosure"
             }
           </AlertDescription>
         </Alert>
