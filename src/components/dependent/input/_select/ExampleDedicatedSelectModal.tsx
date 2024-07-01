@@ -1,12 +1,12 @@
-import { ButtonProps } from "@chakra-ui/react";
-import { SelectOption } from "../../../../constant/interfaces";
+import { ButtonProps, useDisclosure } from "@chakra-ui/react";
+import { Interface__SelectOption } from "../../../../constant/interfaces";
 import SingleSelectModal from "../SingleSelectModal";
 
 interface Props extends ButtonProps {
   id: string;
   name: string;
-  onConfirm: (inputValue: SelectOption | undefined) => void;
-  inputValue: SelectOption | undefined;
+  onConfirm: (inputValue: Interface__SelectOption | undefined) => void;
+  inputValue: Interface__SelectOption | undefined;
   withSearch?: boolean;
   optionsDisplay?: "list" | "chip";
   isError?: boolean;
@@ -99,10 +99,15 @@ export default function ExampleDedicatedSelectModal({
     },
   ];
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <SingleSelectModal
       id={id}
       name={name}
+      isOpen={isOpen}
+      onOpen={onOpen}
+      onClose={onClose}
       options={options}
       onConfirm={onConfirm}
       inputValue={inputValue}

@@ -11,25 +11,28 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-  useDisclosure,
   VStack,
   Wrap,
 } from "@chakra-ui/react";
 import { RiArrowDownSLine } from "@remixicon/react";
 import { useRef, useState } from "react";
 import { useErrorColor } from "../../../constant/colors";
-import { SelectOption } from "../../../constant/interfaces";
+import { Interface__SelectOption } from "../../../constant/interfaces";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import useScreenHeight from "../../../hooks/useScreenHeight";
 import backOnClose from "../../../lib/backOnClose";
+import CContainer from "../../independent/wrapper/CContainer";
 import SearchComponent from "./SearchComponent";
 
 interface Props {
   id: string;
   name: string;
-  options: SelectOption[];
-  onConfirm: (inputValue: SelectOption | undefined) => void;
-  inputValue: SelectOption | undefined;
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+  options: Interface__SelectOption[];
+  onConfirm: (inputValue: Interface__SelectOption | undefined) => void;
+  inputValue: Interface__SelectOption | undefined;
   withSearch?: boolean;
   optionsDisplay?: "list" | "chip";
   isError?: boolean;
@@ -40,6 +43,9 @@ interface Props {
 export default function SingleSelectModal({
   id,
   name,
+  isOpen,
+  onOpen,
+  onClose,
   options,
   onConfirm,
   inputValue,
@@ -50,12 +56,11 @@ export default function SingleSelectModal({
   nonNullable,
   ...props
 }: Props) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   useBackOnClose(`${id}-${name}`, isOpen, onOpen, onClose);
   const initialRef = useRef(null);
 
   const [search, setSearch] = useState<string | undefined>("");
-  const [selected, setSelected] = useState<SelectOption | undefined>(
+  const [selected, setSelected] = useState<Interface__SelectOption | undefined>(
     inputValue
   );
   const fo = search
@@ -179,12 +184,14 @@ export default function SingleSelectModal({
                     onClick={() => {
                       setSelected(option);
                     }}
-                    borderColor={
-                      selected && selected.value === option.value ? "p.500" : ""
+                    border={
+                      selected && selected.value === option.value
+                        ? "1px solid var(--p500a2)"
+                        : "none"
                     }
                     bg={
                       selected && selected.value === option.value
-                        ? "var(--p500a3) !important"
+                        ? "var(--p500a4) !important"
                         : ""
                     }
                   >
@@ -206,12 +213,15 @@ export default function SingleSelectModal({
                     onClick={() => {
                       setSelected(option);
                     }}
+                    borderRadius={"full"}
                     borderColor={
-                      selected && selected.value === option.value ? "p.500" : ""
+                      selected && selected.value === option.value
+                        ? "var(--p500a2)"
+                        : ""
                     }
                     bg={
                       selected && selected.value === option.value
-                        ? "var(--p500a3) !important"
+                        ? "var(--p500a4) !important"
                         : ""
                     }
                     gap={2}
@@ -231,26 +241,28 @@ export default function SingleSelectModal({
               </HStack>
             )}
           </ModalBody>
-          <ModalFooter gap={2}>
-            <Button
-              className="btn-outline clicky"
-              w={"100%"}
-              onClick={() => {
-                setSelected(undefined);
-              }}
-            >
-              Reset
-            </Button>
+          <ModalFooter>
+            <CContainer gap={2}>
+              <Button
+                className="btn-outline clicky"
+                w={"100%"}
+                onClick={() => {
+                  setSelected(undefined);
+                }}
+              >
+                Reset
+              </Button>
 
-            <Button
-              colorScheme="ap"
-              className="btn-ap clicky"
-              w={"100%"}
-              isDisabled={nonNullable ? (selected ? false : true) : false}
-              onClick={confirmSelected}
-            >
-              Konfirmasi
-            </Button>
+              <Button
+                colorScheme="ap"
+                className="btn-ap clicky"
+                w={"100%"}
+                isDisabled={nonNullable ? (selected ? false : true) : false}
+                onClick={confirmSelected}
+              >
+                Konfirmasi
+              </Button>
+            </CContainer>
           </ModalFooter>
         </ModalContent>
       </Modal>

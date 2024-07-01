@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { RiSlideshow2Fill } from "@remixicon/react";
 import { useState } from "react";
-import { SelectOption } from "../../constant/interfaces";
+import { Interface__SelectOption } from "../../constant/interfaces";
 import ExampleDedicatedSelectDrawer from "../dependent/input/_select/ExampleDedicatedSelectDrawer";
 import PropsAccordions from "../dependent/PropsAccordions";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
@@ -75,7 +75,7 @@ export default function SingleSelectDrawerShowcase() {
     },
     {
       label: "optionsDisplay",
-      type: "Prefix",
+      type: "Prefix Options",
       desc: (
         <VStack gap={0} align={"stretch"}>
           <Text>Prefix Options :</Text>
@@ -151,13 +151,15 @@ export default function SingleSelectDrawerShowcase() {
     }
   };
 
-  const [requiredInput, setrequiredInput] = useState<SelectOption | undefined>({
+  const [requiredInput, setrequiredInput] = useState<
+    Interface__SelectOption | undefined
+  >({
     value: 1,
     label: "Red",
     subLabel: "#FF0000",
   });
-  const [input, setInput] = useState<SelectOption | undefined>();
-  const [input2, setInput2] = useState<SelectOption | undefined>();
+  const [input, setInput] = useState<Interface__SelectOption | undefined>();
+  const [input2, setInput2] = useState<Interface__SelectOption | undefined>();
 
   return (
     <ComponentShowcaseContainer title="Single Select Drawer">

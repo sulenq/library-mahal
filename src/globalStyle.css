@@ -258,7 +258,7 @@ button[aria-label="Close"] {
 }
 
 .scrollX::-webkit-scrollbar {
-  height: 4px;
+  height: 8px;
 }
 .scrollX::-webkit-scrollbar-corner,
 .scrollY::-webkit-scrollbar-corner {
@@ -266,7 +266,7 @@ button[aria-label="Close"] {
 }
 
 .scrollY::-webkit-scrollbar {
-  width: 4px;
+  width: 8px;
 }
 
 .scrollX::-webkit-scrollbar-thumb,

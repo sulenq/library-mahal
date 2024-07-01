@@ -4,25 +4,27 @@ import {
   HStack,
   Icon,
   Text,
-  useDisclosure,
   VStack,
   Wrap,
 } from "@chakra-ui/react";
 import { RiArrowDownSLine } from "@remixicon/react";
 import { useState } from "react";
 import { useErrorColor } from "../../../constant/colors";
-import { SelectOption } from "../../../constant/interfaces";
+import { Interface__SelectOption } from "../../../constant/interfaces";
 import backOnClose from "../../../lib/backOnClose";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
-import SearchComponent from "./SearchComponent";
 import CustomDrawer from "../../independent/wrapper/CustomDrawer";
+import SearchComponent from "./SearchComponent";
 
 interface Props {
   id: string;
   name: string;
-  options: SelectOption[];
-  onConfirm: (inputValue: SelectOption | undefined) => void;
-  inputValue: SelectOption | undefined;
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+  options: Interface__SelectOption[];
+  onConfirm: (inputValue: Interface__SelectOption | undefined) => void;
+  inputValue: Interface__SelectOption | undefined;
   withSearch?: boolean;
   optionsDisplay?: "list" | "chip";
   isError?: boolean;
@@ -34,6 +36,9 @@ interface Props {
 export default function SingleSelectDrawer({
   id,
   name,
+  isOpen,
+  onOpen,
+  onClose,
   options,
   onConfirm,
   inputValue,
@@ -45,10 +50,8 @@ export default function SingleSelectDrawer({
   nonNullable,
   ...props
 }: Props) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   const [search, setSearch] = useState<string | undefined>("");
-  const [selected, setSelected] = useState<SelectOption | undefined>(
+  const [selected, setSelected] = useState<Interface__SelectOption | undefined>(
     inputValue
   );
   const fo = search
@@ -195,8 +198,10 @@ export default function SingleSelectDrawer({
                 onClick={() => {
                   setSelected(option);
                 }}
-                borderColor={
-                  selected && selected.value === option.value ? "p.500" : ""
+                border={
+                  selected && selected.value === option.value
+                    ? "1px solid var(--p500a2)"
+                    : "none"
                 }
                 bg={
                   selected && selected.value === option.value
@@ -223,8 +228,11 @@ export default function SingleSelectDrawer({
                 onClick={() => {
                   setSelected(option);
                 }}
+                borderRadius={"full"}
                 borderColor={
-                  selected && selected.value === option.value ? "p.500" : ""
+                  selected && selected.value === option.value
+                    ? "var(--p500a2)"
+                    : ""
                 }
                 bg={
                   selected && selected.value === option.value

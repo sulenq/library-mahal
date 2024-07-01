@@ -11,26 +11,28 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-  useDisclosure,
-  VStack,
   Wrap,
 } from "@chakra-ui/react";
 import { RiArrowDownSLine } from "@remixicon/react";
 import { useRef, useState } from "react";
 import { useErrorColor } from "../../../constant/colors";
-import { SelectOption } from "../../../constant/interfaces";
+import { Interface__SelectOption } from "../../../constant/interfaces";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import useScreenHeight from "../../../hooks/useScreenHeight";
 import backOnClose from "../../../lib/backOnClose";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
+import CContainer from "../../independent/wrapper/CContainer";
 import SearchComponent from "./SearchComponent";
 
 interface Props {
   id: string;
   name: string;
-  options: SelectOption[];
-  onConfirm: (inputValue: SelectOption[] | undefined) => void;
-  inputValue: SelectOption[] | undefined;
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+  options: Interface__SelectOption[];
+  onConfirm: (inputValue: Interface__SelectOption[] | undefined) => void;
+  inputValue: Interface__SelectOption[] | undefined;
   withSearch?: boolean;
   optionsDisplay?: "list" | "chip";
   isError?: boolean;
@@ -41,6 +43,9 @@ interface Props {
 export default function MultipleSelectModal({
   id,
   name,
+  isOpen,
+  onOpen,
+  onClose,
   options,
   onConfirm,
   inputValue,
@@ -51,14 +56,13 @@ export default function MultipleSelectModal({
   nonNullable,
   ...props
 }: Props) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   useBackOnClose(`${id}-${name}`, isOpen, onOpen, onClose);
   const initialRef = useRef(null);
 
   const [search, setSearch] = useState<string | undefined>("");
-  const [selected, setSelected] = useState<SelectOption[] | undefined>(
-    inputValue
-  );
+  const [selected, setSelected] = useState<
+    Interface__SelectOption[] | undefined
+  >(inputValue);
   const fo = search
     ? options.filter((option) => {
         const searchTerm = search.toLowerCase();
@@ -128,6 +132,8 @@ export default function MultipleSelectModal({
                       bg={"var(--divider)"}
                       textTransform={"none"}
                       flex={"1 1 100px"}
+                      h={"24px"}
+                      pt={"5.5px"}
                     >
                       {value.label}
                     </Badge>
@@ -139,7 +145,7 @@ export default function MultipleSelectModal({
               )}
 
           {inputValue && inputValue.length - 2 > 0 && (
-            <Badge bg={"var(--divider)"}>
+            <Badge bg={"var(--divider)"} h={"24px"} pt={"5.5px"}>
               +{inputValue.length - 2 > 0 && inputValue.length - 2}
             </Badge>
           )}
@@ -183,7 +189,7 @@ export default function MultipleSelectModal({
             overflowY={"auto"}
           >
             {optionsDisplay === "list" && (
-              <VStack align={"stretch"}>
+              <CContainer gap={2}>
                 {fo.map((option, i) => (
                   <Button
                     key={i}
@@ -207,16 +213,16 @@ export default function MultipleSelectModal({
 
                       setSelected(newSelected);
                     }}
-                    borderColor={
+                    border={
                       selected &&
                       selected.some((item) => item.value === option.value)
-                        ? "var(--p500a1)"
-                        : ""
+                        ? "1px solid var(--p500a2)"
+                        : "none"
                     }
                     bg={
                       selected &&
                       selected.some((item) => item.value === option.value)
-                        ? "var(--p500a3) !important"
+                        ? "var(--p500a4) !important"
                         : ""
                     }
                   >
@@ -225,7 +231,7 @@ export default function MultipleSelectModal({
                     <Text opacity={0.4}>{option.subLabel}</Text>
                   </Button>
                 ))}
-              </VStack>
+              </CContainer>
             )}
 
             {optionsDisplay === "chip" && (
@@ -253,16 +259,17 @@ export default function MultipleSelectModal({
 
                       setSelected(newSelected);
                     }}
+                    borderRadius={"full"}
                     borderColor={
                       selected &&
                       selected.some((item) => item.value === option.value)
-                        ? "var(--p500a1)"
+                        ? "var(--p500a2)"
                         : ""
                     }
                     bg={
                       selected &&
                       selected.some((item) => item.value === option.value)
-                        ? "var(--p500a3) !important"
+                        ? "var(--p500a4) !important"
                         : ""
                     }
                     gap={2}
@@ -282,26 +289,28 @@ export default function MultipleSelectModal({
               </HStack>
             )}
           </ModalBody>
-          <ModalFooter gap={2}>
-            <Button
-              className="btn-outline clicky"
-              w={"100%"}
-              onClick={() => {
-                setSelected(undefined);
-              }}
-            >
-              Reset
-            </Button>
+          <ModalFooter>
+            <CContainer gap={2}>
+              <Button
+                className="btn-outline clicky"
+                w={"100%"}
+                onClick={() => {
+                  setSelected(undefined);
+                }}
+              >
+                Reset
+              </Button>
 
-            <Button
-              colorScheme="ap"
-              className="btn-ap clicky"
-              w={"100%"}
-              isDisabled={nonNullable ? (selected ? false : true) : false}
-              onClick={confirmSelected}
-            >
-              Konfirmasi
-            </Button>
+              <Button
+                colorScheme="ap"
+                className="btn-ap clicky"
+                w={"100%"}
+                isDisabled={nonNullable ? (selected ? false : true) : false}
+                onClick={confirmSelected}
+              >
+                Konfirmasi
+              </Button>
+            </CContainer>
           </ModalFooter>
         </ModalContent>
       </Modal>
