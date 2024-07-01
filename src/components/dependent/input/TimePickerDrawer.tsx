@@ -261,7 +261,7 @@ export default function TimePickerDrawer({
 
             <VStack my={4}>
               <Text
-                fontSize={72}
+                fontSize={64}
                 fontWeight={600}
                 textAlign={"center"}
                 lineHeight={1}
@@ -322,7 +322,7 @@ export default function TimePickerDrawer({
 
             <VStack my={4}>
               <Text
-                fontSize={72}
+                fontSize={64}
                 fontWeight={600}
                 textAlign={"center"}
                 lineHeight={1}
@@ -385,7 +385,7 @@ export default function TimePickerDrawer({
 
                 <VStack my={4}>
                   <Text
-                    fontSize={72}
+                    fontSize={64}
                     fontWeight={600}
                     textAlign={"center"}
                     lineHeight={1}

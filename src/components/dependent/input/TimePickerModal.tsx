@@ -21,6 +21,7 @@ import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
 import formatTimeFromDate from "../../../lib/formatTimeFromDate";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
+import CContainer from "../../independent/wrapper/CContainer";
 
 interface Props extends ButtonProps {
   id: string;
@@ -235,7 +236,7 @@ export default function TimePickerModal({
 
                 <VStack my={4}>
                   <Text
-                    fontSize={72}
+                    fontSize={64}
                     fontWeight={600}
                     textAlign={"center"}
                     lineHeight={1}
@@ -296,7 +297,7 @@ export default function TimePickerModal({
 
                 <VStack my={4}>
                   <Text
-                    fontSize={72}
+                    fontSize={64}
                     fontWeight={600}
                     textAlign={"center"}
                     lineHeight={1}
@@ -359,7 +360,7 @@ export default function TimePickerModal({
 
                     <VStack my={4}>
                       <Text
-                        fontSize={72}
+                        fontSize={64}
                         fontWeight={600}
                         textAlign={"center"}
                         lineHeight={1}
@@ -396,38 +397,40 @@ export default function TimePickerModal({
             </HStack>
           </ModalBody>
 
-          <ModalFooter gap={2}>
-            <Button
-              className="btn-outline clicky"
-              w={"100%"}
-              onClick={() => {
-                if (time && hours === 0 && minutes === 0 && seconds === 0) {
-                  setTime(undefined);
-                  setHours(0);
-                  setMinutes(0);
-                  setSeconds(0);
-                } else {
-                  setTime(defaultTime);
-                  setHours(0);
-                  setMinutes(0);
-                  setSeconds(0);
-                }
-              }}
-            >
-              {time && hours === 0 && minutes === 0 && seconds === 0
-                ? "Clear"
-                : "Reset"}
-            </Button>
+          <ModalFooter>
+            <CContainer gap={2}>
+              <Button
+                className="btn-outline clicky"
+                w={"100%"}
+                onClick={() => {
+                  if (time && hours === 0 && minutes === 0 && seconds === 0) {
+                    setTime(undefined);
+                    setHours(0);
+                    setMinutes(0);
+                    setSeconds(0);
+                  } else {
+                    setTime(defaultTime);
+                    setHours(0);
+                    setMinutes(0);
+                    setSeconds(0);
+                  }
+                }}
+              >
+                {time && hours === 0 && minutes === 0 && seconds === 0
+                  ? "Clear"
+                  : "Reset"}
+              </Button>
 
-            <Button
-              colorScheme="ap"
-              className="btn-ap clicky"
-              w={"100%"}
-              isDisabled={nonNullable ? (time ? false : true) : false}
-              onClick={confirmSelected}
-            >
-              Konfirmasi
-            </Button>
+              <Button
+                colorScheme="ap"
+                className="btn-ap clicky"
+                w={"100%"}
+                isDisabled={nonNullable ? (time ? false : true) : false}
+                onClick={confirmSelected}
+              >
+                Konfirmasi
+              </Button>
+            </CContainer>
           </ModalFooter>
         </ModalContent>
       </Modal>
