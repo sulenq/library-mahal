@@ -200,16 +200,16 @@ export default function DateRangePickerModal({
             textOverflow={"ellipsis"}
             mr={4}
           >{`${
-            selected?.from
-              ? `${formatDate(selected.from, "short")}`
+            inputValue?.from
+              ? `${formatDate(inputValue.from, "short")}`
               : "Pilih tanggal awal"
           } - ${
-            selected?.to
-              ? `${formatDate(selected.to, "short")}`
+            inputValue?.to
+              ? `${formatDate(inputValue.to, "short")}`
               : "Pilih tanggal akhir"
           } ${
-            selected && selected.from && selected.to
-              ? `(${countDateRange(selected.from, selected.to)} hari)`
+            inputValue && inputValue.from && inputValue.to
+              ? `(${countDateRange(inputValue.from, inputValue.to)} hari)`
               : ""
           }`}</Text>
         ) : (

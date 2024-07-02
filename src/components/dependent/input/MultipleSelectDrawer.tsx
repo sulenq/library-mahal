@@ -117,27 +117,29 @@ export default function MultipleSelectDrawer({
         {...props}
       >
         <HStack w={"100%"}>
-          {inputValue
-            ? inputValue.map((value, i) => {
-                return (
-                  i < 2 && (
-                    <Badge
-                      key={i}
-                      borderRadius={6}
-                      bg={"var(--divider)"}
-                      textTransform={"none"}
-                      flex={"1 1 100px"}
-                      h={"24px"}
-                      pt={"5.5px"}
-                    >
-                      {value.label}
-                    </Badge>
-                  )
-                );
-              })
-            : <Text opacity={0.3}>{placeholder}</Text> || (
-                <Text opacity={0.3}>Multi Pilih</Text>
-              )}
+          {inputValue ? (
+            inputValue.map((value, i) => {
+              return (
+                i < 2 && (
+                  <Badge
+                    key={i}
+                    borderRadius={6}
+                    bg={"var(--divider)"}
+                    textTransform={"none"}
+                    flex={"1 1 100px"}
+                    h={"24px"}
+                    pt={"5.5px"}
+                  >
+                    {value.label}
+                  </Badge>
+                )
+              );
+            })
+          ) : placeholder ? (
+            <Text opacity={0.3}>{placeholder}</Text>
+          ) : (
+            <Text opacity={0.3}>Multi Pilih</Text>
+          )}
 
           {inputValue && inputValue.length - 2 > 0 && (
             <Badge bg={"var(--divider)"} h={"24px"} pt={"5.5px"}>
