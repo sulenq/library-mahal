@@ -193,16 +193,16 @@ export default function DateRangePickerDrawer({
             textOverflow={"ellipsis"}
             mr={4}
           >{`${
-            selected?.from
-              ? `${formatDate(selected.from, "short")}`
+            inputValue?.from
+              ? `${formatDate(inputValue.from, "short")}`
               : "Pilih tanggal awal"
           } - ${
-            selected?.to
-              ? `${formatDate(selected.to, "short")}`
+            inputValue?.to
+              ? `${formatDate(inputValue.to, "short")}`
               : "Pilih tanggal akhir"
           } ${
-            selected && selected.from && selected.to
-              ? `(${countDateRange(selected.from, selected.to)} hari)`
+            inputValue && inputValue.from && inputValue.to
+              ? `(${countDateRange(inputValue.from, inputValue.to)} hari)`
               : ""
           }`}</Text>
         ) : (
@@ -237,13 +237,7 @@ export default function DateRangePickerDrawer({
           </Box>
         }
         footer={
-          <VStack
-            align={"stretch"}
-            w={"100%"}
-            px={6}
-            pb={placement === "bottom" ? 8 : 6}
-            mt={5}
-          >
+          <>
             <Button
               w={"100%"}
               className="btn-outline clicky"
@@ -272,7 +266,7 @@ export default function DateRangePickerDrawer({
             >
               Konfirmasi
             </Button>
-          </VStack>
+          </>
         }
       >
         <VStack px={6} gap={0} overflowY={"auto"} w={"100%"} align={"stretch"}>

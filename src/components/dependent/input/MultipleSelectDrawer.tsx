@@ -1,13 +1,4 @@
-import {
-  Badge,
-  Box,
-  Button,
-  HStack,
-  Icon,
-  Text,
-  VStack,
-  Wrap,
-} from "@chakra-ui/react";
+import { Badge, Box, Button, HStack, Icon, Text, Wrap } from "@chakra-ui/react";
 import { RiArrowDownSLine } from "@remixicon/react";
 import { useState } from "react";
 import { useErrorColor } from "../../../constant/colors";
@@ -136,9 +127,13 @@ export default function MultipleSelectDrawer({
               );
             })
           ) : placeholder ? (
-            <Text opacity={0.3}>{placeholder}</Text>
+            <Text opacity={0.3} fontWeight={400}>
+              {placeholder}
+            </Text>
           ) : (
-            <Text opacity={0.3}>Multi Pilih</Text>
+            <Text opacity={0.3} fontWeight={400}>
+              Multi Pilih
+            </Text>
           )}
 
           {inputValue && inputValue.length - 2 > 0 && (
@@ -160,7 +155,7 @@ export default function MultipleSelectDrawer({
         placement={placement}
         header={
           <Box pt={"18px"} pr={5} pb={5} pl={6}>
-            <HStack justify={"space-between"}>
+            <HStack justify={"space-between"} align={"start"}>
               <Text fontSize={20} fontWeight={600}>
                 {placeholder || "Multi Pilih"}
               </Text>
@@ -180,7 +175,7 @@ export default function MultipleSelectDrawer({
           </Box>
         }
         footer={
-          <VStack w={"100%"} px={6} pt={5} pb={8} mt={"auto"}>
+          <>
             <Button
               className="btn-outline clicky"
               w={"100%"}
@@ -200,7 +195,7 @@ export default function MultipleSelectDrawer({
             >
               Konfirmasi
             </Button>
-          </VStack>
+          </>
         }
       >
         {optionsDisplay === "list" && (

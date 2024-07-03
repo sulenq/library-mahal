@@ -8,11 +8,11 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
+import CContainer from "./CContainer";
 import useBackOnClose from "../../../hooks/useBackOnClose";
+import useActiveDrawerId from "../../../global/useActiveDrawerId";
 import backOnClose from "../../../lib/backOnClose";
 import { useLightDarkColor } from "../../../constant/colors";
-import useActiveDrawerId from "../../../global/useActiveDrawerId";
-import CContainer from "./CContainer";
 
 interface Props extends DrawerContentProps {
   id: string;
@@ -245,7 +245,18 @@ export default function CustomDrawer({
               {children}
             </VStack>
 
-            {footer}
+            {footer && (
+              <CContainer
+                gap={2}
+                px={6}
+                pb={8}
+                pt={"30px"}
+                align={"stretch"}
+                w={"100%"}
+              >
+                {footer}
+              </CContainer>
+            )}
           </CContainer>
 
           {!isSideDrawer && placement === "top" && (
