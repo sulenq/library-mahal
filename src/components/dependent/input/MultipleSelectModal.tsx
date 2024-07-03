@@ -4,20 +4,26 @@ import {
   Button,
   HStack,
   Icon,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   Text,
   VStack,
   Wrap,
 } from "@chakra-ui/react";
 import { RiArrowDownSLine } from "@remixicon/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useErrorColor } from "../../../constant/colors";
+import { Interface__SelectOption } from "../../../constant/interfaces";
 import useBackOnClose from "../../../hooks/useBackOnClose";
+import useScreenHeight from "../../../hooks/useScreenHeight";
 import backOnClose from "../../../lib/backOnClose";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
 import CContainer from "../../independent/wrapper/CContainer";
-import CustomDrawer from "../../independent/wrapper/CustomDrawer";
 import SearchComponent from "./SearchComponent";
-import { Interface__SelectOption } from "../../../constant/interfaces";
 
 interface Props {
   id: string;
@@ -54,6 +60,7 @@ export default function MultipleSelectDrawer({
   ...props
 }: Props) {
   useBackOnClose(`${id}-${name}`, isOpen, onOpen, onClose);
+  const initialRef = useRef(null);
 
   const [search, setSearch] = useState<string | undefined>("");
   const [selected, setSelected] = useState<
@@ -91,6 +98,7 @@ export default function MultipleSelectDrawer({
   }
 
   // SX
+  const sh = useScreenHeight();
   const errorColor = useErrorColor();
 
   return (
@@ -155,159 +163,163 @@ export default function MultipleSelectDrawer({
         <Icon as={RiArrowDownSLine} fontSize={18} />
       </Button>
 
-      <CustomDrawer
-        id={id}
+      <Modal
         isOpen={isOpen}
-        onOpen={onOpen}
-        onClose={onClose}
-        name={name}
-        placement={placement}
-        header={
-          <Box pt={"18px"} pr={5} pb={5} pl={6}>
-            <HStack justify={"space-between"}>
-              <Text fontSize={20} fontWeight={600}>
-                {placeholder || "Multi Pilih"}
-              </Text>
-              <BackOnCloseButton aria-label="back on close button" />
-            </HStack>
-            {withSearch && (
-              <Box mt={4}>
-                <SearchComponent
-                  name="search select options"
-                  inputValue={search}
-                  onChangeSetter={(inputValue) => {
-                    setSearch(inputValue);
-                  }}
-                />
-              </Box>
-            )}
-          </Box>
-        }
-        footer={
-          <VStack w={"100%"} px={6} pt={5} pb={8} mt={"auto"}>
-            <Button
-              className="btn-outline clicky"
-              w={"100%"}
-              onClick={() => {
-                setSelected(undefined);
-              }}
-            >
-              Reset
-            </Button>
-
-            <Button
-              colorScheme="ap"
-              className="btn-ap clicky"
-              w={"100%"}
-              isDisabled={nonNullable ? (selected ? false : true) : false}
-              onClick={confirmSelected}
-            >
-              Konfirmasi
-            </Button>
-          </VStack>
-        }
+        onClose={backOnClose}
+        initialFocusRef={initialRef}
+        isCentered
+        scrollBehavior={sh < 720 ? "outside" : "inside"}
       >
-        {optionsDisplay === "list" && (
-          <CContainer px={6} gap={2}>
-            {fo.map((option, i) => (
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader ref={initialRef}>
+            <Box>
+              <HStack justify={"space-between"}>
+                <Text fontSize={20} fontWeight={600}>
+                  {placeholder || "Multi Pilih"}
+                </Text>
+                <BackOnCloseButton aria-label="back on close button" />
+              </HStack>
+              {withSearch && (
+                <Box mt={4}>
+                  <SearchComponent
+                    name="search select options"
+                    inputValue={search}
+                    onChangeSetter={(inputValue) => {
+                      setSearch(inputValue);
+                    }}
+                  />
+                </Box>
+              )}
+            </Box>
+          </ModalHeader>
+          <ModalBody>
+            {optionsDisplay === "list" && (
+              <CContainer gap={2}>
+                {fo.map((option, i) => (
+                  <Button
+                    key={i}
+                    justifyContent={"space-between"}
+                    className="btn-outline"
+                    onClick={() => {
+                      const isSelected =
+                        selected &&
+                        selected.some((item) => item.value === option.value);
+                      let newSelected = selected || [];
+
+                      if (isSelected) {
+                        // Filter out the option if it's already selected
+                        newSelected = newSelected.filter(
+                          (item) => item.value !== option.value
+                        );
+                      } else {
+                        // Add the option to the selected array
+                        newSelected = [...newSelected, option];
+                      }
+
+                      setSelected(newSelected);
+                    }}
+                    border={
+                      selected &&
+                      selected.some((item) => item.value === option.value)
+                        ? "1px solid var(--p500a2)"
+                        : "none"
+                    }
+                    bg={
+                      selected &&
+                      selected.some((item) => item.value === option.value)
+                        ? "var(--p500a4) !important"
+                        : ""
+                    }
+                  >
+                    <Text>{option.label}</Text>
+
+                    <Text opacity={0.4}>{option.subLabel}</Text>
+                  </Button>
+                ))}
+              </CContainer>
+            )}
+
+            {optionsDisplay === "chip" && (
+              <Wrap>
+                {fo.map((option, i) => (
+                  <Button
+                    key={i}
+                    justifyContent={"space-between"}
+                    className="btn-outline"
+                    onClick={() => {
+                      const isSelected =
+                        selected &&
+                        selected.some((item) => item.value === option.value);
+                      let newSelected = selected || [];
+
+                      if (isSelected) {
+                        // Filter out the option if it's already selected
+                        newSelected = newSelected.filter(
+                          (item) => item.value !== option.value
+                        );
+                      } else {
+                        // Add the option to the selected array
+                        newSelected = [...newSelected, option];
+                      }
+
+                      setSelected(newSelected);
+                    }}
+                    borderRadius={"full"}
+                    borderColor={
+                      selected &&
+                      selected.some((item) => item.value === option.value)
+                        ? "var(--p500a2)"
+                        : ""
+                    }
+                    bg={
+                      selected &&
+                      selected.some((item) => item.value === option.value)
+                        ? "var(--p500a4) !important"
+                        : ""
+                    }
+                    gap={2}
+                  >
+                    <Text>{option.label}</Text>
+                    {/* <Text opacity={0.4}>{option.subLabel}</Text> */}
+                  </Button>
+                ))}
+              </Wrap>
+            )}
+
+            {fo.length === 0 && (
+              <HStack justify={"center"} opacity={0.4} minH={"100px"}>
+                <Text textAlign={"center"} fontWeight={600}>
+                  Opsi tidak ditemukan
+                </Text>
+              </HStack>
+            )}
+          </ModalBody>
+          <ModalFooter>
+            <VStack w={"100%"}>
               <Button
-                key={i}
-                justifyContent={"space-between"}
-                className="btn-outline"
+                className="btn-outline clicky"
+                w={"100%"}
                 onClick={() => {
-                  const isSelected =
-                    selected &&
-                    selected.some((item) => item.value === option.value);
-                  let newSelected = selected || [];
-
-                  if (isSelected) {
-                    // Filter out the option if it's already selected
-                    newSelected = newSelected.filter(
-                      (item) => item.value !== option.value
-                    );
-                  } else {
-                    // Add the option to the selected array
-                    newSelected = [...newSelected, option];
-                  }
-
-                  setSelected(newSelected);
+                  setSelected(undefined);
                 }}
-                border={
-                  selected &&
-                  selected.some((item) => item.value === option.value)
-                    ? "1px solid var(--p500a2)"
-                    : "none"
-                }
-                bg={
-                  selected &&
-                  selected.some((item) => item.value === option.value)
-                    ? "var(--p500a4) !important"
-                    : ""
-                }
               >
-                <Text>{option.label}</Text>
-
-                <Text opacity={0.4}>{option.subLabel}</Text>
+                Reset
               </Button>
-            ))}
-          </CContainer>
-        )}
 
-        {optionsDisplay === "chip" && (
-          <Wrap px={6}>
-            {fo.map((option, i) => (
               <Button
-                key={i}
-                justifyContent={"space-between"}
-                className="btn-outline"
-                onClick={() => {
-                  const isSelected =
-                    selected &&
-                    selected.some((item) => item.value === option.value);
-                  let newSelected = selected || [];
-
-                  if (isSelected) {
-                    // Filter out the option if it's already selected
-                    newSelected = newSelected.filter(
-                      (item) => item.value !== option.value
-                    );
-                  } else {
-                    // Add the option to the selected array
-                    newSelected = [...newSelected, option];
-                  }
-
-                  setSelected(newSelected);
-                }}
-                borderRadius={"full"}
-                borderColor={
-                  selected &&
-                  selected.some((item) => item.value === option.value)
-                    ? "var(--p500a2)"
-                    : ""
-                }
-                bg={
-                  selected &&
-                  selected.some((item) => item.value === option.value)
-                    ? "var(--p500a4) !important"
-                    : ""
-                }
-                gap={2}
+                colorScheme="ap"
+                className="btn-ap clicky"
+                w={"100%"}
+                isDisabled={nonNullable ? (selected ? false : true) : false}
+                onClick={confirmSelected}
               >
-                <Text>{option.label}</Text>
-                {/* <Text opacity={0.4}>{option.subLabel}</Text> */}
+                Konfirmasi
               </Button>
-            ))}
-          </Wrap>
-        )}
-
-        {fo.length === 0 && (
-          <HStack px={6} justify={"center"} opacity={0.4} minH={"100px"}>
-            <Text textAlign={"center"} fontWeight={600}>
-              Opsi tidak ditemukan
-            </Text>
-          </HStack>
-        )}
-      </CustomDrawer>
+            </VStack>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }

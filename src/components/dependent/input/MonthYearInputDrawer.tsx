@@ -160,14 +160,7 @@ export default function MonthYearInputDrawer({
           </Box>
         }
         footer={
-          <VStack
-            gap={0}
-            mt={5}
-            px={6}
-            pb={placement === "bottom" ? 8 : 6}
-            align={"stretch"}
-            w={"100%"}
-          >
+          <>
             <Button
               onClick={onConfirm}
               w={"100%"}
@@ -177,7 +170,7 @@ export default function MonthYearInputDrawer({
             >
               Terapkan
             </Button>
-          </VStack>
+          </>
         }
       >
         <VStack px={6} gap={0} overflowX={"auto"} w={"100%"} align={"stretch"}>

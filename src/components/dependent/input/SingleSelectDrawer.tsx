@@ -4,7 +4,6 @@ import {
   HStack,
   Icon,
   Text,
-  useDisclosure,
   VStack,
   Wrap,
 } from "@chakra-ui/react";
@@ -14,12 +13,15 @@ import { useErrorColor } from "../../../constant/colors";
 import { Interface__SelectOption } from "../../../constant/interfaces";
 import backOnClose from "../../../lib/backOnClose";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
-import SearchComponent from "./SearchComponent";
 import CustomDrawer from "../../independent/wrapper/CustomDrawer";
+import SearchComponent from "./SearchComponent";
 
 interface Props {
   id: string;
   name: string;
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
   options: Interface__SelectOption[];
   onConfirm: (inputValue: Interface__SelectOption | undefined) => void;
   inputValue: Interface__SelectOption | undefined;
@@ -34,6 +36,9 @@ interface Props {
 export default function SingleSelectDrawer({
   id,
   name,
+  isOpen,
+  onOpen,
+  onClose,
   options,
   onConfirm,
   inputValue,
@@ -45,8 +50,6 @@ export default function SingleSelectDrawer({
   nonNullable,
   ...props
 }: Props) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   const [search, setSearch] = useState<string | undefined>("");
   const [selected, setSelected] = useState<Interface__SelectOption | undefined>(
     inputValue

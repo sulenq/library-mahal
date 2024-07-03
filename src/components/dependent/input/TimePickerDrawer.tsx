@@ -201,7 +201,7 @@ export default function TimePickerDrawer({
           </Box>
         }
         footer={
-          <VStack align={"stretch"} px={6} pb={8} mt={5}>
+          <>
             <Button
               className="btn-outline clicky"
               w={"100%"}
@@ -233,7 +233,7 @@ export default function TimePickerDrawer({
             >
               Konfirmasi
             </Button>
-          </VStack>
+          </>
         }
       >
         <HStack justify={"space-between"} px={6}>
