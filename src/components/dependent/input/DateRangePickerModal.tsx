@@ -375,7 +375,7 @@ export default function DateRangePickerModal({
                   setSelected(undefined);
                 }}
               >
-                Reset
+                Clear
               </Button>
 
               <Button

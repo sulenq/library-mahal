@@ -245,7 +245,7 @@ export default function DateRangePickerDrawer({
                 setSelected(undefined);
               }}
             >
-              Reset
+              Clear
             </Button>
 
             <Button

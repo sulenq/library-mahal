@@ -250,7 +250,7 @@ export default function SingleSelectModal({
                   setSelected(undefined);
                 }}
               >
-                Reset
+                Clear
               </Button>
 
               <Button

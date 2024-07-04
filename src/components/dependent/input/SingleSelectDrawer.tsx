@@ -167,7 +167,7 @@ export default function SingleSelectDrawer({
                 setSelected(undefined);
               }}
             >
-              Reset
+              Clear
             </Button>
 
             <Button

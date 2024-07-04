@@ -278,7 +278,7 @@ export default function DatePickerModal({
                   setSelected(undefined);
                 }}
               >
-                Reset
+                Clear
               </Button>
 
               <Button

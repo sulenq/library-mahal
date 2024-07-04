@@ -178,7 +178,7 @@ export default function DatePickerDrawer({
                 setSelected(undefined);
               }}
             >
-              Reset
+              Clear
             </Button>
 
             <Button

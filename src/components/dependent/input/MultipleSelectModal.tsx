@@ -304,7 +304,7 @@ export default function MultipleSelectDrawer({
                   setSelected(undefined);
                 }}
               >
-                Reset
+                Clear
               </Button>
 
               <Button
