@@ -175,7 +175,7 @@ export default function CustomDrawer({
                 <Box
                   w={"100px"}
                   h={"6px"}
-                  bg={"gray"}
+                  bg={lightDarkColor}
                   opacity={0.5}
                   borderRadius={6}
                   flexShrink={0}
@@ -266,7 +266,7 @@ export default function CustomDrawer({
                 <Box
                   w={"100px"}
                   h={"6px"}
-                  bg={"gray"}
+                  bg={lightDarkColor}
                   opacity={0.5}
                   borderRadius={6}
                   flexShrink={0}
