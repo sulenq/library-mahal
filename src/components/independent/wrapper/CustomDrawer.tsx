@@ -168,7 +168,7 @@ export default function CustomDrawer({
             }
           }}
           px={0}
-        >
+        > 
           {!isSideDrawer && placement === "bottom" && (
             <CContainer onClick={backOnClose}>
               <VStack className="drawerIndicator">
