@@ -23,6 +23,7 @@ export default function PasswordInput({
   return (
     <Box position={"relative"}>
       <Input
+        name={name}
         placeholder={placeholder || "*******"}
         onChange={(e) => {
           onChangeSetter(e.target.value);
