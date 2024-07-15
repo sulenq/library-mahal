@@ -21,8 +21,8 @@ import { Interface__SelectOption } from "../../../constant/interfaces";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import useScreenHeight from "../../../hooks/useScreenHeight";
 import backOnClose from "../../../lib/backOnClose";
-import BackOnCloseButton from "../../independent/BackOnCloseButton";
 import CContainer from "../../independent/wrapper/CContainer";
+import DisclosureHeader from "../DisclosureHeader";
 import SearchComponent from "./SearchComponent";
 
 interface Props {
@@ -174,12 +174,8 @@ export default function MultipleSelectDrawer({
         <ModalContent>
           <ModalHeader ref={initialRef}>
             <Box>
-              <HStack justify={"space-between"}>
-                <Text fontSize={20} fontWeight={600}>
-                  {placeholder || "Multi Pilih"}
-                </Text>
-                <BackOnCloseButton aria-label="back on close button" />
-              </HStack>
+              <DisclosureHeader title={placeholder || "Multi Pilih"} p={0} />
+
               {withSearch && (
                 <Box mt={4}>
                   <SearchComponent

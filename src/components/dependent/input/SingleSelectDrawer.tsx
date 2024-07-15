@@ -12,8 +12,8 @@ import { useState } from "react";
 import { useErrorColor } from "../../../constant/colors";
 import { Interface__SelectOption } from "../../../constant/interfaces";
 import backOnClose from "../../../lib/backOnClose";
-import BackOnCloseButton from "../../independent/BackOnCloseButton";
 import CustomDrawer from "../../independent/wrapper/CustomDrawer";
+import DisclosureHeader from "../DisclosureHeader";
 import SearchComponent from "./SearchComponent";
 
 interface Props {
@@ -139,12 +139,8 @@ export default function SingleSelectDrawer({
         placement={placement}
         header={
           <Box pt={"18px"} pr={5} pb={5} pl={6}>
-            <HStack justify={"space-between"}>
-              <Text fontSize={20} fontWeight={600}>
-                {placeholder || "Pilih Salah Satu"}
-              </Text>
-              <BackOnCloseButton aria-label="back on close button" />
-            </HStack>
+            <DisclosureHeader title={placeholder || "Multi Pilih"} p={0} />
+
             {withSearch && (
               <Box mt={4}>
                 <SearchComponent

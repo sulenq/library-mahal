@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   ButtonProps,
   HStack,
@@ -14,8 +13,8 @@ import { useRef, useState } from "react";
 import { useErrorColor } from "../../../constant/colors";
 import backOnClose from "../../../lib/backOnClose";
 import formatTimeFromDate from "../../../lib/formatTimeFromDate";
-import BackOnCloseButton from "../../independent/BackOnCloseButton";
 import CustomDrawer from "../../independent/wrapper/CustomDrawer";
+import DisclosureHeader from "../DisclosureHeader";
 
 interface Props extends ButtonProps {
   id: string;
@@ -190,16 +189,7 @@ export default function TimePickerDrawer({
         onClose={onClose}
         name={name}
         placement={placement}
-        header={
-          <Box pt={"18px"} pr={5} pb={5} pl={6}>
-            <HStack justify={"space-between"}>
-              <Text fontSize={20} fontWeight={600}>
-                {placeholder || "Pilih Waktu"}
-              </Text>
-              <BackOnCloseButton aria-label="back on close button" />
-            </HStack>
-          </Box>
-        }
+        header={<DisclosureHeader title={placeholder || "Pilih Waktu"} />}
         footer={
           <>
             <Button

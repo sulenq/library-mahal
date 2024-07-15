@@ -26,7 +26,7 @@ import { useErrorColor } from "../../../constant/colors";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
-import BackOnCloseButton from "../../independent/BackOnCloseButton";
+import DisclosureHeader from "../DisclosureHeader";
 import PeriodPickerModal from "./PeriodPickerModal";
 type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
@@ -167,14 +167,8 @@ export default function DatePickerModal({
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader ref={initialRef}>
-            <HStack align={"start"} justify={"space-between"}>
-              <Text fontSize={20} fontWeight={600}>
-                {placeholder || "Pilih Tanggal"}
-              </Text>
-
-              <BackOnCloseButton aria-label="close-back-button" />
-            </HStack>
+          <ModalHeader p={0} ref={initialRef}>
+            <DisclosureHeader title={placeholder || "Pilih Tanggal"} />
           </ModalHeader>
 
           <ModalBody className="scrollY">

@@ -20,8 +20,8 @@ import { useErrorColor } from "../../../constant/colors";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
 import formatTimeFromDate from "../../../lib/formatTimeFromDate";
-import BackOnCloseButton from "../../independent/BackOnCloseButton";
 import CContainer from "../../independent/wrapper/CContainer";
+import DisclosureHeader from "../DisclosureHeader";
 
 interface Props extends ButtonProps {
   id: string;
@@ -200,14 +200,8 @@ export default function TimePickerModal({
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader ref={initialRef}>
-            <HStack align={"start"} justify={"space-between"}>
-              <Text fontSize={20} fontWeight={600}>
-                {placeholder || "Pilih Waktu"}
-              </Text>
-
-              <BackOnCloseButton aria-label="close-back-button" />
-            </HStack>
+          <ModalHeader p={0} ref={initialRef}>
+            <DisclosureHeader title={placeholder || "Pilih Waktu"} />
           </ModalHeader>
 
           <ModalBody className="scrollY">

@@ -5,7 +5,6 @@ import {
   Icon,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
@@ -22,6 +21,7 @@ import useBackOnClose from "../../../hooks/useBackOnClose";
 import useScreenHeight from "../../../hooks/useScreenHeight";
 import backOnClose from "../../../lib/backOnClose";
 import CContainer from "../../independent/wrapper/CContainer";
+import DisclosureHeader from "../DisclosureHeader";
 import SearchComponent from "./SearchComponent";
 
 interface Props {
@@ -149,13 +149,9 @@ export default function SingleSelectModal({
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalCloseButton />
           <ModalHeader ref={initialRef}>
-            <HStack justify={"space-between"}>
-              <Text fontSize={20} fontWeight={600}>
-                {placeholder || "Pilih Salah Satu"}
-              </Text>
-            </HStack>
+            <DisclosureHeader title={placeholder || "Pilih Salah Satu"} p={0} />
+
             {withSearch && (
               <Box mt={4}>
                 <SearchComponent
@@ -168,6 +164,7 @@ export default function SingleSelectModal({
               </Box>
             )}
           </ModalHeader>
+
           <ModalBody
             className="scrollY"
             minH={withSearch ? "360px" : ""}
