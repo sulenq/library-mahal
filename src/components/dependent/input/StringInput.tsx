@@ -1,7 +1,11 @@
-import { Input as ChakraInput, useColorMode } from "@chakra-ui/react";
+import {
+  Input as ChakraInput,
+  InputProps,
+  useColorMode,
+} from "@chakra-ui/react";
 import { css, Global } from "@emotion/react";
 
-interface Props {
+interface Props extends InputProps {
   name: string;
   onChangeSetter: (inputValue: string | undefined) => void;
   inputValue: string | undefined;
@@ -29,6 +33,9 @@ export default function StringInput({
     <>
       <Global
         styles={css`
+          input:-webkit-autofill {
+            border: 10px solid var(--divider3) !important;
+          }
           input:-webkit-autofill,
           input:-webkit-autofill:hover,
           input:-webkit-autofill:focus,
@@ -41,6 +48,7 @@ export default function StringInput({
 
       <ChakraInput
         name={name}
+        border={"1px solid var(--divider3) !important"}
         _focus={{
           border: "1px solid var(--p500) !important",
           boxShadow: "none !important",

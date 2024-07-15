@@ -167,11 +167,7 @@ export const globalTheme = extendTheme({
       baseStyle: (props) => ({
         field: {
           _autofill: {
-            boxShadow:
-              props.colorMode === "dark"
-                ? "0 0 0px 1000px dark inset"
-                : "0 0 0px 1000px #ffffff inset",
-            border: "2px solid var(--divider) !important",
+            border: "1px solid var(--divider3) !important",
           },
         },
       }),

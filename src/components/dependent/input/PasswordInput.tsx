@@ -1,6 +1,7 @@
-import { Box, Icon, IconButton, Input } from "@chakra-ui/react";
+import { Box, Icon, IconButton } from "@chakra-ui/react";
 import { RiEyeLine, RiEyeOffLine } from "@remixicon/react";
 import { useState } from "react";
+import StringInput from "./StringInput";
 
 interface Props {
   name: string;
@@ -22,13 +23,13 @@ export default function PasswordInput({
 
   return (
     <Box position={"relative"}>
-      <Input
+      <StringInput
         name={name}
         placeholder={placeholder || "*******"}
-        onChange={(e) => {
-          onChangeSetter(e.target.value);
+        onChangeSetter={(inputValue) => {
+          onChangeSetter(inputValue);
         }}
-        value={inputValue}
+        inputValue={inputValue}
         type={showPassword ? "text" : "password"}
         pr={"40px !important"}
         {...props}

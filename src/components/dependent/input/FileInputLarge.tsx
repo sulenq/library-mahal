@@ -218,6 +218,7 @@ export default function FileInputLarge({
           <Wrap spacingX={0}>
             <Button
               mt={2}
+              pl={"6px"}
               leftIcon={<Icon className="iconButton" as={RiEyeFill} />}
               variant={"ghost"}
               colorScheme="ap"
@@ -231,6 +232,7 @@ export default function FileInputLarge({
 
             <Button
               mt={2}
+              pl={"6px"}
               leftIcon={
                 <Icon
                   className="iconButton"
