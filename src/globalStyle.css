@@ -214,11 +214,18 @@ select {
 
 button[aria-label="Close"] {
   background: transparent !important;
+  top: 2px !important;
+  right: 2px !important;
+}
+button[aria-label="Close"] > svg {
+  width: 12px !important;
 }
 
 .chakra-alert {
   border-radius: 12px !important;
   padding: 16px !important;
+  /* min-width: calc(100vw - 32px) !important; */
+  /* max-width: 700px !important; */
 }
 .chakra-alert__title {
   font-size: 14px;
@@ -258,7 +265,7 @@ button[aria-label="Close"] {
 }
 
 .scrollX::-webkit-scrollbar {
-  height: 8px;
+  height: 4px;
 }
 .scrollX::-webkit-scrollbar-corner,
 .scrollY::-webkit-scrollbar-corner {
@@ -266,7 +273,7 @@ button[aria-label="Close"] {
 }
 
 .scrollY::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 
 .scrollX::-webkit-scrollbar-thumb,
@@ -353,6 +360,17 @@ button[aria-label="Close"] {
   /* box-shadow: 1px 1px 2px 1px var(--divider); */
 }
 
+.chakra-form__helper-text {
+  opacity: 0.4;
+}
+
+.accordionButton {
+  padding: 24px;
+  border-radius: 16px;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
 .ripple::after {
   content: "";
   position: absolute;
@@ -365,18 +383,6 @@ button[aria-label="Close"] {
   border-radius: 50%;
   animation: ripple 0.5s ease-out forwards;
   pointer-events: none; /* agar tidak mengganggu klik tombol */
-}
-
-.chakra-form__helper-text {
-  opacity: 0.4;
-}
-
-@keyframes ripple {
-  to {
-    width: 260px;
-    height: 260px;
-    opacity: 0;
-  }
 }
 
 .ripple-sm::after {
@@ -393,19 +399,21 @@ button[aria-label="Close"] {
   pointer-events: none; /* agar tidak mengganggu klik tombol */
 }
 
+/* Keyframes */
+@keyframes ripple {
+  to {
+    width: 260px;
+    height: 260px;
+    opacity: 0;
+  }
+}
+
 @keyframes ripple-sm {
   to {
     width: 120px;
     height: 120px;
     opacity: 0;
   }
-}
-
-.accordionButton {
-  padding: 24px;
-  border-radius: 16px;
-  justify-content: space-between;
-  align-items: flex-start;
 }
 
 @keyframes fade-in {
@@ -422,7 +430,7 @@ button[aria-label="Close"] {
     opacity: 0;
   }
   100% {
-    opacity: 0.2;
+    opacity: 0.4;
   }
 }
 
@@ -432,6 +440,15 @@ button[aria-label="Close"] {
   }
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes float-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY("5px");
   }
 }
 
@@ -450,7 +467,11 @@ button[aria-label="Close"] {
     opacity: 1;
   }
 }
+/* Keyframes */
 
+.chakra-popover__close-btn > svg {
+  width: 10px !important;
+}
 .chakra-popover__body {
   padding-right: 36px !important;
 }
@@ -574,7 +595,6 @@ button[aria-label="Close"] {
 }
 /* Date Picker End */
 
-/* Custom Start*/
 .doughnutChartContainer canvas {
   width: 100% !important;
   height: 100% !important;
@@ -584,8 +604,16 @@ button[aria-label="Close"] {
   max-height: 250px !important;
 }
 
+/* Custom Start*/
+
 img[src^="/vectors/icons/hospital.svg"] {
   transform: scale(0.5) translateY(80px);
+}
+
+a.leaflet-attribution-flag {
+  position: fixed !important;
+  top: 4px !important;
+  left: 4px !important;
 }
 
 img[alt="Google"] {

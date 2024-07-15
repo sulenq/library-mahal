@@ -27,7 +27,7 @@ import useBackOnClose from "../../../hooks/useBackOnClose";
 import backOnClose from "../../../lib/backOnClose";
 import formatDate from "../../../lib/formatDate";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
-import MonthYearInputModal from "./MonthYearInputModal";
+import PeriodPickerModal from "./PeriodPickerModal";
 type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
 interface Props extends ButtonProps {
@@ -196,8 +196,8 @@ export default function DatePickerModal({
                   maxW={"50px"}
                 ></Button>
 
-                <MonthYearInputModal
-                  id={"date_picker_input_month_year_modal"}
+                <PeriodPickerModal
+                  id={`period-picker-modal-${id}`}
                   name="month-year"
                   bulan={bulan}
                   tahun={tahun}
@@ -273,7 +273,7 @@ export default function DatePickerModal({
             <VStack align={"stretch"} w={"100%"}>
               <Button
                 flexShrink={0}
-                className="btn-outline clicky"
+                className="btn-solid clicky"
                 onClick={() => {
                   setSelected(undefined);
                 }}

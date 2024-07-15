@@ -169,6 +169,7 @@ export default function DateRangePickerModalShowcase() {
               setDate(inputValue);
             }}
             inputValue={date}
+            maxRange={10}
           />
         </FormControl>
       </ContentContainer>

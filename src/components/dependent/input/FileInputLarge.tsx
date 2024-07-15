@@ -8,7 +8,6 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useErrorColor } from "../../../constant/colors";
-import { iconSize } from "../../../constant/sizes";
 import formatBytes from "../../../lib/formatBytes";
 
 interface Props {

@@ -222,7 +222,7 @@ export default function DatePickerDrawer({
             ></Button>
 
             <PeriodPickerDrawer
-              id={"date_picker_input_month_year_drawer"}
+              id={`period-picker-drawer-${id}`}
               name="set-month-year"
               bulan={bulan}
               tahun={tahun}

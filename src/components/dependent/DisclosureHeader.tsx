@@ -6,7 +6,7 @@ interface Props extends BoxProps {
   withoutCloseButton?: boolean;
 }
 
-export default function DrawerHeader({
+export default function DisclosureHeader({
   title,
   withoutCloseButton,
   ...props
