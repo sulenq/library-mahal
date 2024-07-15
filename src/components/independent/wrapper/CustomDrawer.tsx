@@ -7,7 +7,7 @@ import {
   DrawerOverlay,
   VStack,
 } from "@chakra-ui/react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import CContainer from "./CContainer";
 import useBackOnClose from "../../../hooks/useBackOnClose";
 import useActiveDrawerId from "../../../global/useActiveDrawerId";
@@ -41,8 +41,6 @@ export default function CustomDrawer({
   ...props
 }: Props) {
   const theId = name ? `${id}-${name}` : id;
-  useBackOnClose(theId, isOpen, onOpen, onClose);
-  const initialRef = useRef(null);
   const { activeDrawerId, setActiveDrawerId } = useActiveDrawerId();
   const activeDrawerIdRef = useRef(activeDrawerId);
   useEffect(() => {
@@ -52,6 +50,14 @@ export default function CustomDrawer({
       setActiveDrawerId(newActiveDrawerId);
     }
   }, [isOpen, setActiveDrawerId, theId]);
+
+  const handleOnClose = useCallback(() => {
+    const newActiveDrawerId = [...activeDrawerIdRef.current];
+    setActiveDrawerId(newActiveDrawerId);
+    onClose();
+  }, [onClose, setActiveDrawerId]);
+  useBackOnClose(theId, isOpen, onOpen, handleOnClose);
+  const initialRef = useRef(null);
 
   const [touchStart, setTouchStart] = useState(0);
   const [translate, setTranslate] = useState(0);
@@ -146,7 +152,7 @@ export default function CustomDrawer({
       <DrawerOverlay />
       <DrawerContent
         ref={initialRef}
-        maxH={!isSideDrawer ? "90%" : ""}
+        maxH={!isSideDrawer ? "calc(100% - 12px)" : ""}
         bg={"transparent"}
         {...props}
       >
@@ -168,7 +174,7 @@ export default function CustomDrawer({
             }
           }}
           px={0}
-        > 
+        >
           {!isSideDrawer && placement === "bottom" && (
             <CContainer onClick={backOnClose}>
               <VStack className="drawerIndicator">
@@ -251,7 +257,7 @@ export default function CustomDrawer({
                 gap={2}
                 px={6}
                 pb={8}
-                pt={"30px"}
+                pt={"24px"}
                 align={"stretch"}
                 w={"100%"}
               >

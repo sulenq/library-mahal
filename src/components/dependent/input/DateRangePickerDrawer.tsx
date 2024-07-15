@@ -20,11 +20,11 @@ import { useState } from "react";
 import { DayPicker } from "react-day-picker";
 import { useErrorColor, useWarningColor } from "../../../constant/colors";
 import backOnClose from "../../../lib/backOnClose";
+import countDateRange from "../../../lib/countDateRange";
 import formatDate from "../../../lib/formatDate";
 import BackOnCloseButton from "../../independent/BackOnCloseButton";
-import MonthYearInputDrawer from "./MonthYearInputDrawer";
 import CustomDrawer from "../../independent/wrapper/CustomDrawer";
-import countDateRange from "../../../lib/countDateRange";
+import MonthYearInputDrawer from "./PeriodPickerDrawer";
 type PrefixOption = "basic" | "basicShort" | "long" | "longShort" | "short";
 
 interface Props extends ButtonProps {
@@ -240,7 +240,7 @@ export default function DateRangePickerDrawer({
           <>
             <Button
               w={"100%"}
-              className="btn-outline clicky"
+              className="btn-solid clicky"
               onClick={() => {
                 setSelected(undefined);
               }}
@@ -308,7 +308,7 @@ export default function DateRangePickerDrawer({
               tahun={tahun}
               setBulan={setBulan}
               setTahun={setTahun}
-              setDate={setDate}
+              setPeriod={setDate}
               placement={placement}
             />
 
@@ -354,27 +354,31 @@ export default function DateRangePickerDrawer({
               </Button>
             </ButtonGroup>
 
-            <HStack w={"100%"} position={"relative"}>
-              <Box flex={1}>
-                <VStack borderRadius={8} bg={"var(--divider)"} p={2} gap={1}>
-                  <Text textAlign={"center"} opacity={selected?.from ? 1 : 0.6}>
-                    {`${
-                      selected?.from
-                        ? `${formatDate(selected.from, "short")}`
-                        : "Pilih tanggal awal"
-                    } - ${
-                      selected?.to
-                        ? `${formatDate(selected.to, "short")}`
-                        : "Pilih tanggal akhir"
-                    } ${
-                      selected && selected.from && selected.to
-                        ? `(${countDateRange(selected.from, selected.to)} hari)`
-                        : ""
-                    }`}
-                  </Text>
-                </VStack>
-              </Box>
-            </HStack>
+            <VStack
+              w={"100%"}
+              borderRadius={8}
+              bg={"var(--divider)"}
+              border={"2px dashed var(--divider)"}
+              p={2}
+              px={4}
+              gap={1}
+            >
+              <Text textAlign={"center"} opacity={selected?.from ? 1 : 0.6}>
+                {`${
+                  selected?.from
+                    ? `${formatDate(selected.from, "short")}`
+                    : "Pilih tanggal awal"
+                } - ${
+                  selected?.to
+                    ? `${formatDate(selected.to, "short")}`
+                    : "Pilih tanggal akhir"
+                } ${
+                  selected && selected.from && selected.to
+                    ? `(${countDateRange(selected.from, selected.to)} hari)`
+                    : ""
+                }`}
+              </Text>
+            </VStack>
           </VStack>
         </VStack>
       </CustomDrawer>

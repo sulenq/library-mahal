@@ -1,6 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { globalTheme } from "./chakraTheme/globalTheme";
+import { globalTheme } from "./theme/globalTheme";
 import Showcases from "./pages/Showcases";
 import "./globalStyle.css";
 import MissingPage from "./pages/MissingPage";
