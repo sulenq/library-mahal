@@ -29,7 +29,7 @@ interface Props extends ButtonProps {
   id: string;
   name: string;
   onConfirm: (inputValue: Date | undefined) => void;
-  inputValue: string | Date | undefined;
+  inputValue: Date | undefined;
   placement?: "top" | "bottom" | "left" | "right";
   dateFormatOptions?: PrefixOption | object;
   placeholder?: string;
@@ -51,14 +51,12 @@ export default function DatePickerDrawer({
 }: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [date, setDate] = useState<Date>(
-    inputValue ? new Date(inputValue) : new Date()
-  );
+  const [date, setDate] = useState<Date>(inputValue || new Date());
   const [bulan, setBulan] = useState<number>(
-    inputValue ? new Date(inputValue)?.getMonth() : date.getMonth()
+    inputValue?.getMonth() || date.getMonth()
   );
   const [tahun, setTahun] = useState<number>(
-    inputValue ? new Date(inputValue)?.getFullYear() : date.getFullYear()
+    inputValue?.getFullYear() || date.getFullYear()
   );
   const [selected, setSelected] = useState<any>(inputValue);
 
@@ -137,17 +135,9 @@ export default function DatePickerDrawer({
         onClick={() => {
           onOpen();
           setSelected(inputValue);
-          setDate(inputValue ? new Date(inputValue) : new Date());
-          setBulan(
-            inputValue
-              ? new Date(inputValue)?.getMonth()
-              : new Date().getMonth()
-          );
-          setTahun(
-            inputValue
-              ? new Date(inputValue)?.getFullYear()
-              : new Date().getFullYear()
-          );
+          setDate(inputValue || new Date());
+          setBulan(inputValue?.getMonth() || new Date().getMonth());
+          setTahun(inputValue?.getFullYear() || new Date().getFullYear());
         }}
         // _focus={{ boxShadow: "0 0 0px 2px var(--p500)" }}
         _focus={{ border: "1px solid var(--p500)", boxShadow: "none" }}
