@@ -201,7 +201,9 @@ export default function SingleSelectDrawerShowcase() {
         </RadioGroup>
 
         <FormControl mb={2}>
-          <FormLabel>Required Filled Single Select Input with Search</FormLabel>
+          <FormLabel>
+            Non Nullable Filled Single Select Input with Search
+          </FormLabel>
           <ExampleDedicatedSelectDrawer
             id="required_example_select_drawer"
             name="color"

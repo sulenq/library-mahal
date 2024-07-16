@@ -151,7 +151,7 @@ export default function TimePickerDrawerShowcase() {
         </RadioGroup>
 
         <FormControl mb={2}>
-          <FormLabel>Required Time Input</FormLabel>
+          <FormLabel>Non Nullable Time Input</FormLabel>
           <TimePickerDrawer
             id="required_time_picker_drawer"
             name="required_time"

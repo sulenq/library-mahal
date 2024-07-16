@@ -198,7 +198,7 @@ export default function DateRangePickerDrawerShowcase() {
         </RadioGroup>
 
         <FormControl>
-          <FormLabel>Required Date Input</FormLabel>
+          <FormLabel>Non Nullable Date Input</FormLabel>
           <DateRangePickerDrawer
             id="requiredDateRangeInput_drawer"
             name="required_date"

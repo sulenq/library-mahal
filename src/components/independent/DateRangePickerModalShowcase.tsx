@@ -147,7 +147,7 @@ export default function DateRangePickerModalShowcase() {
         </HStack>
 
         <FormControl>
-          <FormLabel>Required Date Input</FormLabel>
+          <FormLabel>Non Nullable Date Input</FormLabel>
           <DateRangePickerModal
             id="requiredDateRangeInput_modal"
             name="required_date"

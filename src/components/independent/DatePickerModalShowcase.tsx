@@ -129,7 +129,7 @@ export default function DatePickerModalShowcase() {
         </HStack>
 
         <FormControl mb={2}>
-          <FormLabel>Required Date Input</FormLabel>
+          <FormLabel>Non Nullable Date Input</FormLabel>
           <DatePickerModal
             id="requiredDateInput"
             name="required_date"

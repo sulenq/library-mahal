@@ -91,7 +91,7 @@ export default function TimePickerModalShowcase() {
         </HStack>
 
         <FormControl mb={2}>
-          <FormLabel>Required Time Input</FormLabel>
+          <FormLabel>Non Nullable Time Input</FormLabel>
           <TimePickerModal
             id="required_time_picker"
             name="required_time"

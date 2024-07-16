@@ -150,7 +150,9 @@ export default function SingleSelectModalShowcase() {
         </HStack>
 
         <FormControl mb={2}>
-          <FormLabel>Required Filled Single Select Input with Search</FormLabel>
+          <FormLabel>
+            Non Nullable Filled Single Select Input with Search
+          </FormLabel>
           <ExampleDedicatedSelectModal
             id="required_example_select"
             name="color"

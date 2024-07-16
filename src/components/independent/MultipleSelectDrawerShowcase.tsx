@@ -203,7 +203,9 @@ export default function MultipleSelectDrawerShowcase() {
         </RadioGroup>
 
         <FormControl mb={2}>
-          <FormLabel>Required Filled Multi Select Input with Search</FormLabel>
+          <FormLabel>
+            Non Nullable Filled Multi Select Input with Search
+          </FormLabel>
           <ExampleDedicatedMultipleSelectDrawer
             id="required_example_multi_select_drawer"
             name="color"
