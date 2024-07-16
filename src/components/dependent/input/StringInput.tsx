@@ -25,6 +25,8 @@ export default function StringInput({
     onChangeSetter(e.target.value);
   }
 
+  console.log("stringInput", inputValue);
+
   // SX
   const { colorMode } = useColorMode();
   const darkLightColorManual = colorMode === "light" ? "white" : "var(--dark)";
