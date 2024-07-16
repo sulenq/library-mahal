@@ -54,7 +54,9 @@ export default function SearchComponent({
         >
           <IconButton
             aria-label="Clear Search"
-            icon={<Icon as={RiCloseLine} fontSize={iconSize} />}
+            icon={
+              <Icon as={RiCloseLine} fontSize={props.fontSize || iconSize} />
+            }
             onClick={() => {
               onChangeSetter("");
             }}
