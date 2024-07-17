@@ -364,7 +364,7 @@ export default function DateRangePickerModal({
             <VStack align={"stretch"} gap={0} w={"100%"}>
               <Button
                 w={"100%"}
-                className="btn-outline clicky"
+                className="btn-solid clicky"
                 onClick={() => {
                   setSelected(undefined);
                 }}

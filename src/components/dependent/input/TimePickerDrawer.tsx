@@ -193,7 +193,7 @@ export default function TimePickerDrawer({
         footer={
           <>
             <Button
-              className="btn-outline clicky"
+              className="btn-solid clicky"
               w={"100%"}
               onClick={() => {
                 if (time && hours === 0 && minutes === 0 && seconds === 0) {

@@ -16,7 +16,7 @@ import {
 import { RiSlideshow2Fill } from "@remixicon/react";
 import { useState } from "react";
 import { Interface__SelectOption } from "../../constant/interfaces";
-import ExampleDedicatedMultipleSelectDrawer from "../dependent/input/_select/ExampleDedicatedMultipleSelectDrawer";
+import ExampleDedicatedMultipleSelectDrawer from "../dependent/input/select/ExampleDedicatedMultipleSelectDrawer";
 import PropsAccordions from "../dependent/PropsAccordions";
 import ComponentShowcaseContainer from "./wrapper/ComponentShowcaseContainer";
 import ContentContainer from "./wrapper/ContentContainer";

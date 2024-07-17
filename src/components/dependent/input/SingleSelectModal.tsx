@@ -241,7 +241,7 @@ export default function SingleSelectModal({
           <ModalFooter>
             <CContainer gap={2}>
               <Button
-                className="btn-outline clicky"
+                className="btn-solid clicky"
                 w={"100%"}
                 onClick={() => {
                   setSelected(undefined);
