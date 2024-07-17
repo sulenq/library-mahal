@@ -34,9 +34,7 @@ export default function PropsAccordions({
             <HStack ml={-1}>
               <Icon as={RiErrorWarningFill} fontSize={24} color={"p.500"} />
               <Text fontWeight={600} fontSize={18} color={"p.500"}>
-                {type === "library"
-                  ? "Non Nullable Parameter"
-                  : "Non Nullable Props"}
+                {type === "library" ? "Required Parameter" : "Required Props"}
               </Text>
             </HStack>
           }

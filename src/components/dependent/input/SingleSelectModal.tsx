@@ -144,8 +144,8 @@ export default function SingleSelectModal({
         isOpen={isOpen}
         onClose={backOnClose}
         initialFocusRef={initialRef}
-        isCentered
-        scrollBehavior={sh < 720 ? "outside" : "inside"}
+        isCentered={sh < 650 ? false : true}
+        scrollBehavior={sh < 650 ? "outside" : "inside"}
       >
         <ModalOverlay />
         <ModalContent>
@@ -181,10 +181,8 @@ export default function SingleSelectModal({
                     onClick={() => {
                       setSelected(option);
                     }}
-                    border={
-                      selected && selected.value === option.value
-                        ? "1px solid var(--p500a2)"
-                        : "none"
+                    borderColor={
+                      selected && selected.value === option.value ? "p.500" : ""
                     }
                     bg={
                       selected && selected.value === option.value

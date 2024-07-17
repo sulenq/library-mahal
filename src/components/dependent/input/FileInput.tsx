@@ -18,6 +18,7 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useErrorColor } from "../../../constant/colors";
+import CContainer from "../../independent/wrapper/CContainer";
 
 interface Props extends ButtonProps {
   name: string;
@@ -158,7 +159,7 @@ export default function FileInput({
         mb={4}
       />
 
-      <Box w={"100%"}>
+      <CContainer w={"100%"}>
         <Button
           px={0}
           w={"100%"}
@@ -218,13 +219,14 @@ export default function FileInput({
         </Button>
 
         {inputValue && fileUrl && (
-          <Wrap spacingX={0}>
+          <Wrap spacingX={0} ml={"auto"}>
             <Button
               mt={2}
               pl={"6px"}
               leftIcon={<Icon className="iconButton" as={RiEyeFill} />}
-              variant={"ghost"}
-              colorScheme="ap"
+              // variant={"ghost"}
+              className="btn"
+              // colorScheme="ap"
               size={"xs"}
               as={Link}
               to={fileUrl}
@@ -241,6 +243,7 @@ export default function FileInput({
                   className="iconButton"
                   as={RiCloseCircleFill}
                   strokeWidth={4}
+                  mr={"-3px"}
                 />
               }
               variant={"ghost"}
@@ -255,7 +258,7 @@ export default function FileInput({
             </Button>
           </Wrap>
         )}
-      </Box>
+      </CContainer>
     </>
   );
 }

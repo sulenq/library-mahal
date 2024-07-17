@@ -65,6 +65,7 @@ export default function NumberInputShowcase() {
               setFilledInput(inputValue);
             }}
             inputValue={filledInput}
+            placeholder="123"
           />
         </FormControl>
 
@@ -76,6 +77,7 @@ export default function NumberInputShowcase() {
               setInput(inputValue);
             }}
             inputValue={input}
+            placeholder="123"
           />
         </FormControl>
       </ContentContainer>

@@ -167,8 +167,8 @@ export default function MultipleSelectDrawer({
         isOpen={isOpen}
         onClose={backOnClose}
         initialFocusRef={initialRef}
-        isCentered
-        scrollBehavior={sh < 720 ? "outside" : "inside"}
+        isCentered={sh < 650 ? false : true}
+        scrollBehavior={sh < 650 ? "outside" : "inside"}
       >
         <ModalOverlay />
         <ModalContent>

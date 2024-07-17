@@ -1,4 +1,4 @@
-import { Box, Button, Icon, Input, Text, VStack, Wrap } from "@chakra-ui/react";
+import { Button, Icon, Input, Text, VStack, Wrap } from "@chakra-ui/react";
 import {
   RiCloseCircleFill,
   RiEyeFill,
@@ -9,6 +9,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useErrorColor } from "../../../constant/colors";
 import formatBytes from "../../../lib/formatBytes";
+import CContainer from "../../independent/wrapper/CContainer";
 
 interface Props {
   name: string;
@@ -132,7 +133,7 @@ export default function FileInputLarge({
         mb={4}
       />
 
-      <Box w={"100%"}>
+      <CContainer w={"100%"}>
         <VStack
           as={Button}
           w={"100%"}
@@ -215,13 +216,12 @@ export default function FileInputLarge({
         </VStack>
 
         {inputValue && fileURL && (
-          <Wrap spacingX={0}>
+          <Wrap spacingX={0} ml={"auto"}>
             <Button
               mt={2}
               pl={"6px"}
               leftIcon={<Icon className="iconButton" as={RiEyeFill} />}
-              variant={"ghost"}
-              colorScheme="ap"
+              className="btn"
               size={"xs"}
               as={Link}
               to={fileURL}
@@ -252,7 +252,7 @@ export default function FileInputLarge({
             </Button>
           </Wrap>
         )}
-      </Box>
+      </CContainer>
     </>
   );
 }
