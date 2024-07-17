@@ -37,7 +37,7 @@ export default function Showcases() {
         </HStack>
 
         <Text fontWeight={600} mb={4} opacity={0.6}>
-          This library wil keep updating
+          This library will keep updating
         </Text>
 
         <Alert status="warning" mb={8} w={"100%"} maxW={"100%"}>
