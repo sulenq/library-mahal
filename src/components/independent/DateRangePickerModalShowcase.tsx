@@ -161,7 +161,7 @@ export default function DateRangePickerModalShowcase() {
         </FormControl>
 
         <FormControl>
-          <FormLabel>Date Input</FormLabel>
+          <FormLabel>Date Input With Max Range</FormLabel>
           <DateRangePickerModal
             id="dateRangeInput_modal"
             name="date"

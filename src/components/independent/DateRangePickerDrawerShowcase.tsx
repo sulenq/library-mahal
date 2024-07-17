@@ -213,7 +213,7 @@ export default function DateRangePickerDrawerShowcase() {
         </FormControl>
 
         <FormControl>
-          <FormLabel>Date Input</FormLabel>
+          <FormLabel>Date Input With Max Range</FormLabel>
           <DateRangePickerDrawer
             id="dateRangeInput_drawer"
             name="date"
@@ -222,6 +222,7 @@ export default function DateRangePickerDrawerShowcase() {
             }}
             inputValue={date}
             placement={placement}
+            maxRange={31}
           />
         </FormControl>
       </ContentContainer>
