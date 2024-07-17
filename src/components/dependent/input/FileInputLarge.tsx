@@ -13,8 +13,8 @@ import CContainer from "../../independent/wrapper/CContainer";
 
 interface Props {
   name: string;
-  onChangeSetter: (inputValue: File | undefined) => void;
-  inputValue: File | undefined;
+  onChangeSetter: (inputValue: File | string | undefined) => void;
+  inputValue: File | string | undefined;
   accept?: string;
   isError?: boolean;
   placeholder?: string;
@@ -32,18 +32,25 @@ export default function FileInputLarge({
 }: Props) {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const [fileName, setFileName] = useState(inputValue ? inputValue.name : "");
-  const [isDraggingOver, setIsDraggingOver] = useState(false);
-  const [fileURL, setFileURL] = useState<string | undefined>(initialFilepath);
+  const [fileName, setFileName] = useState(
+    typeof inputValue === "string"
+      ? inputValue.split("/").pop()
+      : inputValue?.name || ""
+  );
+  const [fileURL, setFileURL] = useState<string | undefined>(
+    initialFilepath || (typeof inputValue === "string" ? inputValue : undefined)
+  );
 
   useEffect(() => {
-    if (inputValue) {
-      setFileName(inputValue.name);
+    if (inputValue && typeof inputValue !== "string") {
       const objectURL = URL.createObjectURL(inputValue);
       setFileURL(objectURL);
       return () => URL.revokeObjectURL(objectURL);
     }
+    setFileURL(typeof inputValue === "string" ? inputValue : undefined);
   }, [inputValue]);
+
+  const [isDraggingOver, setIsDraggingOver] = useState(false);
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -65,54 +72,6 @@ export default function FileInputLarge({
   };
 
   const errorColor = useErrorColor();
-
-  // const fileIcons = (fileType: string) => {
-  //   const basicType = fileType.split("/")[0];
-  //   const type = fileType.split("/")[1];
-
-  //   switch (basicType) {
-  //     case "image":
-  //       return RiFileImageLine;
-  //     case "audio":
-  //       return RiFileMusicLine;
-  //     case "video":
-  //       return RiFileVideoLine;
-  //     case "text":
-  //       return RiFileTextLine;
-  //     case "application":
-  //       if (type === "json") {
-  //         return RiFileCodeLine;
-  //       } else if (
-  //         type === "zip" ||
-  //         type === "x-rar-compressed" ||
-  //         type === "x-7z-compressed"
-  //       ) {
-  //         return RiFileZipLine;
-  //       } else if (type === "pdf") {
-  //         return RiFilePdf2Line;
-  //       } else if (
-  //         type === "msword" ||
-  //         type === "vnd.openxmlformats-officedocument.wordprocessingml.document"
-  //       ) {
-  //         return RiFileWord2Line;
-  //       } else if (
-  //         type === "vnd.ms-excel" ||
-  //         type === "vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-  //       ) {
-  //         return RiFileExcel2Line;
-  //       } else if (
-  //         type === "vnd.ms-powerpoint" ||
-  //         type ===
-  //           "vnd.openxmlformats-officedocument.presentationml.presentation"
-  //       ) {
-  //         return RiFilePpt2Line;
-  //       } else {
-  //         return RiFileLine;
-  //       }
-  //     default:
-  //       return RiFileLine;
-  //   }
-  // };
 
   return (
     <>
@@ -159,12 +118,6 @@ export default function FileInputLarge({
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
         >
-          {/* <Icon
-          as={inputValue ? fileIcons(inputValue.type) : RiUploadCloud2Line}
-          fontSize={124}
-          color={"p.500"}
-        /> */}
-
           <Icon
             as={inputValue ? RiFileLine : RiUploadCloud2Line}
             fontSize={72}
@@ -208,9 +161,11 @@ export default function FileInputLarge({
           {inputValue && fileName && (
             <>
               <Text fontSize={18}>{fileName}</Text>
-              <Text opacity={0.4} fontSize={14}>
-                {formatBytes(inputValue.size)}
-              </Text>
+              {typeof inputValue !== "string" && (
+                <Text opacity={0.4} fontSize={14}>
+                  {formatBytes(inputValue.size)}
+                </Text>
+              )}
             </>
           )}
         </VStack>
