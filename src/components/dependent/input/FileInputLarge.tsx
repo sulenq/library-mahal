@@ -120,7 +120,7 @@ export default function FileInputLarge({
         >
           <Icon
             as={inputValue ? RiFileLine : RiUploadCloud2Line}
-            fontSize={72}
+            fontSize={100}
           />
 
           {!fileName && (
